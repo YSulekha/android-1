@@ -1,0 +1,41 @@
+machine:
+  java:
+    version: openjdk8
+
+dependencies:
+  pre:
+    - echo y | android update sdk --no-ui --all --filter "tools"
+    - echo y | android update sdk --no-ui --all --filter "platform-tools"
+    - echo y | android update sdk --no-ui --all --filter "build-tools-25.0.0"
+    - echo y | android update sdk --no-ui --all --filter "android-25"
+    - echo y | android update sdk --no-ui --all --filter "extra-google-m2repository"
+    - echo y | android update sdk --no-ui --all --filter "extra-google-google_play_services"
+    - echo y | android update sdk --no-ui --all --filter "extra-android-support"
+    - echo y | android update sdk --no-ui --all --filter "extra-android-m2repository"
+  override:
+    - chmod +x gradlew
+    - ./gradlew dependencies
+
+test:
+  override:
+    # start the emulator
+    - emulator -avd circleci-android22 -no-audio -no-window:
+        background: true
+        parallel: true
+    # wait for it to have booted
+    - circle-android wait-for-boot
+    # run tests  against the emulator.
+    - ./gradlew connectedAndroidTest -PGRIPSACK_SIGNING_STORE_PASSWORD=$GRIPSACK_SIGNING_STORE_PASSWORD -PGRIPSACK_SIGNING_KEY_PASSWORD=$GRIPSACK_SIGNING_KEY_PASSWORD -PGRIPSACK_SIGNING_KEY_ALIAS=$GRIPSACK_SIGNING_KEY_ALIAS -PHOCKEYAPP_APP_ID_GRIPSACK=$HOCKEYAPP_APP_ID_GRIPSACK
+    # build and sign release.
+    - ./gradlew assembleRelease -PGRIPSACK_SIGNING_STORE_PASSWORD=$GRIPSACK_SIGNING_STORE_PASSWORD -PGRIPSACK_SIGNING_KEY_PASSWORD=$GRIPSACK_SIGNING_KEY_PASSWORD -PGRIPSACK_SIGNING_KEY_ALIAS=$GRIPSACK_SIGNING_KEY_ALIAS -PHOCKEYAPP_APP_ID_GRIPSACK=$HOCKEYAPP_APP_ID_GRIPSACK
+    # copy the build outputs to artifacts
+    - cp -r app/build/outputs $CIRCLE_ARTIFACTS
+    # copy the test results to the test results directory.
+    - cp -r app/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
+    # upload debug varianta to hockey app
+
+deployment:
+  hockey:
+    branch: master
+    commands:
+      - ./gradlew uploadDebugToHockeyApp -PHOCKEYAPP_API_TOKEN_GRIPSACK=$HOCKEYAPP_API_TOKEN_GRIPSACK -PHOCKEYAPP_APP_ID_GRIPSACK=$HOCKEYAPP_APP_ID_GRIPSACK
