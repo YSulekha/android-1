@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "191950504525",
+    "firebase_url": "https://gripsack-1faee.firebaseio.com",
+    "project_id": "gripsack-1faee",
+    "storage_bucket": "gripsack-1faee.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191950504525:android:88d2fa82a9b9949f",
+        "android_client_info": {
+          "package_name": "com.github.gripsack.android"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191950504525-acoqdol1mmpdchvdv80hlpthctsmrva3.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.github.gripsack.android",
+            "certificate_hash": "592610036229FFE79F6F805398EB71095E021B1D"
+          }
+        },
+        {
+          "client_id": "191950504525-9u4jk5r0jpemnaqkbbvh1giq08aea041.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBKTzZ1pACoFNqoX5AbiFZCz7TPZMjG1nQ"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191950504525-9u4jk5r0jpemnaqkbbvh1giq08aea041.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

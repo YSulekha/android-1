@@ -67,3 +67,5 @@ hockeyapp {
             release: HOCKEYAPP_APP_ID_GRIPSACK
     ]
 }
+
+apply plugin: 'com.google.gms.google-services'
