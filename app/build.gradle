@@ -24,6 +24,12 @@ android {
             storeFile file('../gripsack.keystores')
             storePassword GRIPSACK_SIGNING_STORE_PASSWORD
         }
+        debug {
+            keyAlias 'debug'
+            keyPassword 'android'
+            storeFile file('../gripsack.keystores')
+            storePassword GRIPSACK_SIGNING_STORE_PASSWORD
+        }
     }
 
     buildTypes {
@@ -31,6 +37,9 @@ android {
             minifyEnabled false
             signingConfig signingConfigs.release
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+        debug {
+            signingConfig signingConfigs.debug
         }
     }
 
@@ -47,7 +56,15 @@ dependencies {
     })
     compile 'com.android.support:appcompat-v7:25.0.0'
     compile 'com.android.support:design:25.0.0'
+    compile 'com.android.support:preference-v7:25.0.0'
     compile 'com.jakewharton.timber:timber:4.3.0'
+
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+
+    // Google Sign In SDK (only required for Google Sign In)
+    compile 'com.google.android.gms:play-services-auth:9.8.0'
+
+    compile 'com.google.firebase:firebase-auth:9.8.0'
 
     compile 'net.danlew:android.joda:2.9.4.3'
     compile 'net.hockeyapp.android:HockeySDK:4.1.1'
