@@ -27,8 +27,8 @@ android {
         debug {
             keyAlias 'debug'
             keyPassword 'android'
-            storeFile file('../gripsack.keystores')
-            storePassword GRIPSACK_SIGNING_STORE_PASSWORD
+            storeFile file('../debug.keystores')
+            storePassword 'android'
         }
     }
 

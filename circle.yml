@@ -25,17 +25,17 @@ test:
     # wait for it to have booted
     - circle-android wait-for-boot
     # run tests  against the emulator.
-    - ./gradlew connectedAndroidTest -PGRIPSACK_SIGNING_STORE_PASSWORD=$GRIPSACK_SIGNING_STORE_PASSWORD -PGRIPSACK_SIGNING_KEY_PASSWORD=$GRIPSACK_SIGNING_KEY_PASSWORD -PGRIPSACK_SIGNING_KEY_ALIAS=$GRIPSACK_SIGNING_KEY_ALIAS -PHOCKEYAPP_APP_ID_GRIPSACK=$HOCKEYAPP_APP_ID_GRIPSACK
-    # build and sign release.
-    - ./gradlew assembleRelease -PGRIPSACK_SIGNING_STORE_PASSWORD=$GRIPSACK_SIGNING_STORE_PASSWORD -PGRIPSACK_SIGNING_KEY_PASSWORD=$GRIPSACK_SIGNING_KEY_PASSWORD -PGRIPSACK_SIGNING_KEY_ALIAS=$GRIPSACK_SIGNING_KEY_ALIAS -PHOCKEYAPP_APP_ID_GRIPSACK=$HOCKEYAPP_APP_ID_GRIPSACK
-    # copy the build outputs to artifacts
-    - cp -r app/build/outputs $CIRCLE_ARTIFACTS
+    - ./gradlew connectedAndroidTest -PHOCKEYAPP_APP_ID_GRIPSACK=$HOCKEYAPP_APP_ID_GRIPSACK
     # copy the test results to the test results directory.
     - cp -r app/build/outputs/androidTest-results/* $CIRCLE_TEST_REPORTS
-    # upload debug varianta to hockey app
 
 deployment:
   hockey:
     branch: master
     commands:
+      # build and sign release.
+      - ./gradlew assembleRelease -PGRIPSACK_SIGNING_STORE_PASSWORD=$GRIPSACK_SIGNING_STORE_PASSWORD -PGRIPSACK_SIGNING_KEY_PASSWORD=$GRIPSACK_SIGNING_KEY_PASSWORD -PGRIPSACK_SIGNING_KEY_ALIAS=$GRIPSACK_SIGNING_KEY_ALIAS -PHOCKEYAPP_APP_ID_GRIPSACK=$HOCKEYAPP_APP_ID_GRIPSACK
+      # copy the build outputs to artifacts
+      - cp -r app/build/outputs $CIRCLE_ARTIFACTS
+      # upload debug varianta to hockey app
       - ./gradlew uploadDebugToHockeyApp -PGRIPSACK_SIGNING_STORE_PASSWORD=$GRIPSACK_SIGNING_STORE_PASSWORD -PHOCKEYAPP_API_TOKEN_GRIPSACK=$HOCKEYAPP_API_TOKEN_GRIPSACK -PHOCKEYAPP_APP_ID_GRIPSACK=$HOCKEYAPP_APP_ID_GRIPSACK
