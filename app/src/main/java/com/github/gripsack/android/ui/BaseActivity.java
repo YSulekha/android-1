@@ -11,7 +11,6 @@ import com.github.gripsack.android.ui.auth.SignInActivity;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
-import net.hockeyapp.android.CrashManager;
 import net.hockeyapp.android.UpdateManager;
 
 public abstract class BaseActivity extends AppCompatActivity implements ProgressState {
@@ -44,12 +43,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Progress
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        checkForCrashes();
-    }
-
-    @Override
     public void onPause() {
         super.onPause();
         unregisterManagers();
@@ -59,10 +52,6 @@ public abstract class BaseActivity extends AppCompatActivity implements Progress
     public void onDestroy() {
         super.onDestroy();
         unregisterManagers();
-    }
-
-    private void checkForCrashes() {
-        CrashManager.register(this);
     }
 
     private void checkForUpdates() {

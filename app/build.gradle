@@ -65,6 +65,7 @@ dependencies {
     compile 'com.google.android.gms:play-services-auth:9.8.0'
 
     compile 'com.google.firebase:firebase-auth:9.8.0'
+    compile 'com.google.firebase:firebase-crash:9.8.0'
 
     compile 'net.danlew:android.joda:2.9.4.3'
     compile 'net.hockeyapp.android:HockeySDK:4.1.1'
