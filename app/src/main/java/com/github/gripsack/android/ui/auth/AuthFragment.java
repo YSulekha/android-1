@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,8 +27,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 
+import timber.log.Timber;
+
 import static android.app.Activity.RESULT_OK;
-import static android.content.ContentValues.TAG;
 
 public class AuthFragment extends Fragment {
 
@@ -65,7 +65,7 @@ public class AuthFragment extends Fragment {
         mGoogleApiClient = GoogleUtils.getGoogleApiClient(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                Log.d(TAG, "onConnectionFailed:" + connectionResult);
+                Timber.d("onConnectionFailed: %s", connectionResult);
                 Toast.makeText(getContext(), "Google Play Services error.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -89,7 +89,7 @@ public class AuthFragment extends Fragment {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        Timber.d("firebaseAuthWithGoogle: %s", acct.getId());
         mProgressState.showProgressDialog();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -97,13 +97,13 @@ public class AuthFragment extends Fragment {
                 .addOnCompleteListener(getActivity(), new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                        Timber.d("signInWithCredential:onComplete: %b", task.isSuccessful());
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Timber.w(task.getException());
                             Toast.makeText(getContext(), "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }
@@ -116,24 +116,17 @@ public class AuthFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d("AuthFragment","onActivityResult");
-        Log.d("AuthFragment", "requestCode " + requestCode);
 
         // Result returned from launching the Intent from GoogleSignInApi.getSignInIntent(...);
         if (requestCode == RC_SIGN_IN) {
-            Log.d("AuthFragment", "Hey You ");
 
             GoogleSignInResult result = Auth.GoogleSignInApi.getSignInResultFromIntent(data);
-            Log.d("AuthFragment", "Sup ");
 
             if (result.isSuccess()) {
-                Log.d("AuthFragment", "result.isSuccess() " );
-
                 // Google Sign In was successful, authenticate with Firebase
                 GoogleSignInAccount account = result.getSignInAccount();
                 firebaseAuthWithGoogle(account);
             } else {
-                Log.d("AuthFragment", "Google Sign In failed" );
                 // Google Sign In failed, update UI appropriately
                 updateUI(null);
             }

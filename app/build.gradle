@@ -14,7 +14,10 @@ android {
         versionCode 1
         versionName "1.0"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-        manifestPlaceholders = [HOCKEYAPP_APP_ID: HOCKEYAPP_APP_ID_GRIPSACK]
+        manifestPlaceholders = [
+                HOCKEYAPP_APP_ID: HOCKEYAPP_APP_ID_GRIPSACK,
+                GEO_API_KEY: GRIPSACK_GEO_API_KEY
+        ]
     }
 
     signingConfigs {
@@ -66,6 +69,9 @@ dependencies {
 
     compile 'com.google.firebase:firebase-auth:9.8.0'
     compile 'com.google.firebase:firebase-crash:9.8.0'
+    compile 'com.google.firebase:firebase-database:9.8.0'
+    compile 'com.google.firebase:firebase-invites:9.8.0'
+
 
     compile 'net.danlew:android.joda:2.9.4.3'
     compile 'net.hockeyapp.android:HockeySDK:4.1.1'

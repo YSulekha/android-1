@@ -58,4 +58,16 @@
     <string name="title_my_trips">My Trips</string>
 
 
+
+    <string name="invitation_title">Send Connect Invitation</string>
+    <string name="invitation_message">Connect to share our future trips!</string>
+    <string name="invitation_deep_link">http://gripsack.github.com/invites/companion</string>
+    <string name="invitation_custom_image">https://www.google.com/images/branding/googlelogo/2x/googlelogo_color_272x92dp.png</string>
+    <string name="invitation_cta">Connect!</string>
+
+
+    <string name="send_failed">Sending invitations failed</string>
+
+
+
 </resources>

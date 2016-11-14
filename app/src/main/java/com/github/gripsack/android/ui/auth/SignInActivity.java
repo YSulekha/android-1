@@ -19,15 +19,16 @@ package com.github.gripsack.android.ui.auth;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
 import com.github.gripsack.android.R;
+import com.github.gripsack.android.data.model.User;
 import com.github.gripsack.android.utils.GoogleUtils;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -42,6 +43,11 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
+import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+
+import timber.log.Timber;
 
 import static com.github.gripsack.android.R.id.google_sign_in_button;
 
@@ -59,6 +65,8 @@ public class SignInActivity extends AppCompatActivity  {
 
     private SignInButton mGoogleSignInButton;
 
+    private DatabaseReference mDatabase;
+
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, SignInActivity.class);
         return intent;
@@ -68,6 +76,8 @@ public class SignInActivity extends AppCompatActivity  {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_auth);
+
+        mDatabase = FirebaseDatabase.getInstance().getReference();
 
         mGoogleSignInButton = (SignInButton) findViewById(google_sign_in_button);
 
@@ -82,7 +92,7 @@ public class SignInActivity extends AppCompatActivity  {
         mGoogleApiClient = GoogleUtils.getGoogleApiClient(this, new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
-                Log.d(TAG, "onConnectionFailed:" + connectionResult);
+                Timber.d("onConnectionFailed: %s", connectionResult);
                 Toast.makeText(SignInActivity.this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
             }
         });
@@ -93,7 +103,17 @@ public class SignInActivity extends AppCompatActivity  {
             public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
-                    Log.d(TAG, "onAuthStateChanged:signed_in:" + user.getUid());
+                    Timber.d("onAuthStateChanged:signed_in %s", user.getUid());
+                    String name ="";
+                    Uri profileImageUrl = null;
+                    for (UserInfo profile : user.getProviderData()) {
+                        // Name, email address, and profile photo Url
+                        name = profile.getDisplayName();
+                        profileImageUrl = profile.getPhotoUrl();
+                    }
+                    User appUser  = new User(name, profileImageUrl);
+                    mDatabase.child("users").child(user.getUid()).setValue(appUser);
+
                     // User is signed in
                     Intent data = new Intent();
                     setResult(RESULT_OK, data); // set result code and bundle data for response
@@ -138,7 +158,7 @@ public class SignInActivity extends AppCompatActivity  {
     }
 
     private void firebaseAuthWithGoogle(GoogleSignInAccount acct) {
-        Log.d(TAG, "firebaseAuthWithGoogle:" + acct.getId());
+        Timber.d("firebaseAuthWithGoogle: %s", acct.getId());
         showProgressDialog();
 
         AuthCredential credential = GoogleAuthProvider.getCredential(acct.getIdToken(), null);
@@ -146,13 +166,13 @@ public class SignInActivity extends AppCompatActivity  {
                 .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
                     @Override
                     public void onComplete(@NonNull Task<AuthResult> task) {
-                        Log.d(TAG, "signInWithCredential:onComplete:" + task.isSuccessful());
+                        Timber.d("signInWithCredential:onComplete: %b", task.isSuccessful());
 
                         // If sign in fails, display a message to the user. If sign in succeeds
                         // the auth state listener will be notified and logic to handle the
                         // signed in user can be handled in the listener.
                         if (!task.isSuccessful()) {
-                            Log.w(TAG, "signInWithCredential", task.getException());
+                            Timber.w(task.getException());
                             Toast.makeText(SignInActivity.this, "Authentication failed.",
                                     Toast.LENGTH_SHORT).show();
                         }

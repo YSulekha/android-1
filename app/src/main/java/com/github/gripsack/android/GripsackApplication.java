@@ -2,7 +2,9 @@ package com.github.gripsack.android;
 
 import android.app.Application;
 import android.os.StrictMode;
+import android.util.Log;
 
+import com.google.firebase.crash.FirebaseCrash;
 import com.squareup.leakcanary.LeakCanary;
 
 import net.danlew.android.joda.JodaTimeAndroid;
@@ -26,10 +28,11 @@ public class GripsackApplication extends Application {
         }
         enabledStrictMode();
         LeakCanary.install(this);
-        Timber.plant(new Timber.DebugTree());
+        Timber.plant(BuildConfig.DEBUG
+                ? new Timber.DebugTree()
+                : new CrashReportingTree());
         JodaTimeAndroid.init(this);
     }
-
 
     private void enabledStrictMode() {
         if (SDK_INT >= GINGERBREAD) {
@@ -38,6 +41,24 @@ public class GripsackApplication extends Application {
                     .penaltyLog() //
                     .penaltyDeath() //
                     .build());
+        }
+    }
+
+    private class CrashReportingTree extends Timber.Tree {
+
+        @Override
+        protected void log(int priority, String tag, String message, Throwable throwable) {
+            if (priority == Log.VERBOSE || priority == Log.DEBUG) {
+                return;
+            }
+
+            Throwable t = throwable != null
+                    ? throwable
+                    : new Exception(message);
+
+            // Firebase Crash Reporting
+            FirebaseCrash.logcat(priority, tag, message);
+            FirebaseCrash.report(t);
         }
     }
 }

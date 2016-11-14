@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.github.gripsack.android.ui.SingleFragmentActivity;
 import com.google.firebase.auth.FirebaseAuth;
@@ -41,7 +40,6 @@ public class AuthActivity extends SingleFragmentActivity {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        Log.d("AuthActivity","onActivityResult");
         mActivityFragment.onActivityResult(requestCode, resultCode, data);
     }
 }
