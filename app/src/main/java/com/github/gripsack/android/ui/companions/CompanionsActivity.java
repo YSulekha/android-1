@@ -12,7 +12,6 @@ import android.support.v4.content.ContextCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
-import android.widget.Toast;
 
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.CompanionInvite;
@@ -163,19 +162,36 @@ public class CompanionsActivity extends SingleFragmentActivity {
                         // Setting Positive "Yes" Button
                         alertDialog.setPositiveButton("ACCEPT", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                ///TODO create link between account
-                                // User pressed YES button. Write Logic Here
-                                Toast.makeText(getApplicationContext(), "You clicked on YES",
-                                        Toast.LENGTH_SHORT).show();
+
+                                FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+                                if (user == null) {
+                                    return;
+                                }
+                                invite.acceptedBy = user.getUid();
+                                FirebaseDatabase.getInstance().getReference()
+                                        .child("invitation")
+                                        .child(invitationId)
+                                        .setValue(invite);
+                                FirebaseDatabase.getInstance().getReference()
+                                        .child("companions")
+                                        .child(user.getUid())
+                                        .child(invite.uid)
+                                        .setValue(true);
+                                FirebaseDatabase.getInstance().getReference()
+                                        .child("companions")
+                                        .child(invite.uid)
+                                        .child(user.getUid())
+                                        .setValue(true);
                             }
                         });
 
                         // Setting Negative "NO" Button
                         alertDialog.setNegativeButton("DECLINE", new DialogInterface.OnClickListener() {
                             public void onClick(DialogInterface dialog, int which) {
-                                ///TODO remove invitation
-                                // User pressed No button. Write Logic Here
-                                Toast.makeText(getApplicationContext(), "You clicked on NO", Toast.LENGTH_SHORT).show();
+                                FirebaseDatabase.getInstance().getReference()
+                                        .child("invitation")
+                                        .child(invitationId)
+                                        .removeValue();
                             }
                         });
                         // Showing Alert Message

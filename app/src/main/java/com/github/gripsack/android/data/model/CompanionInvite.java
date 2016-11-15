@@ -7,6 +7,7 @@ public class CompanionInvite {
 
     public String uid;
     public long timestamp;
+    public String acceptedBy;
 
     public CompanionInvite() {
         // Default constructor required for calls to DataSnapshot.getValue(CompanionInvite.class)

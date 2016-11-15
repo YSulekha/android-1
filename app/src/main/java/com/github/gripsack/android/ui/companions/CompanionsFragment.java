@@ -16,6 +16,8 @@ public class CompanionsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_companions, container, false);
+
+        //show the list of my companions
         return rootView;
     }
 }
