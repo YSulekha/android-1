@@ -13,4 +13,7 @@
     <dimen name="title_bottom_margin">16dp</dimen>
     <dimen name="field_width_standard">160dp</dimen>
 
+    <dimen name = "recycler_view_padding_side">12dp</dimen>
+    <dimen name="recycler_view_padding_up">8dp</dimen>
+
 </resources>

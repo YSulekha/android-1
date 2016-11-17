@@ -160,6 +160,7 @@
                 android:value="com.github.gripsack.android.ui.explore.ExploreActivity" />
         </activity>
 
+
     </application>
 
 </manifest>
