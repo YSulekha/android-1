@@ -20,7 +20,7 @@ import com.github.gripsack.android.ui.places.PlacesActivity;
 import com.github.gripsack.android.ui.settings.SettingsActivity;
 import com.github.gripsack.android.ui.timeline.TimelineActivity;
 import com.github.gripsack.android.ui.trips.TripsActivity;
-import com.github.gripsack.android.utils.GoogleUtils;
+import com.github.gripsack.android.utils.GoogleUtil;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -35,7 +35,7 @@ public class ExploreActivity extends DrawerActivity {
 
     @Override
     protected GoogleApiClient createGoogleApiClient() {
-        return GoogleUtils.getGoogleApiClient(this, new GoogleApiClient.OnConnectionFailedListener() {
+        return GoogleUtil.getGoogleApiClient(this, new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                 //TODO handle ConnectionFailed here

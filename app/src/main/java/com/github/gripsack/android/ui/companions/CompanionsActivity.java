@@ -30,7 +30,7 @@ import com.google.firebase.database.ValueEventListener;
 import timber.log.Timber;
 
 
-public class CompanionsActivity extends SingleFragmentActivity {
+public class CompanionsActivity extends SingleFragmentActivity implements CompanionsFragment.OnCompanionSelectedListener {
 
     private DatabaseReference mDatabase;
 
@@ -59,11 +59,7 @@ public class CompanionsActivity extends SingleFragmentActivity {
         ab.setDisplayHomeAsUpEnabled(true);
         mDatabase = FirebaseDatabase.getInstance().getReference();
 
-
-//        getSupportActionBar().setTitle(getResources().getString(R.string.title_companions));
-
         mFab = (FloatingActionButton) findViewById(R.id.fab);
-
         mFab.setVisibility(View.VISIBLE);
         mFab.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.ic_account_plus));
         mFab.setOnClickListener(new View.OnClickListener() {
@@ -242,4 +238,18 @@ public class CompanionsActivity extends SingleFragmentActivity {
         overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
     }
 
+    @Override
+    public void onCompanionRemoved(String companionKey) {
+
+    }
+
+    @Override
+    public void onCompanionAdded(String companionKey) {
+
+    }
+
+    @Override
+    public void onCompanionSelected(String companionKey) {
+
+    }
 }

@@ -12,7 +12,7 @@ import android.widget.Toast;
 
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.ui.ProgressState;
-import com.github.gripsack.android.utils.GoogleUtils;
+import com.github.gripsack.android.utils.GoogleUtil;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -62,7 +62,7 @@ public class AuthFragment extends Fragment {
         mGoogleSignInButton = (SignInButton) rootView.findViewById(R.id.google_sign_in_button);
         mGoogleSignInButton.setOnClickListener(view -> googleSignIn());
 
-        mGoogleApiClient = GoogleUtils.getGoogleApiClient(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
+        mGoogleApiClient = GoogleUtil.getGoogleApiClient(getActivity(), new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                 Timber.d("onConnectionFailed: %s", connectionResult);

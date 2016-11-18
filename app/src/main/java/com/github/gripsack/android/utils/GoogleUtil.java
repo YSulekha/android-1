@@ -8,7 +8,7 @@ import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions;
 import com.google.android.gms.common.api.GoogleApiClient;
 
-public class GoogleUtils {
+public class GoogleUtil {
 
     public static GoogleApiClient getGoogleApiClient(FragmentActivity context, GoogleApiClient.OnConnectionFailedListener listener) {
         GoogleSignInOptions gso = new GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

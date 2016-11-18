@@ -29,7 +29,7 @@ import android.widget.Toast;
 
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.User;
-import com.github.gripsack.android.utils.GoogleUtils;
+import com.github.gripsack.android.utils.GoogleUtil;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
 import com.google.android.gms.auth.api.signin.GoogleSignInResult;
@@ -89,7 +89,7 @@ public class SignInActivity extends AppCompatActivity  {
          }
         });
 
-        mGoogleApiClient = GoogleUtils.getGoogleApiClient(this, new GoogleApiClient.OnConnectionFailedListener() {
+        mGoogleApiClient = GoogleUtil.getGoogleApiClient(this, new GoogleApiClient.OnConnectionFailedListener() {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                 Timber.d("onConnectionFailed: %s", connectionResult);
