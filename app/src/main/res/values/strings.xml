@@ -69,5 +69,11 @@
     <string name="send_failed">Sending invitations failed</string>
 
 
+    //Strings for Places API
+    <string name="add_bucketlist">Added to BucketList</string>
+    <string name="add_likedlist">Added to LikedList</string>
+    <string name="add_trip">Added to Trip</string>
+
+
 
 </resources>

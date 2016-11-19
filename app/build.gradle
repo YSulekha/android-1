@@ -13,6 +13,7 @@ android {
         targetSdkVersion 25
         versionCode 1
         versionName "1.0"
+        multiDexEnabled true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         manifestPlaceholders = [
                 HOCKEYAPP_APP_ID: HOCKEYAPP_APP_ID_GRIPSACK,
@@ -44,12 +45,17 @@ android {
         debug {
             signingConfig signingConfigs.debug
         }
+        buildTypes.each {
+            it.buildConfigField 'String', 'MyPlacesApiKey', GRIPSACK_GEO_API_PLACES_KEY
+        }
     }
+
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
 }
 
 dependencies {
@@ -70,6 +76,8 @@ dependencies {
     // Google Sign In SDK (only required for Google Sign In)
     compile 'com.google.android.gms:play-services-auth:9.8.0'
 
+    compile 'com.google.android.gms:play-services:9.8.0'
+
     compile 'com.google.firebase:firebase-auth:9.8.0'
     compile 'com.google.firebase:firebase-crash:9.8.0'
     compile 'com.google.firebase:firebase-database:9.8.0'
@@ -80,9 +88,20 @@ dependencies {
     compile 'net.danlew:android.joda:2.9.4.3'
     compile 'net.hockeyapp.android:HockeySDK:4.1.1'
 
+    compile 'com.android.support:recyclerview-v7:25.0.0'
+    compile 'com.android.support:cardview-v7:25.0.0'
+
+    //Async http for network request
+    compile 'com.loopj.android:android-async-http:1.4.9'
+
+
+    compile 'com.github.bumptech.glide:glide:3.5.2'
+
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.5'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
     testCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.5'
+
+
 
     testCompile 'junit:junit:4.12'
 }
