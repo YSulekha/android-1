@@ -23,8 +23,6 @@ public class Place {
         return vicinity;
     }
 
-
-
     public double getLatitude() {
         return latitude;
     }
@@ -58,8 +56,8 @@ public class Place {
         Place place = new Place();
 
         String apiKey = BuildConfig.MyPlacesApiKey;
-        String ph_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key="+apiKey;
-        //   String ph_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=AIzaSyCwFMCAokRRODC9bScVMgDMWYIrVTK641k";
+        String ph_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=" + apiKey;
+
         try {
             JSONObject location = jsonObject.getJSONObject("geometry").getJSONObject("location");
             place.latitude = location.getDouble("lat");
@@ -69,7 +67,7 @@ public class Place {
             if (jsonObject.has("rating")) {
                 place.rating = (float) jsonObject.getDouble("rating");
             }
-            if(jsonObject.has("vicinity")){
+            if (jsonObject.has("vicinity")) {
                 place.vicinity = jsonObject.getString("vicinity");
             }
          /*  JSONArray types = jsonObject.getJSONArray("types");

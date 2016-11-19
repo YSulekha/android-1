@@ -11,8 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -38,7 +38,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
     public void onBindViewHolder(PlaceViewHolder holder, int position) {
         com.github.gripsack.android.data.model.Place place = places.get(position);
         holder.name.setText(place.getName());
-        Picasso.with(mContext).load(place.getPhotoUrl()).into(holder.icon);
+        Glide.with(mContext).load(place.getPhotoUrl()).into(holder.icon);
     }
 
     @Override

@@ -78,7 +78,6 @@ public class ExploreFragment extends Fragment {
         params.put("location", searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude);
         params.put("rankby", "prominence");
         params.put("key", apiKey);
-        Log.v("sdd", params.toString());
         client.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
@@ -135,7 +134,6 @@ public class ExploreFragment extends Fragment {
                 searchplace = PlaceAutocomplete.getPlace(getActivity(), data);
                 placesList.clear();
                 sendrequest();
-                Log.v(TAG, "Place: " + searchplace.getName() + searchplace.getLatLng());
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
                 // TODO: Handle the error.
