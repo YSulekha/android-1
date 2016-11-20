@@ -8,7 +8,6 @@ import android.support.v4.app.Fragment;
 
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.ui.SingleFragmentActivity;
-import com.google.firebase.auth.FirebaseAuth;
 
 
 public class SettingsActivity extends SingleFragmentActivity {
@@ -16,6 +15,11 @@ public class SettingsActivity extends SingleFragmentActivity {
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, SettingsActivity.class);
         return intent;
+    }
+
+    @Override
+    protected void onAuthStateSignIn() {
+
     }
 
     @Override
@@ -27,16 +31,6 @@ public class SettingsActivity extends SingleFragmentActivity {
     @Override
     protected Fragment createFragment() {
         return SettingsFragment.newInstance();
-    }
-
-    @Override
-    protected boolean isAuthRequired() {
-        return false;
-    }
-
-    @Override
-    protected FirebaseAuth.AuthStateListener createAuthStateListener() {
-        return null;
     }
 
     @Override

@@ -52,6 +52,10 @@ public class CompanionsFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+        String uid = getCurrentUserId();
+        if (uid == null) {
+            return;
+        }
 
         GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
         mRecyclerView.setLayoutManager(layoutManager);
@@ -82,7 +86,6 @@ public class CompanionsFragment extends Fragment {
     private FirebaseRecyclerAdapter<User, CompanionViewHolder> getFirebaseRecyclerAdapter(Query query) {
 
         String uid = getCurrentUserId();
-
 
         return new FirebaseIndexRecyclerAdapter<User, CompanionViewHolder>(
                 User.class,

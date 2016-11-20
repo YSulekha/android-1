@@ -8,13 +8,17 @@ import android.os.Bundle;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.ui.TabFragmentsActivity;
 import com.github.gripsack.android.ui.navigation.ViewPagerAdapter;
-import com.google.firebase.auth.FirebaseAuth;
 
 public class TripsActivity extends TabFragmentsActivity {
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, TripsActivity.class);
         return intent;
+    }
+
+    @Override
+    protected void onAuthStateSignIn() {
+
     }
 
     @Override
@@ -32,17 +36,6 @@ public class TripsActivity extends TabFragmentsActivity {
         adapter.addFrag(PhotosFragment.newInstance(), getResources().getString(R.string.tab_trips_photos));
         return adapter;
     }
-
-    @Override
-    protected boolean isAuthRequired() {
-        return true;
-    }
-
-    @Override
-    protected FirebaseAuth.AuthStateListener createAuthStateListener() {
-        return null;
-    }
-
 
     @Override
     public void onResume() {

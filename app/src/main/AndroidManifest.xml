@@ -46,13 +46,11 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--<activity-->
-        <!--android:name=".ui.auth.AuthActivity"-->
-        <!--android:label="@string/label_google_sign_in"-->
-        <!--android:theme="@style/AppTheme.NoActionBar" />-->
+
         <activity
             android:name=".ui.auth.SignInActivity"
             android:label="@string/label_google_sign_in"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar" />
 
         <activity
