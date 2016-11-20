@@ -2,6 +2,7 @@ package com.github.gripsack.android.utils;
 
 
 import com.github.gripsack.android.data.model.CompanionInvite;
+import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -32,6 +33,32 @@ public class FirebaseUtil {
         return null;
     }
 
+    public static DatabaseReference getCurrentUserPlacesRef() {
+        DatabaseReference user = getCurrentUserRef();
+        if (user != null) {
+            return
+                    user
+                    .child("places");
+        }
+        return null;
+    }
+
+    public static DatabaseReference getCurrentUserBucketPlacesRef() {
+        DatabaseReference places = getCurrentUserPlacesRef();
+        if (places != null) {
+            return places.child("bucketlist");
+        }
+        return null;
+    }
+
+    public static DatabaseReference getCurrentUserLikedPlacesRef() {
+        DatabaseReference places = getCurrentUserPlacesRef();
+        if (places != null) {
+            return places.child("liked");
+        }
+        return null;
+    }
+
 
     public static DatabaseReference getCompanionsRef() {
         return getBaseRef().child("companions");
@@ -39,6 +66,10 @@ public class FirebaseUtil {
 
     public static DatabaseReference getUsersRef() {
         return getBaseRef().child("users");
+    }
+
+    public static DatabaseReference getPlacesRef() {
+        return getBaseRef().child("places");
     }
 
     public static DatabaseReference getInvitationsRef() {
@@ -90,5 +121,29 @@ public class FirebaseUtil {
 
     public static void declineCompanionInvite(String invitationId) {
         getInvitationByIdRef(invitationId).removeValue();
+    }
+
+    public static void savePlace(Place place) {
+        getPlacesRef().child(place.getPlaceid()).setValue(place);
+    }
+
+    public static void likePlace(String placeId) {
+        DatabaseReference user = getCurrentUserRef();
+        if (user != null) {
+            user.child("places")
+                    .child("liked")
+                    .child(placeId)
+                    .setValue(true);
+        }
+    }
+
+    public static void bucketPlace(String placeId) {
+        DatabaseReference user = getCurrentUserRef();
+        if (user != null) {
+            user.child("places")
+                    .child("bucketlist")
+                    .child(placeId)
+                    .setValue(true);
+        }
     }
 }
