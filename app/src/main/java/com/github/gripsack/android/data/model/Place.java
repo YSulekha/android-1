@@ -5,10 +5,12 @@ import com.github.gripsack.android.BuildConfig;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcel;
 
 import java.util.ArrayList;
 
 //Model for the data retrieved from places API
+@Parcel
 public class Place {
     private double latitude;
     private double longitude;
@@ -51,11 +53,14 @@ public class Place {
         return photoUrl;
     }
 
+    public Place(){
+
+    }
 
     public static Place fromJSONObject(JSONObject jsonObject) {
         Place place = new Place();
-
-        String apiKey = BuildConfig.MyPlacesApiKey;
+//TODO:
+        String apiKey = BuildConfig.MyPlacesApiKey;//"AIzaSyBKTzZ1pACoFNqoX5AbiFZCz7TPZMjG1nQ";//
         String ph_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=" + apiKey;
 
         try {

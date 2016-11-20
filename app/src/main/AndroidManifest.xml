@@ -2,14 +2,12 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.github.gripsack.android">
 
-    <uses-permission android:name="android.permission.INTERNET" />
-
-
     <uses-sdk xmlns:tools="http://schemas.android.com/tools"
         tools:overrideLibrary="android.support.v14.preference" />
 
-
+    <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
 
     <!-- PlacePicker also requires OpenGL ES version 2 -->
     <uses-feature
@@ -17,7 +15,7 @@
         android:required="true" />
 
     <application
-        android:name="GripsackApplication"
+        android:name=".GripsackApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -98,8 +96,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.gripsack.android.ui.explore.ExploreActivity" />
         </activity>
-
-
         <activity
             android:name=".ui.timeline.TimelineActivity"
             android:label="@string/title_timeline"
@@ -109,8 +105,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.gripsack.android.ui.explore.ExploreActivity" />
         </activity>
-
-
         <activity
             android:name=".ui.places.PlacesActivity"
             android:label="@string/title_my_places"
@@ -120,7 +114,6 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.gripsack.android.ui.explore.ExploreActivity" />
         </activity>
-
         <activity
             android:name=".ui.trips.TripsActivity"
             android:label="@string/title_my_trips"
@@ -129,7 +122,6 @@
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.gripsack.android.ui.explore.ExploreActivity" />
-
 
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
@@ -147,7 +139,6 @@
                     android:scheme="https" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.settings.SettingsActivity"
             android:label="@string/title_settings"
@@ -157,8 +148,19 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.github.gripsack.android.ui.explore.ExploreActivity" />
         </activity>
-
-
+        <activity
+            android:name=".ui.trips.AddTripActivity"
+            android:label="@string/title_activity_add_trip"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.trips.EditTripActivity"
+            android:label="@string/title_activity_add_trip"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.trips.EditDestinationActivity"
+            android:label="@string/title_activity_add_trip"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.trips.DisplayTripActivity"></activity>
     </application>
 
 </manifest>

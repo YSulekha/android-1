@@ -74,7 +74,7 @@ public class ExploreFragment extends Fragment {
         String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
-        String apiKey = BuildConfig.MyPlacesApiKey;
+        String apiKey = BuildConfig.MyPlacesApiKey; //"AIzaSyCcMbLMaGDqEElvOqf3Ql0J9GZvuTr9LZA" ;//BuildConfig.MyPlacesApiKey;
         params.put("location", searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude);
         params.put("rankby", "prominence");
         params.put("key", apiKey);

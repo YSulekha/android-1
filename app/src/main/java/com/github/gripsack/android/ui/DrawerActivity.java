@@ -1,5 +1,6 @@
 package com.github.gripsack.android.ui;
 
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
+import com.github.gripsack.android.ui.auth.SignInActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -29,8 +31,13 @@ public abstract class DrawerActivity extends SingleFragmentActivity implements
     private TextView mDisplayName;
     private ImageView mProfileImageView;
     private NavigationView mNavigationView;
-//    private Button mSignInButton;
+    private Button mSignInButton;
     private Button mSignOutButton;
+
+    @Override
+    protected boolean isAuthRequired() {
+        return true;
+    }
 
     protected abstract GoogleApiClient createGoogleApiClient();
 
@@ -38,7 +45,6 @@ public abstract class DrawerActivity extends SingleFragmentActivity implements
     protected int getLayoutResId() {
         return R.layout.activity_drawer;
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -72,17 +78,17 @@ public abstract class DrawerActivity extends SingleFragmentActivity implements
         mEmail = (TextView) header.findViewById(R.id.email);
         mDisplayName = (TextView) header.findViewById(R.id.userDisplayName);
         mProfileImageView = (ImageView) header.findViewById(R.id.profileImageView);
-//        mSignInButton = (Button) header.findViewById(R.id.google_sign_in_button);
+        mSignInButton = (Button) header.findViewById(R.id.google_sign_in_button);
         mSignOutButton = (Button) header.findViewById(R.id.sign_out_button);
 
-//        mSignInButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-////                Intent intent = AuthActivity.newIntent(DrawerActivity.this);
-//                Intent intent = SignInActivity.newIntent(DrawerActivity.this);
-//                startActivity(intent);
-//            }
-//        });
+        mSignInButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+//                Intent intent = AuthActivity.newIntent(DrawerActivity.this);
+                Intent intent = SignInActivity.newIntent(DrawerActivity.this);
+                startActivity(intent);
+            }
+        });
 
         mSignOutButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -108,11 +114,11 @@ public abstract class DrawerActivity extends SingleFragmentActivity implements
             }
             mEmail.setText(mUser.getEmail());
             mDisplayName.setText(name);
-//            mSignInButton.setVisibility(View.GONE);
-//            mSignOutButton.setVisibility(View.VISIBLE);
+            mSignInButton.setVisibility(View.GONE);
+            mSignOutButton.setVisibility(View.VISIBLE);
         } else {
-//            mSignOutButton.setVisibility(View.GONE);
-//            mSignInButton.setVisibility(View.VISIBLE);
+            mSignOutButton.setVisibility(View.GONE);
+            mSignInButton.setVisibility(View.VISIBLE);
             mEmail.setText("");
             mDisplayName.setText("");
             mProfileImageView.setImageDrawable(getResources().getDrawable(R.mipmap.ic_launcher));

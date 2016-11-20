@@ -58,7 +58,6 @@
     <string name="title_my_trips">My Trips</string>
 
 
-
     <string name="invitation_title">Send Connect Invitation</string>
     <string name="invitation_message">Connect to share our future trips!</string>
     <string name="invitation_deep_link">http://gripsack.github.com/invites/companion</string>
@@ -73,7 +72,8 @@
     <string name="add_bucketlist">Added to BucketList</string>
     <string name="add_likedlist">Added to LikedList</string>
     <string name="add_trip">Added to Trip</string>
-
-
+    <string name="title_activity_add_trip"></string>
+    <string name="title_activity_edit_trip">Map</string>
+    <string name="title_activity_edit_destination">Map</string>
 
 </resources>

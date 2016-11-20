@@ -13,8 +13,6 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
-import com.github.gripsack.android.data.model.Place;
-import com.github.gripsack.android.utils.FirebaseUtil;
 
 import java.util.ArrayList;
 
@@ -72,21 +70,20 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
         public void onClick(View view) {
             int id = view.getId();
             int pos = getAdapterPosition();
-            Place place = places.get(pos);
+            com.github.gripsack.android.data.model.Place place = places.get(pos);
             switch (id) {
                 case R.id.item_bucketlist:
-                    FirebaseUtil.savePlace(place);
-                    FirebaseUtil.bucketPlace(place.getPlaceid());
+                    ExploreFragment.bucketList.add(place);
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.add_bucketlist),
                             Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.item_like:
-                    FirebaseUtil.savePlace(place);
-                    FirebaseUtil.likePlace(place.getPlaceid());
+                    ExploreFragment.likeList.add(place);
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.add_likedlist),
                             Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.item_add:
+                    ExploreFragment.addToTripList.add(place);
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.add_trip),
                             Toast.LENGTH_SHORT).show();
                     break;

@@ -1,3 +1,19 @@
+/**
+ * Copyright 2016 Google Inc. All Rights Reserved.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package com.github.gripsack.android.ui.auth;
 
 import android.app.ProgressDialog;
@@ -13,7 +29,6 @@ import android.widget.Toast;
 
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.User;
-import com.github.gripsack.android.utils.FirebaseUtil;
 import com.github.gripsack.android.utils.GoogleUtil;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount;
@@ -29,13 +44,19 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.auth.GoogleAuthProvider;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import timber.log.Timber;
 
 import static com.github.gripsack.android.R.id.google_sign_in_button;
 
-public class SignInActivity extends AppCompatActivity {
+/**
+ * Demonstrate Firebase Authentication using a Google ID Token.
+ */
+public class SignInActivity extends AppCompatActivity  {
 
+    private static final String TAG = "GoogleActivity";
     private static final int RC_SIGN_IN = 9001;
 
     private FirebaseAuth mAuth;
@@ -43,6 +64,8 @@ public class SignInActivity extends AppCompatActivity {
     private GoogleApiClient mGoogleApiClient;
 
     private SignInButton mGoogleSignInButton;
+
+    private DatabaseReference mDatabase;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, SignInActivity.class);
@@ -54,6 +77,8 @@ public class SignInActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_auth);
 
+        mDatabase = FirebaseDatabase.getInstance().getReference();
+
         mGoogleSignInButton = (SignInButton) findViewById(google_sign_in_button);
 
         // Button listeners
@@ -61,7 +86,7 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 signIn();
-            }
+         }
         });
 
         mGoogleApiClient = GoogleUtil.getGoogleApiClient(this, new GoogleApiClient.OnConnectionFailedListener() {
@@ -79,15 +104,15 @@ public class SignInActivity extends AppCompatActivity {
                 FirebaseUser user = firebaseAuth.getCurrentUser();
                 if (user != null) {
                     Timber.d("onAuthStateChanged:signed_in %s", user.getUid());
-                    String name = "";
+                    String name ="";
                     Uri profileImageUrl = null;
                     for (UserInfo profile : user.getProviderData()) {
                         // Name, email address, and profile photo Url
                         name = profile.getDisplayName();
                         profileImageUrl = profile.getPhotoUrl();
                     }
-                    User appUser = new User(name, profileImageUrl);
-                    FirebaseUtil.saveUser(appUser);
+                    User appUser  = new User(name, profileImageUrl);
+                    mDatabase.child("users").child(user.getUid()).setValue(appUser);
 
                     // User is signed in
                     Intent data = new Intent();
@@ -115,7 +140,6 @@ public class SignInActivity extends AppCompatActivity {
             mAuth.removeAuthStateListener(mAuthListener);
         }
     }
-
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -156,12 +180,10 @@ public class SignInActivity extends AppCompatActivity {
                     }
                 });
     }
-
     private void signIn() {
         Intent signInIntent = Auth.GoogleSignInApi.getSignInIntent(mGoogleApiClient);
         startActivityForResult(signInIntent, RC_SIGN_IN);
     }
-
     private void updateUI(FirebaseUser user) {
         hideProgressDialog();
         if (user != null) {
@@ -170,6 +192,9 @@ public class SignInActivity extends AppCompatActivity {
             mGoogleSignInButton.setVisibility(View.VISIBLE);
         }
     }
+
+
+
 
 
     @VisibleForTesting
@@ -190,7 +215,6 @@ public class SignInActivity extends AppCompatActivity {
             mProgressDialog.dismiss();
         }
     }
-
     @Override
     public void onResume() {
         super.onResume();
