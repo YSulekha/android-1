@@ -73,7 +73,8 @@
     <string name="add_bucketlist">Added to BucketList</string>
     <string name="add_likedlist">Added to LikedList</string>
     <string name="add_trip">Added to Trip</string>
-
-
+    <string name="title_activity_add_trip"></string>
+    <string name="title_activity_edit_trip">Map</string>
+    <string name="title_activity_edit_destination">Map</string>
 
 </resources>
