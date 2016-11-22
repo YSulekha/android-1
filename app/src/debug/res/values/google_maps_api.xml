@@ -1,0 +1,21 @@
+<resources>
+    <!--
+    TODO: Before you run your application, you need a Google Maps API key.
+
+    To get one, follow this link, follow the directions and press "Create" at the end:
+
+    https://console.developers.google.com/flows/enableapi?apiid=maps_android_backend&keyType=CLIENT_SIDE_ANDROID&r=E2:0E:3F:AD:67:3C:03:7B:8E:B8:23:5C:F4:E3:E9:13:5F:F3:A2:3D%3Bcom.github.gripsack.android.ui.trips
+
+    You can also add your credentials to an existing key, using this line:
+    E2:0E:3F:AD:67:3C:03:7B:8E:B8:23:5C:F4:E3:E9:13:5F:F3:A2:3D;com.github.gripsack.android.ui.trips
+
+    Alternatively, follow the directions here:
+    https://developers.google.com/maps/documentation/android/start#get-key
+
+    Once you have your key (it starts with "AIza"), replace the "google_maps_key"
+    string in this file.
+    -->
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyBKTzZ1pACoFNqoX5AbiFZCz7TPZMjG1nQ
+    </string>
+</resources>

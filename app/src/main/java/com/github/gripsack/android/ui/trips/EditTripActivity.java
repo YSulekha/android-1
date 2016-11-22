@@ -2,41 +2,60 @@
 package com.github.gripsack.android.ui.trips;
 
 import android.content.Intent;
-import android.os.Bundle;
+import android.net.Uri;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.FragmentActivity;
+import android.os.Bundle;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.bumptech.glide.load.resource.bitmap.BitmapDrawableResource;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
+import com.github.gripsack.android.data.model.TripTypes;
+import com.github.gripsack.android.ui.companions.CompanionsActivity;
 import com.github.gripsack.android.utils.MapUtil;
+import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
+import org.parceler.Parcels;
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class EditTripActivity extends FragmentActivity implements OnMapReadyCallback,GoogleMap.OnMapClickListener {
+public class EditTripActivity extends AppCompatActivity
+        implements OnMapReadyCallback,View.OnClickListener{//,GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap;
-    private Place searchedLocation;
-    private ArrayList<Place> suggestedPlaces;
     private ArrayList<LatLng> placesCoordinates;
     private Trip trip;
+    int HOTEL_PICKER_REQUEST = 1;
 
     @BindView(R.id.tvTripName)
     TextView tvTripName;
-    @BindView(R.id.fab)
-    FloatingActionButton fab;
+    @BindView(R.id.lyLocation)
+    LinearLayout lyLocation;
+    @BindView(R.id.lyCompanion)
+    LinearLayout lyCompanion;
+    @BindView(R.id.lyHotel)
+    LinearLayout lyHotel;
+    @BindView(R.id.tvDone)
+    TextView tvDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -44,27 +63,24 @@ public class EditTripActivity extends FragmentActivity implements OnMapReadyCall
         setContentView(R.layout.activity_edit_trip);
         ButterKnife.bind(this);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-        suggestedPlaces=new ArrayList<Place>();
-        searchedLocation=new Place();
+        trip=new Trip();
+        trip=(Trip) Parcels.unwrap(getIntent()
+                .getParcelableExtra("Trip"));
 
-        getSuggestedPlaces();
-
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               //TODO:Set collaborators and destinations
-               //TODO:Update Trip  updateTrip(trip);
-
-                Intent intent=new Intent(EditTripActivity.this,DisplayTripActivity.class);
-                startActivity(intent);
-
-            }
-        });
+        tvTripName.setText(trip.getTripName());
+        lyCompanion.setOnClickListener(this);
+        lyHotel.setOnClickListener(this);
+        lyLocation.setOnClickListener(this);
+        tvDone.setOnClickListener(this);
 
     }
 
@@ -72,54 +88,59 @@ public class EditTripActivity extends FragmentActivity implements OnMapReadyCall
         //DB part
     }
 
-    //TODO:Dummy Data for now Get data from suggestedPlaces
-    private  void getSuggestedPlaces(){
-        placesCoordinates=new ArrayList<LatLng>();
-        LatLng point = new LatLng(37.819929, -122.478255);
-        placesCoordinates.add(point);
-
-        point = new LatLng(37.794138, -122.407791);
-        placesCoordinates.add(point);
-
-        point = new LatLng(37.810474, -122.366592);
-        placesCoordinates.add(point);
-
-        point = new LatLng(37.769493, -122.486229);
-        placesCoordinates.add(point);
-
-        point = new LatLng(37.802189, -122.418766);
-        placesCoordinates.add(point);
-    }
-
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-        mMap.setOnMapClickListener(this);
 
-        //TODO:Search Destination
-        LatLng sf = new LatLng(37.773972, -122.431297); //San Francisco
+        LatLng destination = new LatLng(trip.getSearchDestination().getLatitude(), trip.getSearchDestination().getLongitude());
 
-        //Suggested Destinations
-        for (int i=0;i<placesCoordinates.size();i++){
-
-            mMap.addMarker(new MarkerOptions().position(placesCoordinates.get(i)).title("Marker")
-                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.green_dot)));
-            mMap.moveCamera(CameraUpdateFactory.newLatLng(placesCoordinates.get(i)));
-        }
-
-        mMap.addMarker(new MarkerOptions().position(sf).title("Marker")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_orange)));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sf));
-        placesCoordinates.add(sf);
-
-        MapUtil.focusPoints(placesCoordinates,mMap);
+        mMap.addMarker(new MarkerOptions().position(destination).title(trip.getSearchDestination().getName())
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
+        LatLngBounds.Builder builder = new LatLngBounds.Builder();
+        LatLng latLng=new LatLng((destination.latitude+0.05),destination.longitude+0.05);
+        builder.include(destination);
+        builder.include(latLng);
+        mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(
+                builder.build(), 300, 300, 0));
     }
 
     @Override
-    public void onMapClick(LatLng latLng) {
-        Intent intent=new Intent(EditTripActivity.this,EditDestinationActivity.class);
-       // intent.putExtra("SuggestedPlaces", Parcels.wrap(suggestedPlaces));
-       // intent.putExtra("SearchedLocation", Parcels.wrap(searchedLocation));
-        startActivity(intent);
+    public void onClick(View view) {
+        int id=view.getId();
+        switch (id) {
+            case R.id.lyLocation:
+                Intent intentLocation=new Intent(this, EditDestinationActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));
+                startActivity(intentLocation);
+                break;
+
+            case R.id.lyCompanion:
+                Intent intentCompanion=new Intent(this, CompanionsActivity.class);
+                startActivity(intentCompanion);
+                break;
+
+            case R.id.lyHotel:
+                Uri gmmIntentUri = Uri.parse("geo:"+trip.getSearchDestination().getLatitude()+","+trip.getSearchDestination().getLongitude()
+                +"?q=hotels");
+                Intent intentHotel=new Intent(Intent.ACTION_VIEW,gmmIntentUri);
+                intentHotel.setPackage("com.google.android.apps.maps");
+                startActivityForResult(intentHotel,HOTEL_PICKER_REQUEST);
+                break;
+
+            case R.id.tvDone:
+               /* Intent intent=new Intent(this,TripTimelineActivity.class)
+                        .putExtra("Places", Parcels.wrap(pla));*/
+        }
+
     }
+    /*protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == HOTEL_PICKER_REQUEST) {
+            if (resultCode == RESULT_OK) {
+                com.google.android.gms.location.places.Place place = PlacePicker.getPlace(data, this);
+                String toastMsg = String.format("Place: %s", place.getName());
+                Toast.makeText(this, toastMsg, Toast.LENGTH_LONG).show();
+
+            }
+        }
+    }*/
 }

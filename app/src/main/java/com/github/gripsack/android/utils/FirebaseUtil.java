@@ -1,6 +1,5 @@
 package com.github.gripsack.android.utils;
 
-
 import com.github.gripsack.android.data.model.CompanionInvite;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
@@ -33,6 +32,7 @@ public class FirebaseUtil {
         }
         return null;
     }
+
 
     public static DatabaseReference getCurrentUserPlacesRef() {
         DatabaseReference user = getCurrentUserRef();
@@ -70,7 +70,6 @@ public class FirebaseUtil {
         }
         return null;
     }
-
 
     public static DatabaseReference getCompanionsRef() {
         return getBaseRef().child("companions");

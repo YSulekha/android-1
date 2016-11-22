@@ -3,7 +3,6 @@ package com.github.gripsack.android.ui;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
 
@@ -22,10 +21,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Progress
     protected FirebaseUser mUser;
     private FirebaseAuth.AuthStateListener mAuthListener;
 
-    private static final int APP_SIGN_IN = 1000;
+    protected abstract boolean isAuthRequired();
 
-    //protected abstract FirebaseAuth.AuthStateListener createAuthStateListener();
-    protected abstract void onAuthStateSignIn();
+    protected abstract FirebaseAuth.AuthStateListener createAuthStateListener();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,18 +31,15 @@ public abstract class BaseActivity extends AppCompatActivity implements Progress
         checkForUpdates();
 
         mAuth = FirebaseAuth.getInstance();
-        mAuthListener = new FirebaseAuth.AuthStateListener() {
-            @Override
-            public void onAuthStateChanged(@NonNull FirebaseAuth firebaseAuth) {
-                FirebaseUser user = firebaseAuth.getCurrentUser();
-                if (user == null) {
-                    Intent intent = SignInActivity.newIntent(getBaseContext());
-                    startActivityForResult(intent, APP_SIGN_IN);
-                } else {
-                    onAuthStateSignIn();
-                }
+        mAuthListener = createAuthStateListener();
+        if (isAuthRequired()) {
+            mUser = mAuth.getCurrentUser();
+            if (mUser == null) {
+//                Intent intent = AuthActivity.newIntent(this);
+                Intent intent = SignInActivity.newIntent(this);
+                startActivity(intent);
             }
-        };
+        }
     }
 
     @Override
@@ -100,17 +95,4 @@ public abstract class BaseActivity extends AppCompatActivity implements Progress
             mAuth.addAuthStateListener(mAuthListener);
         }
     }
-
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == APP_SIGN_IN) {
-            if (resultCode != RESULT_OK) {
-                finish();
-            }
-        }
-    }
-
 }
