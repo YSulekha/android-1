@@ -61,7 +61,7 @@ public class Place {
         Place place = new Place();
 
         String apiKey = BuildConfig.MyPlacesApiKey;
-        String ph_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=" + apiKey;
+        String ph_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key="+apiKey;
 
         try {
             JSONObject location = jsonObject.getJSONObject("geometry").getJSONObject("location");
