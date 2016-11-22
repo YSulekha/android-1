@@ -85,7 +85,8 @@ public class FirebaseUtil {
         if (uid == null) {
             return;
         }
-        getUsersRef().child(uid).setValue(user);
+        getUsersRef().child(uid).child("displayName").setValue(user.displayName);
+        getUsersRef().child(uid).child("profileImageUrl").setValue(user.profileImageUrl);
     }
 
     public static void saveCompanionInvitation(String inviteId) {
