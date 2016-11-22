@@ -7,12 +7,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 
 //Model for the data retrieved from places API
 @Parcel
-public class Place implements Serializable {
+public class Place {
     private double latitude;
     private double longitude;
     private String name;
@@ -21,38 +20,6 @@ public class Place implements Serializable {
     private float rating;
     private String photoUrl;
     private String vicinity;
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setRating(float rating) {
-        this.rating = rating;
-    }
-
-    public void setPlaceid(String placeid) {
-        this.placeid = placeid;
-    }
-
-    public void setPhotoUrl(String photoUrl) {
-        this.photoUrl = photoUrl;
-    }
-
-    public void setTypes(ArrayList<String> types) {
-        this.types = types;
-    }
-
-    public void setVicinity(String vicinity) {
-        this.vicinity = vicinity;
-    }
 
     public String getVicinity() {
         return vicinity;

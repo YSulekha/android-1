@@ -75,7 +75,6 @@
     <string name="title_activity_add_trip"></string>
     <string name="title_activity_edit_trip">Map</string>
     <string name="title_activity_edit_destination">Map</string>
-    <string name="title_activity_trip_timeline">TripTimelineActivity</string>
     <string name="title_activity_destinations">DestinationsActivity</string>
 
 </resources>

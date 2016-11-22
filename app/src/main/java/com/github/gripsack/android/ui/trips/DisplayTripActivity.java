@@ -1,10 +1,9 @@
 package com.github.gripsack.android.ui.trips;
 
 import android.os.AsyncTask;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AlertDialog;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -86,8 +85,7 @@ public class DisplayTripActivity extends FragmentActivity
         }
 
         mMap.addMarker(new MarkerOptions().position(sf).title("Marker")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
-
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_orange)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sf));
         placesCoordinates.add(sf);
 
@@ -105,7 +103,7 @@ public class DisplayTripActivity extends FragmentActivity
             downloadTask.execute(url);
         }
 
-       // MapUtil.focusPoints(placesCoordinates,mMap);
+        MapUtil.focusPoints(placesCoordinates,mMap);
     }
 
     @Override

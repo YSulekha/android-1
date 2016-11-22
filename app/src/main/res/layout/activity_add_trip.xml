@@ -20,30 +20,8 @@
             android:layout_height="match_parent"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:id="@+id/toolbarImage"
-                android:adjustViewBounds="true"
-                android:scaleType="centerCrop"
-                android:src="@drawable/sf" />
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvSearchedPlaceName"
-                    android:textSize="20sp"
-                    android:text="Let's start..."
-                    android:textStyle="bold"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center" />
+            app:layout_scrollFlags="scroll|exitUntilCollapsed"
+            android:background="@mipmap/trip_plan">
 
             <android.support.v7.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -52,20 +30,17 @@
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/AppTheme.PopupOverlay" />
 
-            </RelativeLayout>
-
         </android.support.design.widget.CollapsingToolbarLayout>
     </android.support.design.widget.AppBarLayout>
 
-    <Button
-        android:id="@+id/btnSave"
-        android:layout_width="match_parent"
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fab"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="SAVE"
-        android:textColor="@android:color/white"
-        android:layout_gravity="bottom|end"
-        android:background="@color/colorPrimary"/>
-
+        android:layout_margin="@dimen/fab_margin"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@mipmap/check_mark" />
 
     <include layout="@layout/content_add_trip" />
 

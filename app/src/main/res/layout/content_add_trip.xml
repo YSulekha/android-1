@@ -6,62 +6,82 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context="com.github.gripsack.android.ui.trips.AddTripActivity"
-    tools:showIn="@layout/activity_add_trip">
+    tools:showIn="@layout/activity_add_trip"
+    android:background="@drawable/add_trip_background">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-        <android.support.v7.widget.CardView
-            xmlns:card_view="http://schemas.android.com/apk/res-auto"
-            android:id="@+id/card_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            <!-- card_view:cardCornerRadius="4dp"
-             android:layout_margin="5dp">-->
+    <android.support.v7.widget.CardView
+        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/card_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        card_view:cardCornerRadius="4dp"
+        android:layout_margin="5dp">
+    <!-- card_view:cardCornerRadius="4dp"
+     android:layout_margin="5dp">-->
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
-
-                <android.support.design.widget.TextInputLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp">
-
-                    <AutoCompleteTextView
-                        android:id="@+id/tvTripName"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:hint="Trip Name"
-                        android:maxLines="1"
-                        android:singleLine="true"
-                        android:textSize="18sp"/>
-
-                </android.support.design.widget.TextInputLayout>
-
-            </RelativeLayout>
-        </android.support.v7.widget.CardView>
-
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_below="@id/card_view"/>
-
-        <TextView
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:padding="16dp">
+
+            <ImageView
+                android:layout_width="120dp"
+                android:layout_height="90dp"
+                app:srcCompat="@drawable/boy_image_2"
+                android:id="@+id/profileImage" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvTripTitle"
+                android:layout_alignParentTop="true"
+                android:textSize="24sp"
+                android:text="Let's start..."
+                android:textColor="@color/colorPrimary"
+                android:textStyle="bold"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@+id/profileImage" />
+
+
+            <android.support.design.widget.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTripTitle"
+                android:layout_toRightOf="@+id/profileImage"
+                android:layout_marginLeft="10dp">
+
+                <AutoCompleteTextView
+                    android:id="@+id/tvTripName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="Trip Name"
+                    android:maxLines="1"
+                    android:singleLine="true"
+                    android:textSize="18sp"/>
+
+            </android.support.design.widget.TextInputLayout>
+
+        </RelativeLayout>
+    </android.support.v7.widget.CardView>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:id="@+id/tvTripType"
-            android:textSize="16sp"
+            android:textSize="18sp"
             android:text="By Trip"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/colorPrimary"
             android:textStyle="bold"
-            android:gravity="center"
+            android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/map" />
+            android:layout_marginBottom="5dp"
+            android:layout_below="@+id/card_view" />
+
 
         <HorizontalScrollView
             android:layout_width="wrap_content"
@@ -71,8 +91,7 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
                 <android.support.v7.widget.CardView
                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -83,8 +102,8 @@
                     android:layout_margin="5dp">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="80dp"
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -94,7 +113,6 @@
                             android:layout_centerHorizontal="true"/>
 
                         <CheckBox
-                            android:visibility="gone"
                             android:id="@+id/cbCityBreak"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -111,8 +129,8 @@
                     android:layout_margin="5dp">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="80dp"
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -122,7 +140,6 @@
                             android:layout_centerHorizontal="true"/>
 
                         <CheckBox
-                            android:visibility="gone"
                             android:id="@+id/cbWithFriends"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -140,8 +157,8 @@
                     android:layout_margin="5dp">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="80dp"
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -151,7 +168,6 @@
                             android:layout_centerHorizontal="true"/>
 
                         <CheckBox
-                            android:visibility="gone"
                             android:id="@+id/cbWithFamily"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -169,8 +185,8 @@
                     android:layout_margin="5dp">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="80dp"
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -180,7 +196,6 @@
                             android:layout_centerHorizontal="true"/>
 
                         <CheckBox
-                            android:visibility="gone"
                             android:id="@+id/cbRomantic"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -198,8 +213,8 @@
                     android:layout_margin="5dp">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="80dp"
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -209,7 +224,6 @@
                             android:layout_centerHorizontal="true"/>
 
                         <CheckBox
-                            android:visibility="gone"
                             android:id="@+id/cbRelaxing"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -227,8 +241,8 @@
                     android:layout_margin="5dp">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="80dp"
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -238,7 +252,6 @@
                             android:layout_centerHorizontal="true"/>
 
                         <CheckBox
-                            android:visibility="gone"
                             android:id="@+id/cbCulture"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -256,8 +269,8 @@
                     android:layout_margin="5dp">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="80dp"
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -267,7 +280,6 @@
                             android:layout_centerHorizontal="true"/>
 
                         <CheckBox
-                            android:visibility="gone"
                             android:id="@+id/cbDisappear"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -275,7 +287,6 @@
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
-
                 <android.support.v7.widget.CardView
                     xmlns:card_view="http://schemas.android.com/apk/res-auto"
                     android:layout_below="@+id/card_view"
@@ -285,8 +296,8 @@
                     android:layout_margin="5dp">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="80dp"
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -296,7 +307,6 @@
                             android:layout_centerHorizontal="true"/>
 
                         <CheckBox
-                            android:visibility="gone"
                             android:id="@+id/cbAdventure"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -314,8 +324,8 @@
                     android:layout_margin="5dp">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="80dp"
+                        android:layout_height="80dp">
 
                         <ImageView
                             android:layout_width="wrap_content"
@@ -325,7 +335,6 @@
                             android:layout_centerHorizontal="true"/>
 
                         <CheckBox
-                            android:visibility="gone"
                             android:id="@+id/cbCulinary"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -338,29 +347,88 @@
 
         </HorizontalScrollView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/tvBeginDate"
-            android:textSize="16sp"
-            android:text="Begin Date"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:layout_below="@id/hsv"/>
 
-        <EditText
-            android:id="@+id/etBeginDate"
+        <android.support.v7.widget.CardView
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            android:id="@+id/card_view1"
+            android:layout_below="@+id/hsv"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="--/--/--"
-            android:layout_toRightOf="@+id/tvBeginDate"
-            android:layout_marginTop="5dp"
-            android:textSize="16sp"
-            android:layout_marginLeft="10dp"
-            android:gravity="center"/>
+            card_view:cardCornerRadius="4dp"
+            android:layout_margin="5dp">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvDestinationTitle"
+                    android:layout_alignParentTop="true"
+                    android:textSize="18sp"
+                    android:text="Destination"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="10dp"/>
+
+                <ImageView
+                    android:id="@+id/ivLocation"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/marker_orange"
+                    android:layout_below="@+id/tvDestinationTitle"
+                    android:layout_marginBottom="20dp"/>
+
+                <TextView
+                    android:id="@+id/tvDestination"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="San Francisco"
+                    android:layout_toRightOf="@+id/ivLocation"
+                    android:layout_below="@+id/tvDestinationTitle"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvBeginDate"
+                    android:textSize="18sp"
+                    android:text="Begin Date"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_below="@+id/ivLocation"
+                    android:layout_marginBottom="10dp"/>
+
+                <ImageView
+                    android:id="@+id/ivCalendar"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:src="@drawable/calendar"
+                    android:layout_below="@+id/tvBeginDate"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginTop="10dp"/>
+
+
+                <EditText
+                    android:id="@+id/etBeginDate"
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:hint="--/--/--"
+                    android:layout_toRightOf="@+id/ivCalendar"
+                    android:layout_below="@+id/tvBeginDate"
+                    android:layout_marginTop="5dp"
+                    android:textSize="16sp"
+                    android:layout_marginLeft="10dp"/>
+
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
+
 
     </RelativeLayout>
 

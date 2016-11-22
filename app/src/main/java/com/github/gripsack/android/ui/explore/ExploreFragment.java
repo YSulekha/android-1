@@ -1,4 +1,3 @@
-
 package com.github.gripsack.android.ui.explore;
 
 import android.content.Intent;
@@ -49,7 +48,6 @@ public class ExploreFragment extends Fragment {
     //List of popular destinations
     String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
             "Toronto", "Paris", "Italy", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};
-
 
     public static ExploreFragment newInstance() {
         return new ExploreFragment();

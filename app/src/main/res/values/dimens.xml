@@ -15,7 +15,7 @@
 
     <dimen name="recycler_view_padding_side">12dp</dimen>
     <dimen name="recycler_view_padding_up">8dp</dimen>
-    <dimen name="app_bar_height">180dp</dimen>
+    <dimen name="app_bar_height">220dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
 </resources>
