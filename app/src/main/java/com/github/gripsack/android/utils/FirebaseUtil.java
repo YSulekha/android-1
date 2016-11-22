@@ -3,6 +3,7 @@ package com.github.gripsack.android.utils;
 
 import com.github.gripsack.android.data.model.CompanionInvite;
 import com.github.gripsack.android.data.model.Place;
+import com.github.gripsack.android.data.model.Trip;
 import com.github.gripsack.android.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,6 +44,17 @@ public class FirebaseUtil {
         return null;
     }
 
+    public static DatabaseReference getCurrentUserTripsRef() {
+        DatabaseReference user = getCurrentUserRef();
+        if (user != null) {
+            return
+                    user
+                            .child("trips");
+        }
+        return null;
+    }
+
+
     public static DatabaseReference getCurrentUserBucketPlacesRef() {
         DatabaseReference places = getCurrentUserPlacesRef();
         if (places != null) {
@@ -70,6 +82,10 @@ public class FirebaseUtil {
 
     public static DatabaseReference getPlacesRef() {
         return getBaseRef().child("places");
+    }
+
+    public static DatabaseReference getTripsRef() {
+        return getBaseRef().child("trips");
     }
 
     public static DatabaseReference getInvitationsRef() {
@@ -122,6 +138,18 @@ public class FirebaseUtil {
 
     public static void declineCompanionInvite(String invitationId) {
         getInvitationByIdRef(invitationId).removeValue();
+    }
+
+    public static void saveTrip(Trip trip) {
+        DatabaseReference user = getCurrentUserRef();
+        if (user == null) {
+            return;
+        }
+        String tripId = getTripsRef().push().getKey();
+        getTripsRef().child(tripId).setValue(trip);
+        user.child("trips")
+                .child(tripId)
+                .setValue(true);
     }
 
     public static void savePlace(Place place) {

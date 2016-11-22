@@ -18,6 +18,7 @@ import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
 import com.github.gripsack.android.data.model.TripTypes;
+import com.github.gripsack.android.utils.FirebaseUtil;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -86,12 +87,9 @@ public class AddTripActivity extends AppCompatActivity {
                 trip.setTripName(tvTripName.getText().toString());
                 ArrayList<Integer> tripTypes=getTripTypes();
                 trip.setTripTypes(tripTypes);
-
-                saveTrip(trip);
-
+                FirebaseUtil.saveTrip(trip);
                 Intent intent=new Intent(AddTripActivity.this,EditTripActivity.class);
                 startActivity(intent);
-
             }
         });
     }
@@ -131,10 +129,6 @@ public class AddTripActivity extends AppCompatActivity {
 
     }
 
-    private void saveTrip(Trip trip){
-        //TODO:DB Part
-    }
-
     //Set dialog calendar to beginDate
     private void setDateTimeField() {
 
@@ -157,7 +151,5 @@ public class AddTripActivity extends AppCompatActivity {
                 etBeginDate.setText(dateFormatter.format(newDate.getTime()));
             }
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-
     }
-
 }
