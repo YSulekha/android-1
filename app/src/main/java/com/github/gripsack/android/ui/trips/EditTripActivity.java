@@ -55,6 +55,8 @@ public class EditTripActivity extends AppCompatActivity
     LinearLayout lyCompanion;
     @BindView(R.id.lyHotel)
     LinearLayout lyHotel;
+    @BindView(R.id.tvDone)
+    TextView tvDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -79,6 +81,8 @@ public class EditTripActivity extends AppCompatActivity
         lyCompanion.setOnClickListener(this);
         lyHotel.setOnClickListener(this);
         lyLocation.setOnClickListener(this);
+        tvDone.setOnClickListener(this);
+
     }
 
     private void updateTrip(Trip trip){
@@ -123,6 +127,10 @@ public class EditTripActivity extends AppCompatActivity
                 intentHotel.setPackage("com.google.android.apps.maps");
                 startActivityForResult(intentHotel,HOTEL_PICKER_REQUEST);
                 break;
+
+            case R.id.tvDone:
+               /* Intent intent=new Intent(this,TripTimelineActivity.class)
+                        .putExtra("Places", Parcels.wrap(pla));*/
         }
 
     }

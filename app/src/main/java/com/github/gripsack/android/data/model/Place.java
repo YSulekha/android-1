@@ -7,11 +7,12 @@ import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
 //Model for the data retrieved from places API
 @Parcel
-public class Place {
+public class Place implements Serializable {
     private double latitude;
     private double longitude;
     private String name;

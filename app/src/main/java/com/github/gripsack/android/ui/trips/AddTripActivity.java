@@ -96,22 +96,21 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         searchedPlace= new Place();
 
         /*TODO:To test, It will open*/
-        searchedPlace.setLatitude(37.773972);
+        /*searchedPlace.setLatitude(37.773972);
         searchedPlace.setLongitude(-122.431297);
         searchedPlace.setName("San Francisco");
-        searchedPlace.setRating(4);
+        searchedPlace.setRating(4);*/
 
-        /*TODO:To test, It will open
         searchedPlace=(Place) Parcels.unwrap(getIntent()
-                .getParcelableExtra("SearchedLocation"));*/
+                .getParcelableExtra("SearchedLocation"));
 
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        /*TODO:To test, It will open
-        Glide.with(this).load(searchedPlace.getPhotoUrl()).into(toolbarImage);*/
+
+        Glide.with(this).load(searchedPlace.getPhotoUrl()).into(toolbarImage);
 
         tvSearchedPlaceName.setText(searchedPlace.getName());
        // tvSearchedRating.setText(String.valueOf(searchedPlace.getRating()));

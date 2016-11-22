@@ -25,7 +25,6 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
 
     ArrayList<com.github.gripsack.android.data.model.Place> places;
     Context mContext;
-    int pos;
 
     public ExploreRecyclerAdapter(Context context, ArrayList<com.github.gripsack.android.data.model.Place> p) {
         mContext = context;
@@ -44,7 +43,6 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
         com.github.gripsack.android.data.model.Place place = places.get(position);
         holder.name.setText(place.getName());
         Glide.with(mContext).load(place.getPhotoUrl()).into(holder.icon);
-        pos=position;
     }
 
     @Override
@@ -70,15 +68,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
             addBucketList.setOnClickListener(this);
             addLikeList.setOnClickListener(this);
             addTripList.setOnClickListener(this);
-
-            icon.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-                    Intent intent=new Intent(mContext, AddTripActivity.class)
-                            .putExtra("SearchedLocation", Parcels.wrap(places.get(getLayoutPosition())));
-                    mContext.startActivity(intent);
-                }
-            });
+            icon.setOnClickListener(this);
         }
 
         @Override
@@ -101,6 +91,11 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
                     ExploreFragment.addToTripList.add(place);
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.add_trip),
                             Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.item_image:
+                    Intent intent=new Intent(mContext, AddTripActivity.class)
+                            .putExtra("SearchedLocation", Parcels.wrap(places.get(getLayoutPosition())));
+                    mContext.startActivity(intent);
                     break;
             }
 

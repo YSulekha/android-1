@@ -64,6 +64,8 @@ public class EditDestinationActivity extends AppCompatActivity
     Button btnVisitedList;
     @BindView(R.id.btnRecommendedList)
     Button btnRecommendedList;
+    @BindView(R.id.tvDone)
+    TextView tvDone;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +93,7 @@ public class EditDestinationActivity extends AppCompatActivity
         btnRecommendedList.setOnClickListener(this);
         btnLikedList.setOnClickListener(this);
         btnVisitedList.setOnClickListener(this);
+        tvDone.setOnClickListener(this);
 
         tripPlaces=new ArrayList<Place>();
         getTripPlaces();
@@ -204,6 +207,12 @@ public class EditDestinationActivity extends AppCompatActivity
                 break;
             case R.id.btnRecommendedList:
                 break;
+            case R.id.tvDone:
+                Intent intent=new Intent(this,TripTimelineActivity.class)
+                        .putExtra("Places", tripPlaces);
+                       // .putExtra("Places", Parcels.wrap(tripPlaces));
+                startActivity(intent);
+
         }
     }
 
