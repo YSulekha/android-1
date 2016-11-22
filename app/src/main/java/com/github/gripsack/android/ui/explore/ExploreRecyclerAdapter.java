@@ -2,6 +2,7 @@ package com.github.gripsack.android.ui.explore;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +14,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
+import com.github.gripsack.android.ui.trips.AddTripActivity;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -21,6 +25,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
 
     ArrayList<com.github.gripsack.android.data.model.Place> places;
     Context mContext;
+    int pos;
 
     public ExploreRecyclerAdapter(Context context, ArrayList<com.github.gripsack.android.data.model.Place> p) {
         mContext = context;
@@ -39,6 +44,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
         com.github.gripsack.android.data.model.Place place = places.get(position);
         holder.name.setText(place.getName());
         Glide.with(mContext).load(place.getPhotoUrl()).into(holder.icon);
+        pos=position;
     }
 
     @Override
@@ -64,6 +70,15 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
             addBucketList.setOnClickListener(this);
             addLikeList.setOnClickListener(this);
             addTripList.setOnClickListener(this);
+
+            icon.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    Intent intent=new Intent(mContext, AddTripActivity.class)
+                            .putExtra("SearchedLocation", Parcels.wrap(places.get(getLayoutPosition())));
+                    mContext.startActivity(intent);
+                }
+            });
         }
 
         @Override
@@ -88,6 +103,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
                             Toast.LENGTH_SHORT).show();
                     break;
             }
+
         }
     }
 }

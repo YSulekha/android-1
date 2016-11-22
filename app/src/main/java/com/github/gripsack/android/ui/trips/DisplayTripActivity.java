@@ -86,7 +86,7 @@ public class DisplayTripActivity extends FragmentActivity
         }
 
         mMap.addMarker(new MarkerOptions().position(sf).title("Marker")
-                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker_orange)));
+                .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(sf));
         placesCoordinates.add(sf);
 
@@ -104,7 +104,7 @@ public class DisplayTripActivity extends FragmentActivity
             downloadTask.execute(url);
         }
 
-        MapUtil.focusPoints(placesCoordinates,mMap);
+       // MapUtil.focusPoints(placesCoordinates,mMap);
     }
 
     @Override
