@@ -20,69 +20,69 @@
             android:layout_height="220dp" />
 
         <android.support.v7.widget.CardView
-        xmlns:card_view="http://schemas.android.com/apk/res-auto"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto"
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/map">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvTripName"
-                android:textSize="18sp"
-                android:text="Trip Name"
-                android:textColor="@color/colorPrimary"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"/>
+                android:layout_height="wrap_content">
 
-           <!-- <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/tvDestinationName"
-                android:textSize="16sp"
-                android:text="Trip Name"
-                android:textStyle="bold"
-                android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="10dp"
-                android:gravity="center"
-                android:layout_below="@+id/tvTripName"/>-->
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/tvTripName"
+                    android:textSize="18sp"
+                    android:text="Trip Name"
+                    android:textColor="@color/colorPrimary"
+                    android:textStyle="bold"
+                    android:layout_marginTop="5dp"
+                    android:layout_marginBottom="5dp"
+                    android:layout_marginLeft="10dp"
+                    android:gravity="center"/>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvTripName"
-               android:layout_centerHorizontal="true">
+                <!-- <TextView
+                     android:layout_width="match_parent"
+                     android:layout_height="wrap_content"
+                     android:id="@+id/tvDestinationName"
+                     android:textSize="16sp"
+                     android:text="Trip Name"
+                     android:textStyle="bold"
+                     android:layout_marginTop="5dp"
+                     android:layout_marginBottom="5dp"
+                     android:layout_marginLeft="10dp"
+                     android:gravity="center"
+                     android:layout_below="@+id/tvTripName"/>-->
 
-            <ImageView
-                android:id="@+id/type1"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/type4" />
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvTripName"
+                    android:layout_centerHorizontal="true">
 
-            <ImageView
-                android:id="@+id/type2"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/type8" />
+                    <ImageView
+                        android:id="@+id/type1"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@mipmap/type4" />
 
-            <ImageView
-                android:layout_width="50dp"
-                android:layout_height="50dp"
-                android:src="@mipmap/type3" />
-            </LinearLayout>
+                    <ImageView
+                        android:id="@+id/type2"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@mipmap/type8" />
 
-        </RelativeLayout>
+                    <ImageView
+                        android:layout_width="50dp"
+                        android:layout_height="50dp"
+                        android:src="@mipmap/type3" />
+                </LinearLayout>
 
-    </android.support.v7.widget.CardView>
+            </RelativeLayout>
+
+        </android.support.v7.widget.CardView>
 
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -115,24 +115,24 @@
                     android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/ibLocation">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvLocationTitle"
-                    android:textSize="16sp"
-                    android:text="Destinations"
-                    android:textColor="#1F2C33"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvLocationTitle"
+                        android:textSize="16sp"
+                        android:text="Locations"
+                        android:textColor="#1F2C33"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvLocationDescription"
-                    android:textSize="14sp"
-                    android:text="Add destination to your trip"
-                    android:textStyle="bold"
-                    android:layout_marginTop="5dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvLocationDescription"
+                        android:textSize="14sp"
+                        android:text="Add location to your trip"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp" />
 
                 </LinearLayout>
 
@@ -162,24 +162,24 @@
                     android:layout_toRightOf="@+id/ibCompanion"
                     android:layout_below="@+id/viewLine1">
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvCompanionTitle"
-                    android:textSize="16sp"
-                    android:text="Companions"
-                    android:textColor="#1F2C33"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="5dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvCompanionTitle"
+                        android:textSize="16sp"
+                        android:text="Companions"
+                        android:textColor="#1F2C33"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvCompanionDescription"
-                    android:textSize="14sp"
-                    android:text="Add companion to your trip"
-                    android:textStyle="bold"
-                    android:layout_marginTop="5dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvCompanionDescription"
+                        android:textSize="14sp"
+                        android:text="Add companion to your trip"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp" />
                 </LinearLayout>
 
                 <View
@@ -209,24 +209,24 @@
                     android:layout_below="@+id/viewLine2">
 
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvHotelTitle"
-                    android:textSize="16sp"
-                    android:text="Hotel"
-                    android:textColor="#1F2C33"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvHotelTitle"
+                        android:textSize="16sp"
+                        android:text="Hotel"
+                        android:textColor="#1F2C33"
+                        android:textStyle="bold"
+                        android:layout_marginBottom="5dp"/>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvHotelDescription"
-                    android:textSize="14sp"
-                    android:text="Add hotel to your trip"
-                    android:textStyle="bold"
-                    android:layout_marginTop="5dp" />
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/tvHotelDescription"
+                        android:textSize="14sp"
+                        android:text="Add hotel to your trip"
+                        android:textStyle="bold"
+                        android:layout_marginTop="5dp" />
                 </LinearLayout>
 
             </RelativeLayout>

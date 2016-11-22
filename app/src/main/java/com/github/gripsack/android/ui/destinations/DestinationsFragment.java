@@ -1,11 +1,9 @@
-
-package com.github.gripsack.android.ui.explore;
+package com.github.gripsack.android.ui.destinations;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,12 +15,11 @@ import android.view.ViewGroup;
 
 import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
-import com.github.gripsack.android.data.model.Place;
-import com.github.gripsack.android.ui.destinations.DestinationAdapter;
-import com.github.gripsack.android.ui.destinations.DestinationsActivity;
+import com.github.gripsack.android.ui.explore.ExploreRecyclerAdapter;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -39,70 +36,64 @@ import cz.msebera.android.httpclient.Header;
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
+/**
+ * A placeholder fragment containing a simple view.
+ */
+public class DestinationsFragment extends Fragment {
 
-public class ExploreFragment extends Fragment {
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
-    public static final String TAG = "ExploreFragment";
-    com.google.android.gms.location.places.Place searchplace;
-    ArrayList<Place> places;
-    DestinationAdapter ad;
-    //List of popular destinations
-    String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
-            "Toronto", "Paris", "Italy", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};
+    public static final String TAG = "DestinationsFragment";
+    Place searchplace;
+    String latLong;
+    RecyclerView recyclerView;
+    ExploreRecyclerAdapter placesAdapter;
+    ArrayList<com.github.gripsack.android.data.model.Place> placesList;
 
 
-    public static ExploreFragment newInstance() {
-        return new ExploreFragment();
+    public DestinationsFragment() {
     }
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setHasOptionsMenu(true);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
-        places = new ArrayList<>();
-        RecyclerView view = (RecyclerView) rootView.findViewById(R.id.destination_recycler);
-        view.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ad = new DestinationAdapter(getActivity(), places);
-        view.setAdapter(ad);
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        View rootView = inflater.inflate(R.layout.fragment_destinations, container, false);
+        Intent intent = getActivity().getIntent();
+        latLong = intent.getStringExtra("latLong");
+        placesList = new ArrayList<>();
+        recyclerView = (RecyclerView) rootView.findViewById(R.id.main_recycler);
+        placesAdapter = new ExploreRecyclerAdapter(getActivity(), placesList);
+        recyclerView.setAdapter(placesAdapter);
+        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
         sendrequest();
         return rootView;
     }
 
     public void sendrequest() {
-        String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?";
-        String apiKey = BuildConfig.MyPlacesApiKey;
+        String url = "https://maps.googleapis.com/maps/api/place/nearbysearch/json";
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
+        String apiKey = BuildConfig.MyPlacesApiKey;
+        params.put("location", latLong);
+        params.put("rankby", "prominence");
         params.put("key", apiKey);
-        for (int i = 0; i < placesName.length; i++) {
-            String query = placesName[i];
-            params.put("query", query);
-            client.get(url, params, new JsonHttpResponseHandler() {
-                @Override
-                public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    // Root JSON in response is an dictionary i.e { "data : [ ... ] }
-                    // Handle resulting parsed JSON response here
-                    try {
-                        JSONArray resultsArray = response.getJSONArray("results");
-                        places.addAll(Place.fromJSONArray(resultsArray));
-                        ad.notifyDataSetChanged();
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
+        client.get(url, params, new JsonHttpResponseHandler() {
+            @Override
+            public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                try {
+                    JSONArray resultsArray = response.getJSONArray("results");
+                    placesList.addAll(com.github.gripsack.android.data.model.Place.fromJSONArray(resultsArray));
+                    placesAdapter.notifyDataSetChanged();
+                } catch (JSONException e) {
+                    e.printStackTrace();
                 }
-                @Override
-                public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
-                    // called when response HTTP status is "4XX" (eg. 401, 403, 404)
-                }
-            });
-        }
-    }
+            }
 
+            @Override
+            public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
+                // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+            }
+        });
+    }
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
@@ -139,10 +130,8 @@ public class ExploreFragment extends Fragment {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 searchplace = PlaceAutocomplete.getPlace(getActivity(), data);
-                Intent intent = new Intent(getActivity(), DestinationsActivity.class);
-                String latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
-                intent.putExtra("latLong", latLong);
-                startActivity(intent);
+                placesList.clear();
+                sendrequest();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
                 // TODO: Handle the error.

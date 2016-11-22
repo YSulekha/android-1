@@ -22,15 +22,6 @@
           android:layout_height="wrap_content"
           android:text="Add Destinations"
           android:textColor="@android:color/white"/>
-      <TextView
-          android:id="@+id/tvDone"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:text="DONE"
-          android:textColor="@android:color/white"
-          android:gravity="right"
-          android:layout_marginRight="10dp"
-          android:layout_marginLeft="100dp"/>
     </android.support.v7.widget.Toolbar>
   </android.support.design.widget.AppBarLayout>
 
@@ -107,7 +98,7 @@
           android:text="Visited List"
           android:background="#FAFAFA"/>
 
-      </LinearLayout>
+    </LinearLayout>
 
   </android.support.v4.widget.NestedScrollView>
 

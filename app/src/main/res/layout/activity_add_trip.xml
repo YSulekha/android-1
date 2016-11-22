@@ -66,6 +66,7 @@
         android:layout_gravity="bottom|end"
         android:background="@color/colorPrimary"/>
 
+
     <include layout="@layout/content_add_trip" />
 
 </android.support.design.widget.CoordinatorLayout>

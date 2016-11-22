@@ -45,9 +45,10 @@ android {
         debug {
             signingConfig signingConfigs.debug
         }
-        buildTypes.each {
-            it.buildConfigField 'String', 'MyPlacesApiKey', GRIPSACK_GEO_API_PLACES_KEY
-        }
+    }
+    buildTypes.each {
+        it.buildConfigField 'String', 'MyPlacesApiKey', GRIPSACK_GEO_API_PLACES_KEY
+        it.buildConfigField 'String', 'google_maps_key', GRIPSACK_GEO_API_PLACES_KEY
     }
 
 

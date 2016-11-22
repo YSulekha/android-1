@@ -33,7 +33,6 @@ import com.google.android.gms.maps.model.LatLngBounds;
 import com.google.android.gms.maps.model.MarkerOptions;
 
 import org.parceler.Parcels;
-
 import java.util.ArrayList;
 
 import butterknife.BindView;

@@ -2,13 +2,8 @@ package com.github.gripsack.android.ui.trips;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.net.Uri;
+
 import android.os.Bundle;
-import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
@@ -22,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
@@ -46,6 +42,11 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import com.github.gripsack.android.utils.FirebaseUtil;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -64,6 +65,7 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
     EditText etBeginDate;
     @BindView(R.id.btnSave)
     Button btnSave;
+
     @BindView(R.id.cbAdventure)
     CheckBox cbAdventure;
     @BindView(R.id.cbCityBreak)
@@ -93,7 +95,7 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         setContentView(R.layout.activity_add_trip);
         ButterKnife.bind(this);
 
-        searchedPlace= new Place();
+        searchedPlace = new Place();
 
         /*TODO:To test, It will open*/
         /*searchedPlace.setLatitude(37.773972);
@@ -101,7 +103,7 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         searchedPlace.setName("San Francisco");
         searchedPlace.setRating(4);*/
 
-        searchedPlace=(Place) Parcels.unwrap(getIntent()
+        searchedPlace = (Place) Parcels.unwrap(getIntent()
                 .getParcelableExtra("SearchedLocation"));
 
 
@@ -113,26 +115,28 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         Glide.with(this).load(searchedPlace.getPhotoUrl()).into(toolbarImage);
 
         tvSearchedPlaceName.setText(searchedPlace.getName());
-       // tvSearchedRating.setText(String.valueOf(searchedPlace.getRating()));
+        // tvSearchedRating.setText(String.valueOf(searchedPlace.getRating()));
+
 
         dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
-        etBeginDate=(EditText)findViewById(R.id.etBeginDate);
+        etBeginDate = (EditText) findViewById(R.id.etBeginDate);
         etBeginDate.setInputType(InputType.TYPE_NULL);
         setDateTimeField();
+
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Trip trip=new Trip();
+                Trip trip = new Trip();
                 trip.setBeginDate(etBeginDate.getText().toString());
                 trip.setSearchDestination(searchedPlace);
                 trip.setTripName(tvTripName.getText().toString());
-                ArrayList<Integer> tripTypes=getTripTypes();
+                ArrayList<Integer> tripTypes = getTripTypes();
                 trip.setTripTypes(tripTypes);
+                FirebaseUtil.saveTrip(trip);
+                // saveTrip(trip);
 
-                saveTrip(trip);
-
-                Intent intent=new Intent(AddTripActivity.this,EditTripActivity.class)
+                Intent intent = new Intent(AddTripActivity.this, EditTripActivity.class)
                         .putExtra("Trip", Parcels.wrap(trip));
                 startActivity(intent);
             }
@@ -141,7 +145,6 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
     }
 
     //Get user's trip type
@@ -177,10 +180,6 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
 
         return types;
 
-    }
-
-    private void saveTrip(Trip trip){
-        //TODO:DB Part
     }
 
     //Set dialog calendar to beginDate
@@ -221,5 +220,6 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         builder.include(latLng);
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(
                 builder.build(), 300, 300, 0));
+
     }
 }

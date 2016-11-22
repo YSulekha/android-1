@@ -14,7 +14,9 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
+import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.ui.trips.AddTripActivity;
+import com.github.gripsack.android.utils.FirebaseUtil;
 
 import org.parceler.Parcels;
 
@@ -75,30 +77,32 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
         public void onClick(View view) {
             int id = view.getId();
             int pos = getAdapterPosition();
-            com.github.gripsack.android.data.model.Place place = places.get(pos);
+            Place place = places.get(pos);
             switch (id) {
                 case R.id.item_bucketlist:
-                    ExploreFragment.bucketList.add(place);
+                    FirebaseUtil.savePlace(place);
+                    FirebaseUtil.bucketPlace(place.getPlaceid());
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.add_bucketlist),
                             Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.item_like:
-                    ExploreFragment.likeList.add(place);
+                    FirebaseUtil.savePlace(place);
+                    FirebaseUtil.likePlace(place.getPlaceid());
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.add_likedlist),
                             Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.item_add:
-                    ExploreFragment.addToTripList.add(place);
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.add_trip),
                             Toast.LENGTH_SHORT).show();
                     break;
                 case R.id.item_image:
-                    Intent intent=new Intent(mContext, AddTripActivity.class)
-                            .putExtra("SearchedLocation", Parcels.wrap(places.get(getLayoutPosition())));
+                    Intent intent=new Intent(mContext,AddTripActivity.class);
+                    intent.putExtra("SearchedLocation", Parcels.wrap(place));
                     mContext.startActivity(intent);
-                    break;
-            }
 
+                    break;
+
+            }
         }
     }
 }

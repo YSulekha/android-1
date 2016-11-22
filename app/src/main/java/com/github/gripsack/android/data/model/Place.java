@@ -92,9 +92,9 @@ public class Place implements Serializable {
 
     public static Place fromJSONObject(JSONObject jsonObject) {
         Place place = new Place();
-//TODO:
-        String apiKey = BuildConfig.MyPlacesApiKey;//"AIzaSyBKTzZ1pACoFNqoX5AbiFZCz7TPZMjG1nQ";//
-        String ph_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key=" + apiKey;
+
+        String apiKey = BuildConfig.MyPlacesApiKey;
+        String ph_url = "https://maps.googleapis.com/maps/api/place/photo?maxwidth=400&key="+apiKey;
 
         try {
             JSONObject location = jsonObject.getJSONObject("geometry").getJSONObject("location");

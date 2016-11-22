@@ -19,6 +19,17 @@
             app:popupTheme="@style/AppTheme.PopupOverlay" />
 
     </android.support.design.widget.AppBarLayout>
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Try these destinations.."
+        android:id="@+id/text"
+        android:gravity="center_vertical"
+        android:textSize="24sp"
+        android:textColor="@color/colorPrimary"
+        android:textStyle="bold"
+        android:padding="@dimen/activity_horizontal_margin"
+        />
 
     <include
         android:id="@+id/fragment_container"
