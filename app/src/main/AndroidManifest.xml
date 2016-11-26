@@ -153,10 +153,15 @@
             android:name=".ui.trips.EditDestinationActivity"
             android:label="@string/title_activity_add_trip"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".ui.trips.DisplayTripActivity" />
         <activity
             android:name=".ui.destinations.DestinationsActivity"
             android:label="@string/title_activity_destinations"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name=".ui.trips.TripTimelineActivity"
+            android:label="@string/title_activity_trip_timeline"
             android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 

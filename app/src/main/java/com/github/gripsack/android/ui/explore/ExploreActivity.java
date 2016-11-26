@@ -1,14 +1,11 @@
 package com.github.gripsack.android.ui.explore;
 
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.ui.DrawerActivity;
@@ -18,7 +15,6 @@ import com.github.gripsack.android.ui.media.MediaActivity;
 import com.github.gripsack.android.ui.places.PlacesActivity;
 import com.github.gripsack.android.ui.settings.SettingsActivity;
 import com.github.gripsack.android.ui.timeline.TimelineActivity;
-import com.github.gripsack.android.ui.trips.AddTripActivity;
 import com.github.gripsack.android.ui.trips.TripsActivity;
 import com.github.gripsack.android.utils.GoogleUtil;
 import com.google.android.gms.common.ConnectionResult;
@@ -47,23 +43,6 @@ public class ExploreActivity extends DrawerActivity {
         updateNavigationView();
 
     }
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-
-        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
-        fab.setVisibility(View.VISIBLE);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-               Intent intent=new Intent(ExploreActivity.this, AddTripActivity.class);
-                startActivity(intent);
-            }
-        });
-    }
-
 
     @SuppressWarnings("StatementWithEmptyBody")
     @Override

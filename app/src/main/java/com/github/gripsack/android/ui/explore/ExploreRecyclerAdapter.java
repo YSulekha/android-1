@@ -2,6 +2,7 @@ package com.github.gripsack.android.ui.explore;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +15,10 @@ import android.widget.Toast;
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
+import com.github.gripsack.android.ui.trips.AddTripActivity;
 import com.github.gripsack.android.utils.FirebaseUtil;
+
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -66,6 +70,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
             addBucketList.setOnClickListener(this);
             addLikeList.setOnClickListener(this);
             addTripList.setOnClickListener(this);
+            icon.setOnClickListener(this);
         }
 
         @Override
@@ -89,6 +94,11 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
                 case R.id.item_add:
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.add_trip),
                             Toast.LENGTH_SHORT).show();
+                    break;
+                case R.id.item_image:
+                    Intent intent=new Intent(mContext, AddTripActivity.class)
+                            .putExtra("SearchedLocation", Parcels.wrap(places.get(getLayoutPosition())));
+                    mContext.startActivity(intent);
                     break;
             }
         }

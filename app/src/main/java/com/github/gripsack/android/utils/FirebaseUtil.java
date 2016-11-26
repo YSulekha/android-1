@@ -158,6 +158,7 @@ public class FirebaseUtil {
 
     public static void likePlace(String placeId) {
         DatabaseReference user = getCurrentUserRef();
+
         if (user != null) {
             user.child("places")
                     .child("liked")
