@@ -48,6 +48,13 @@ public class CompanionsFragment extends Fragment {
         return rootView;
     }
 
+    @Override
+    public void onDestroyView() {
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(null);
+        }
+        super.onDestroyView();
+    }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {

@@ -105,6 +105,14 @@ public class BucketlistFragment extends Fragment {
     }
 
     @Override
+    public void onDestroyView() {
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(null);
+        }
+        super.onDestroyView();
+    }
+
+    @Override
     public void onSaveInstanceState(Bundle savedInstanceState) {
         // Save currently selected layout manager.
         int recyclerViewScrollPosition = getRecyclerViewScrollPosition();

@@ -151,19 +151,6 @@ public class CompanionsActivity extends SingleFragmentActivity implements Compan
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        this.overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-    }
-
-
-    @Override
-    public void onPause() {
-        super.onPause();
-        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
-    }
-
-    @Override
     public void onCompanionRemoved(String companionKey) {
 
     }

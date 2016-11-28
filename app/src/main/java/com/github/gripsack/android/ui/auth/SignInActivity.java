@@ -68,7 +68,6 @@ public class SignInActivity extends AppCompatActivity {
             @Override
             public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
                 Timber.d("onConnectionFailed: %s", connectionResult);
-                Toast.makeText(SignInActivity.this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
             }
         });
 

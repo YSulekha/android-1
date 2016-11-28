@@ -72,11 +72,45 @@ public class LikedFragment extends Fragment {
                 super.onItemRangeInserted(positionStart, itemCount);
                 // TODO: Refresh feed view.
             }
+
+            public void onChanged() {
+                Timber.d("AdapterDataObserver.onChanged");
+                // Do nothing
+            }
+
+            public void onItemRangeChanged(int positionStart, int itemCount) {
+                Timber.d("AdapterDataObserver.onItemRangeChanged %d %d", positionStart, itemCount);
+                // do nothing
+            }
+
+            public void onItemRangeChanged(int positionStart, int itemCount, Object payload) {
+                // fallback to onItemRangeChanged(positionStart, itemCount) if app
+                // does not override this method.
+                onItemRangeChanged(positionStart, itemCount);
+                Timber.d("AdapterDataObserver.onItemRangeChanged %d %d", positionStart, itemCount);
+            }
+
+            public void onItemRangeRemoved(int positionStart, int itemCount) {
+                // do nothing
+                Timber.d("AdapterDataObserver.onItemRangeRemoved %d %d", positionStart, itemCount);
+            }
+
+            public void onItemRangeMoved(int fromPosition, int toPosition, int itemCount) {
+                // do nothing
+                Timber.d("AdapterDataObserver.onItemRangeMoved %d %d %d", fromPosition, toPosition, itemCount);
+            }
         });
 
         mRecyclerView.setAdapter(mAdapter);
     }
 
+    @Override
+    public void onDestroyView() {
+        if (mRecyclerView != null) {
+            mRecyclerView.setAdapter(null);
+        }
+        super.onDestroyView();
+    }
 
     private FirebaseRecyclerAdapter<Place, PlaceViewHolder> getFirebaseRecyclerAdapter(Query query) {
 

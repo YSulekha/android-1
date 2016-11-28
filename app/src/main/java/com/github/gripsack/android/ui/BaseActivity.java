@@ -6,15 +6,18 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.VisibleForTesting;
 import android.support.v7.app.AppCompatActivity;
+import android.widget.Toast;
 
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.ui.auth.SignInActivity;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 
 import net.hockeyapp.android.UpdateManager;
 
-public abstract class BaseActivity extends AppCompatActivity implements ProgressState {
+public abstract class BaseActivity extends AppCompatActivity implements ProgressState, GoogleApiClient.OnConnectionFailedListener {
 
     @VisibleForTesting
     public ProgressDialog mProgressDialog;
@@ -113,4 +116,9 @@ public abstract class BaseActivity extends AppCompatActivity implements Progress
         }
     }
 
+
+    @Override
+    public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
+        Toast.makeText(this, "Google Play Services error.", Toast.LENGTH_SHORT).show();
+    }
 }

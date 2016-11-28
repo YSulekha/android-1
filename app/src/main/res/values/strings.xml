@@ -77,6 +77,16 @@
     <string name="title_activity_edit_destination">Map</string>
     <string name="title_activity_destinations">DestinationsActivity</string>
     <string name="title_activity_trip_timeline">TripTimelineActivity</string>
+    <string name="menu_item_settings">Settings</string>
+    <string name="menu_label_my_trips">My Trips</string>
+    <string name="menu_item_trips_upcoming">Upcoming</string>
+    <string name="menu_item_trips_past">Past</string>
+    <string name="menu_item_companions">Companions</string>
+    <string name="menu_label_my_places">My Places</string>
+    <string name="menu_item_place_bucketlist">Bucketlist</string>
+    <string name="menu_item_place_visited">visited</string>
+    <string name="menu_item_place_recommended">recommended</string>
+    <string name="menu_item_my_storage">My Storage</string>
 
 
 </resources>

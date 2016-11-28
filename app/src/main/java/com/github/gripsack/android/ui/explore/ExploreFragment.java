@@ -17,11 +17,14 @@ import android.view.ViewGroup;
 import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
+import com.github.gripsack.android.ui.BaseActivity;
 import com.github.gripsack.android.ui.destinations.DestinationAdapter;
 import com.github.gripsack.android.ui.destinations.DestinationsActivity;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -34,12 +37,17 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 
 public class ExploreFragment extends Fragment {
+
+
+    private GoogleApiClient mGoogleApiClient;
+
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     public static final String TAG = "ExploreFragment";
     com.google.android.gms.location.places.Place searchplace;
@@ -68,6 +76,14 @@ public class ExploreFragment extends Fragment {
         ad = new DestinationAdapter(getActivity(), places);
         view.setAdapter(ad);
         sendrequest();
+
+        mGoogleApiClient = new GoogleApiClient
+                .Builder(getContext())
+                .addApi(Places.GEO_DATA_API)
+                .addApi(Places.PLACE_DETECTION_API)
+                .enableAutoManage(getActivity(), (BaseActivity) getActivity())
+                .build();
+
         return rootView;
     }
 
@@ -83,6 +99,7 @@ public class ExploreFragment extends Fragment {
             client.get(url, params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
+                    Timber.d("Status code %d", statusCode);
                     // Root JSON in response is an dictionary i.e { "data : [ ... ] }
                     // Handle resulting parsed JSON response here
                     try {
@@ -96,6 +113,7 @@ public class ExploreFragment extends Fragment {
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
                     // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                    Timber.e(t);
                 }
             });
         }

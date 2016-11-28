@@ -4,42 +4,66 @@
     <group android:checkableBehavior="single">
         <item
             android:id="@+id/nav_explore"
-            android:icon="@drawable/ic_menu_camera"
+            android:icon="@drawable/ic_arrow_expand_all"
             android:title="Explore" />
         <item
-            android:id="@+id/nav_places"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="My Places" />
-        <item
-            android:id="@+id/nav_trips"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="My Trips" />
-
-        <item
             android:id="@+id/nav_timeline"
-            android:icon="@drawable/ic_menu_send"
+            android:icon="@drawable/ic_view_sequential"
             android:title="Timeline" />
-
         <item
-            android:id="@+id/nav_media"
-            android:icon="@drawable/ic_menu_gallery"
-            android:title="My Media" />
-
-        <item
-            android:id="@+id/nav_files"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="My Storage" />
+            android:id="@+id/nav_storage"
+            android:icon="@drawable/ic_file_multiple"
+            android:title="@string/menu_item_my_storage" />
         <item
             android:id="@+id/nav_companions"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Companions" />
+            android:icon="@drawable/ic_account_multiple"
+            android:title="@string/menu_item_companions" />
+        <item android:title="@string/menu_label_my_trips">
+            <menu>
+                <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_trips_upcoming"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="@string/menu_item_trips_upcoming" />
+                <item
+                    android:id="@+id/nav_trips_past"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="@string/menu_item_trips_past" />
+                </group>
+            </menu>
+        </item>
+
+        <item android:title="@string/menu_label_my_places" >
+            <menu>
+                <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/nav_places_bucketlist"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="@string/menu_item_place_bucketlist" />
+                <item
+                    android:id="@+id/nav_places_visited"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="@string/menu_item_place_visited" />
+                <item
+                    android:id="@+id/nav_places_recommended"
+                    android:icon="@drawable/ic_menu_gallery"
+                    android:title="@string/menu_item_place_recommended" />
+                </group>
+            </menu>
+        </item>
     </group>
 
-    <group>
+
+    <group
+        android:id="@+id/menu_settings"
+        android:checkableBehavior="single">
         <item
             android:id="@+id/nav_settings"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Settings" />
+            android:icon="@drawable/ic_settings"
+            android:title="@string/menu_item_settings" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/logout" />
     </group>
-
 </menu>
