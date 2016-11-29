@@ -25,6 +25,7 @@ public abstract class SingleFragmentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
         bind();
+        setSupportActionBar(mToolbar);
 
         mFragmentManager = getSupportFragmentManager();
         mActivityFragment = mFragmentManager.findFragmentById(R.id.fragment_container);
