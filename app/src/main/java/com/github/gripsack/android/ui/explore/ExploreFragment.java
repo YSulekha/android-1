@@ -18,15 +18,11 @@ import android.widget.EditText;
 import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
-
-import com.github.gripsack.android.ui.BaseActivity;
-
 import com.github.gripsack.android.ui.destinations.DestinationsActivity;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -90,12 +86,12 @@ public class ExploreFragment extends Fragment {
         view.setAdapter(ad);
         sendrequest();
 
-        mGoogleApiClient = new GoogleApiClient
+     /*  mGoogleApiClient = new GoogleApiClient
                 .Builder(getContext())
                 .addApi(Places.GEO_DATA_API)
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(getActivity(), (BaseActivity) getActivity())
-                .build();
+                .build();*/
 
 
         if(savedInstanceState == null){
