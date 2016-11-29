@@ -13,12 +13,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 
 import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
+
 import com.github.gripsack.android.ui.BaseActivity;
-import com.github.gripsack.android.ui.destinations.DestinationAdapter;
+
 import com.github.gripsack.android.ui.destinations.DestinationsActivity;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -52,7 +54,7 @@ public class ExploreFragment extends Fragment {
     public static final String TAG = "ExploreFragment";
     com.google.android.gms.location.places.Place searchplace;
     ArrayList<Place> places;
-    DestinationAdapter ad;
+    ExploreRecyclerAdapter ad;
     //List of popular destinations
     String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
             "Toronto", "Paris", "Italy", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};
@@ -70,10 +72,20 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
-        places = new ArrayList<>();
+        if(savedInstanceState==null) {
+            places = new ArrayList<>();
+        }
+        EditText search = (EditText)getActivity().findViewById(R.id.toolbarText);
+        search.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                createAutoCompleteActivity();
+            }
+        });
         RecyclerView view = (RecyclerView) rootView.findViewById(R.id.destination_recycler);
+
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
-        ad = new DestinationAdapter(getActivity(), places);
+        ad = new ExploreRecyclerAdapter(getActivity(), places);
         view.setAdapter(ad);
         sendrequest();
 
@@ -83,6 +95,11 @@ public class ExploreFragment extends Fragment {
                 .addApi(Places.PLACE_DETECTION_API)
                 .enableAutoManage(getActivity(), (BaseActivity) getActivity())
                 .build();
+
+
+        if(savedInstanceState == null){
+            sendrequest();
+        }
 
         return rootView;
     }
@@ -109,6 +126,7 @@ public class ExploreFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
+                    Log.v("hhh",response.toString());
                 }
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {

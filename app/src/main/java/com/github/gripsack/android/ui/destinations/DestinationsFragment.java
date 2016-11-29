@@ -3,8 +3,10 @@ package com.github.gripsack.android.ui.destinations;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.StaggeredGridLayoutManager;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -12,10 +14,11 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
+import com.bumptech.glide.Glide;
 import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
-import com.github.gripsack.android.ui.explore.ExploreRecyclerAdapter;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -46,8 +49,13 @@ public class DestinationsFragment extends Fragment {
     Place searchplace;
     String latLong;
     RecyclerView recyclerView;
-    ExploreRecyclerAdapter placesAdapter;
+    DestinationsAdapter placesAdapter;
     ArrayList<com.github.gripsack.android.data.model.Place> placesList;
+    ImageView imageView;
+    String photoURl;
+
+  String types = "amusement_park|aquarium|museum|park|zoo|art_gallery";
+    String[] type = {"amusement_park", "aquarium", "museum", "park", "zoo", "art_gallery"};
 
 
     public DestinationsFragment() {
@@ -56,14 +64,26 @@ public class DestinationsFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_destinations, container, false);
-        Intent intent = getActivity().getIntent();
-        latLong = intent.getStringExtra("latLong");
+        View rootView = inflater.inflate(R.layout.fragment_destinations_bac, container, false);
+        Toolbar toolbar = (Toolbar) rootView.findViewById(R.id.toolbar);
+        ((AppCompatActivity) getActivity()).setSupportActionBar(toolbar);
+
         placesList = new ArrayList<>();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.main_recycler);
-        placesAdapter = new ExploreRecyclerAdapter(getActivity(), placesList);
+        placesAdapter = new DestinationsAdapter(getActivity(), placesList);
         recyclerView.setAdapter(placesAdapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(getActivity(), 2));
+        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+        imageView = (ImageView) rootView.findViewById(R.id.photoCollapse);
+
+        Intent intent = getActivity().getIntent();
+        latLong = intent.getStringExtra("latLong");
+
+        photoURl = intent.getStringExtra("photoUrl");
+        Log.v("kkk",photoURl+imageView);
+        Glide.with(getActivity()).load(photoURl).into(imageView);
+
+
         sendrequest();
         return rootView;
     }
@@ -76,16 +96,22 @@ public class DestinationsFragment extends Fragment {
         params.put("location", latLong);
         params.put("rankby", "prominence");
         params.put("key", apiKey);
+        params.put("types",types);
+        params.put("radius",5000);
         client.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     JSONArray resultsArray = response.getJSONArray("results");
                     placesList.addAll(com.github.gripsack.android.data.model.Place.fromJSONArray(resultsArray));
+                    if(photoURl==null) {
+                        Glide.with(getActivity()).load(placesList.get(0).getPhotoUrl()).into(imageView);
+                    }
                     placesAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
+                Log.v("response",response.toString());
             }
 
             @Override

@@ -1,5 +1,6 @@
 package com.github.gripsack.android.ui;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.Fragment;
@@ -17,7 +18,7 @@ public abstract class SingleFragmentActivity extends BaseActivity {
 
     @LayoutRes
     protected int getLayoutResId() {
-        return R.layout.activity_fragment;
+        return R.layout.activity_fragment_bac;
     }
 
     @Override
@@ -25,6 +26,7 @@ public abstract class SingleFragmentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(getLayoutResId());
         bind();
+        mToolbar.setBackgroundColor(Color.TRANSPARENT);
         setSupportActionBar(mToolbar);
 
         mFragmentManager = getSupportFragmentManager();
