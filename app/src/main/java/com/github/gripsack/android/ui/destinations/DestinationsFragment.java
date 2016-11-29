@@ -51,6 +51,7 @@ public class DestinationsFragment extends Fragment {
     RecyclerView recyclerView;
     DestinationsAdapter placesAdapter;
     ArrayList<com.github.gripsack.android.data.model.Place> placesList;
+
     ImageView imageView;
     String photoURl;
 
@@ -72,19 +73,19 @@ public class DestinationsFragment extends Fragment {
         recyclerView = (RecyclerView) rootView.findViewById(R.id.main_recycler);
         placesAdapter = new DestinationsAdapter(getActivity(), placesList);
         recyclerView.setAdapter(placesAdapter);
+
         StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(staggeredGridLayoutManager);
+
         imageView = (ImageView) rootView.findViewById(R.id.photoCollapse);
 
         Intent intent = getActivity().getIntent();
         latLong = intent.getStringExtra("latLong");
-
         photoURl = intent.getStringExtra("photoUrl");
-
         Glide.with(getActivity()).load(photoURl).into(imageView);
 
-
         sendrequest();
+
         return rootView;
     }
 

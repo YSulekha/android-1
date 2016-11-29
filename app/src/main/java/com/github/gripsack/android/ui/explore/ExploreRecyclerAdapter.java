@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +20,13 @@ import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.ui.destinations.DestinationsActivity;
 import com.github.gripsack.android.ui.trips.AddTripActivity;
+import com.github.gripsack.android.utils.FirebaseUtil;
 
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
+
+
 
 
 public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecyclerAdapter.DestinationViewHolder> {
@@ -53,8 +57,9 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-                        //Once the bitmap is ready, extract the Vibrant colors
-
+                        // do something with the bitmap
+                        // for demonstration purposes, let's just set it to an ImageView
+                        Log.v("Inside Bitmap", "dsfsdf");
                         Palette p = Palette.generate(bitmap);
                         int color = p.getDarkVibrantColor(0xFF333333);
                         holder.icon.setImageBitmap(bitmap);
@@ -65,6 +70,7 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
 
 
         holder.name.setText(destination.getName());
+
     }
 
     @Override
@@ -93,7 +99,6 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
             int pos = getAdapterPosition();
             Place place = destinations.get(pos);
             switch (id) {
-
 
                 case R.id.item_image:
                    // Intent intent=new Intent(mContext, AddTripActivity.class)

@@ -1,3 +1,4 @@
+
 package com.github.gripsack.android.ui.explore;
 
 import android.content.Intent;
@@ -23,6 +24,7 @@ import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -42,15 +44,13 @@ import static android.app.Activity.RESULT_OK;
 
 
 public class ExploreFragment extends Fragment {
-
-
-    private GoogleApiClient mGoogleApiClient;
-
     public static final int PLACE_AUTOCOMPLETE_REQUEST_CODE = 1;
     public static final String TAG = "ExploreFragment";
     com.google.android.gms.location.places.Place searchplace;
     ArrayList<Place> places;
+
     ExploreRecyclerAdapter ad;
+
 
     //List of popular destinations
     String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
@@ -84,7 +84,7 @@ public class ExploreFragment extends Fragment {
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
         ad = new ExploreRecyclerAdapter(getActivity(), places);
         view.setAdapter(ad);
-        sendrequest();
+
 
      /*  mGoogleApiClient = new GoogleApiClient
                 .Builder(getContext())
@@ -97,7 +97,6 @@ public class ExploreFragment extends Fragment {
         if(savedInstanceState == null){
             sendrequest();
         }
-
         return rootView;
     }
 
@@ -113,7 +112,6 @@ public class ExploreFragment extends Fragment {
             client.get(url, params, new JsonHttpResponseHandler() {
                 @Override
                 public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
-                    Timber.d("Status code %d", statusCode);
                     // Root JSON in response is an dictionary i.e { "data : [ ... ] }
                     // Handle resulting parsed JSON response here
                     try {
