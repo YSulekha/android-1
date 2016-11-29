@@ -1,75 +1,87 @@
 package com.github.gripsack.android.ui.explore;
 
-
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
-import com.github.gripsack.android.ui.trips.AddTripActivity;
-import com.github.gripsack.android.utils.FirebaseUtil;
-
-import org.parceler.Parcels;
+import com.github.gripsack.android.ui.destinations.DestinationsActivity;
 
 import java.util.ArrayList;
 
-//Adapter for dislpaying places in RecyclerView in Explore Fragment
-public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecyclerAdapter.PlaceViewHolder> {
 
-    ArrayList<com.github.gripsack.android.data.model.Place> places;
+public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecyclerAdapter.DestinationViewHolder> {
+
+    ArrayList<Place> destinations;
     Context mContext;
 
-    public ExploreRecyclerAdapter(Context context, ArrayList<com.github.gripsack.android.data.model.Place> p) {
+    public ExploreRecyclerAdapter(Context context, ArrayList<Place> p) {
         mContext = context;
-        places = p;
+        destinations = p;
     }
 
     @Override
-    public PlaceViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(mContext).inflate(R.layout.explore_grid_item, parent, false);
-        PlaceViewHolder vh = new PlaceViewHolder(view);
+    public DestinationViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(mContext).inflate(R.layout.destination_item, parent, false);
+        ExploreRecyclerAdapter.DestinationViewHolder vh = new ExploreRecyclerAdapter.DestinationViewHolder(view);
         return vh;
     }
 
     @Override
-    public void onBindViewHolder(PlaceViewHolder holder, int position) {
-        com.github.gripsack.android.data.model.Place place = places.get(position);
-        holder.name.setText(place.getName());
-        Glide.with(mContext).load(place.getPhotoUrl()).into(holder.icon);
+    public void onBindViewHolder(DestinationViewHolder holder, int position) {
+
+
+        Place destination = destinations.get(position);
+        Glide.with(mContext)
+                .load(destination.getPhotoUrl())
+                .asBitmap()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                        // do something with the bitmap
+                        // for demonstration purposes, let's just set it to an ImageView
+                        Log.v("Inside Bitmap", "dsfsdf");
+                        Palette p = Palette.generate(bitmap);
+                        int color = p.getDarkVibrantColor(0xFF333333);
+                        holder.icon.setImageBitmap(bitmap);
+                        holder.view.setBackgroundColor(color);
+                        holder.view.setAlpha(0.5f);
+                    }
+                });
+
+
+        holder.name.setText(destination.getName());
     }
 
     @Override
     public int getItemCount() {
-        return places.size();
+        return destinations.size();
     }
 
-    class PlaceViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class DestinationViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
         public TextView name;
         public ImageView icon;
-        public ImageButton addBucketList;
-        public ImageButton addLikeList;
-        public ImageButton addTripList;
+        public View view;
 
-        public PlaceViewHolder(View itemView) {
+
+        public DestinationViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.item_name);
-            icon = (ImageView) itemView.findViewById(R.id.item_image);
-            addBucketList = (ImageButton) itemView.findViewById(R.id.item_bucketlist);
-            addLikeList = (ImageButton) itemView.findViewById(R.id.item_like);
-            addTripList = (ImageButton) itemView.findViewById(R.id.item_add);
-            addBucketList.setOnClickListener(this);
-            addLikeList.setOnClickListener(this);
-            addTripList.setOnClickListener(this);
+            name = (TextView) itemView.findViewById(R.id.destination_name);
+            icon = (ImageView) itemView.findViewById(R.id.destination_image);
+            view = (View) itemView.findViewById(R.id.destination_view);
             icon.setOnClickListener(this);
         }
 
@@ -77,27 +89,13 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
         public void onClick(View view) {
             int id = view.getId();
             int pos = getAdapterPosition();
-            Place place = places.get(pos);
+            Place place = destinations.get(pos);
             switch (id) {
-                case R.id.item_bucketlist:
-                    FirebaseUtil.savePlace(place);
-                    FirebaseUtil.bucketPlace(place.getPlaceid());
-                    Toast.makeText(mContext, mContext.getResources().getString(R.string.add_bucketlist),
-                            Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.item_like:
-                    FirebaseUtil.savePlace(place);
-                    FirebaseUtil.likePlace(place.getPlaceid());
-                    Toast.makeText(mContext, mContext.getResources().getString(R.string.add_likedlist),
-                            Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.item_add:
-                    Toast.makeText(mContext, mContext.getResources().getString(R.string.add_trip),
-                            Toast.LENGTH_SHORT).show();
-                    break;
-                case R.id.item_image:
-                    Intent intent=new Intent(mContext, AddTripActivity.class)
-                            .putExtra("SearchedLocation", Parcels.wrap(places.get(getLayoutPosition())));
+                case R.id.destination_image:
+                    Intent intent = new Intent(mContext, DestinationsActivity.class);
+                    String latLong = place.getLatitude() + "," + place.getLongitude();
+                    intent.putExtra("latLong", latLong);
+                    intent.putExtra("photoUrl",place.getPhotoUrl());
                     mContext.startActivity(intent);
                     break;
             }

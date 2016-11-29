@@ -61,4 +61,11 @@
     <style name="Preference" parent="AppTheme.NoActionBar">
     </style>
 
+    <style name="Rushmore.Toolbar.Transparent" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+    <item name="android:windowActionBarOverlay">true</item>
+
+    <!-- Support Library compability -->
+    <item name="windowActionBarOverlay">true</item>
+</style>
+
 </resources>
