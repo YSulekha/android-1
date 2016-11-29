@@ -14,7 +14,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 
 import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
@@ -22,9 +21,7 @@ import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.ui.destinations.DestinationsActivity;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
-import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.common.api.Status;
-import com.google.android.gms.location.places.Places;
 import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
@@ -72,13 +69,14 @@ public class ExploreFragment extends Fragment {
         if(savedInstanceState==null) {
             places = new ArrayList<>();
         }
-        EditText search = (EditText)getActivity().findViewById(R.id.toolbarText);
+     /*   EditText search = (EditText)getActivity().findViewById(R.id.toolbarText);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 createAutoCompleteActivity();
             }
-        });
+        });*/
+        
         RecyclerView view = (RecyclerView) rootView.findViewById(R.id.destination_recycler);
 
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
