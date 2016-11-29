@@ -9,7 +9,7 @@
     tools:openDrawer="start">
 
     <include
-        layout="@layout/activity_fragment_bac"
+        layout="@layout/activity_fragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

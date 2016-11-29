@@ -27,7 +27,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/photo_placeholder"
                 app:layout_collapseMode="parallax"
-                android:fitsSystemWindows="true">
+                android:fitsSystemWindows="true"
+              >
                 <ImageView
                     android:id="@+id/photoCollapse"
                     android:layout_width="match_parent"
@@ -36,7 +37,8 @@
                     android:scaleType="centerCrop"
                     android:src="@drawable/travel_photo"
                     android:fitsSystemWindows="true"
-                    app:layout_collapseMode="parallax"/>
+                    app:layout_collapseMode="parallax"
+                    />
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -70,6 +72,7 @@
                 android:padding="10dp"
                 android:textColorHint="#a7a7af"
                 android:clickable="true"
+
                 />
             </android.support.v7.widget.Toolbar>
 
