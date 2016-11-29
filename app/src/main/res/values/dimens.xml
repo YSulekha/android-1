@@ -18,4 +18,8 @@
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
 
+    <dimen name="detail_photo_height">304dp</dimen>
+
+    <dimen name="keyline_margin">4dp</dimen>
+
 </resources>
