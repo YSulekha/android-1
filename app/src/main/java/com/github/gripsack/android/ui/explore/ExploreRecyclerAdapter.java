@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,9 +53,8 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
                 .into(new SimpleTarget<Bitmap>() {
                     @Override
                     public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
-                        // do something with the bitmap
-                        // for demonstration purposes, let's just set it to an ImageView
-                        Log.v("Inside Bitmap", "dsfsdf");
+                        //Once the bitmap is ready, extract the Vibrant colors
+
                         Palette p = Palette.generate(bitmap);
                         int color = p.getDarkVibrantColor(0xFF333333);
                         holder.icon.setImageBitmap(bitmap);

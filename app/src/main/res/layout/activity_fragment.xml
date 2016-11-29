@@ -17,16 +17,6 @@
             android:layout_height="?attr/actionBarSize"
             android:background="@android:color/transparent"
             app:popupTheme="@style/AppTheme.PopupOverlay" >
-        <EditText
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:id="@+id/toolbarText"
-            android:background="@color/color_white"
-            android:outlineProvider="background"
-            android:hint="Where'd u go"
-            android:textColorHint="#000"
-            android:clickable="true"
-            />
         </android.support.v7.widget.Toolbar>
 
     </android.support.design.widget.AppBarLayout>

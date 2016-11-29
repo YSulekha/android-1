@@ -54,8 +54,8 @@ public class DestinationsFragment extends Fragment {
     ImageView imageView;
     String photoURl;
 
-  String types = "amusement_park|aquarium|museum|park|zoo|art_gallery";
-    String[] type = {"amusement_park", "aquarium", "museum", "park", "zoo", "art_gallery"};
+    String types = "amusement_park|aquarium|museum|park|zoo|art_gallery";
+  //  String[] type = {"amusement_park", "aquarium", "museum", "park", "zoo", "art_gallery"};
 
 
     public DestinationsFragment() {
@@ -80,7 +80,7 @@ public class DestinationsFragment extends Fragment {
         latLong = intent.getStringExtra("latLong");
 
         photoURl = intent.getStringExtra("photoUrl");
-        Log.v("kkk",photoURl+imageView);
+
         Glide.with(getActivity()).load(photoURl).into(imageView);
 
 

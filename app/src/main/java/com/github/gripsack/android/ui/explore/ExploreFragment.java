@@ -55,6 +55,7 @@ public class ExploreFragment extends Fragment {
     com.google.android.gms.location.places.Place searchplace;
     ArrayList<Place> places;
     ExploreRecyclerAdapter ad;
+
     //List of popular destinations
     String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
             "Toronto", "Paris", "Italy", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};

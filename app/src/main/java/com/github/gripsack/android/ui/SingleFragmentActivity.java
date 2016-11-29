@@ -18,7 +18,7 @@ public abstract class SingleFragmentActivity extends BaseActivity {
 
     @LayoutRes
     protected int getLayoutResId() {
-        return R.layout.activity_fragment_bac;
+        return R.layout.activity_fragment;
     }
 
     @Override
