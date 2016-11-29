@@ -8,6 +8,8 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 
     <!-- PlacePicker also requires OpenGL ES version 2 -->
     <uses-feature
@@ -164,6 +166,10 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.trips.AddPhotoActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <service
+            android:name=".services.LocationService"
+            android:enabled="true"
+            android:exported="true"></service>
     </application>
 
 </manifest>

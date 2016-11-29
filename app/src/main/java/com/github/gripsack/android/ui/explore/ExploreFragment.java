@@ -2,8 +2,10 @@
 package com.github.gripsack.android.ui.explore;
 
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -18,6 +20,7 @@ import android.view.ViewGroup;
 import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
+import com.github.gripsack.android.services.LocationService;
 import com.github.gripsack.android.ui.destinations.DestinationsActivity;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -48,10 +51,11 @@ public class ExploreFragment extends Fragment {
 
     ExploreRecyclerAdapter ad;
 
-
     //List of popular destinations
     String[] placesName = {"San Francisco", "New York", "Seattle", "Sydney", "Agra", "Abu Dhabi",
             "Toronto", "Paris", "Italy", "Chicago", "Shangai", "Montreal", "Kaula Lampur"};
+
+    private static final int MY_PERMISSION_REQUEST_FINE_LOCATION = 101;
 
     public static ExploreFragment newInstance() {
         return new ExploreFragment();
@@ -69,6 +73,18 @@ public class ExploreFragment extends Fragment {
         if(savedInstanceState==null) {
             places = new ArrayList<>();
         }
+        Intent intent = new Intent(getActivity(), LocationService.class);
+
+        //Check if there is a permission to access location
+        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+
+            //else request permission to access location
+            ActivityCompat.requestPermissions(getActivity(),new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_REQUEST_FINE_LOCATION);
+
+        }
+        getActivity().startService(intent);
+
      /*   EditText search = (EditText)getActivity().findViewById(R.id.toolbarText);
         search.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -76,9 +92,8 @@ public class ExploreFragment extends Fragment {
                 createAutoCompleteActivity();
             }
         });*/
-        
-        RecyclerView view = (RecyclerView) rootView.findViewById(R.id.destination_recycler);
 
+        RecyclerView view = (RecyclerView) rootView.findViewById(R.id.destination_recycler);
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
         ad = new ExploreRecyclerAdapter(getActivity(), places);
         view.setAdapter(ad);
