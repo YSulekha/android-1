@@ -87,6 +87,12 @@ The following **bonus** features are implemented:
 
 Here's a walkthrough of implemented user stories:
 
+<img src='https://github.com/gripsack/android/blob/master/GripSackSprintv2.gif' title='App Walkthrough' width='' alt='App Walkthrough' />
+
+<img src='https://github.com/gripsack/android/blob/master/GripSackSprintv2.1.gif' title='App Walkthrough' width='' alt='App Walkthrough' />
+
+
+
 
 ## Notes
 
