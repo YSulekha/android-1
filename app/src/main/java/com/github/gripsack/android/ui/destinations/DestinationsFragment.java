@@ -2,6 +2,7 @@ package com.github.gripsack.android.ui.destinations;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -60,6 +61,12 @@ public class DestinationsFragment extends Fragment {
 
 
     public DestinationsFragment() {
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -125,7 +132,7 @@ public class DestinationsFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
         super.onCreateOptionsMenu(menu, inflater);
-        inflater.inflate(R.menu.menu_explore, menu);
+        inflater.inflate(R.menu.menu_destinations, menu);
     }
 
     @Override
@@ -158,6 +165,7 @@ public class DestinationsFragment extends Fragment {
             if (resultCode == RESULT_OK) {
                 searchplace = PlaceAutocomplete.getPlace(getActivity(), data);
                 placesList.clear();
+                latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
                 sendrequest();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
