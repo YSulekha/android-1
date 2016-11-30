@@ -16,29 +16,62 @@
 
 package com.github.gripsack.android.ui.trips;
 
+import android.content.Context;
+import android.content.Intent;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
+import com.github.gripsack.android.data.model.Trip;
+import com.github.gripsack.android.utils.GlideUtil;
+
+import org.parceler.Parcels;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class TripViewHolder extends RecyclerView.ViewHolder {
 
     private final View mView;
-    private TextView mTripName;
+    private TextView tvTripName;
+    private TextView tvTripDate;
+    private ImageView ivTripImage;
+    private CardView cardView;
 
     public TripViewHolder(View itemView) {
         super(itemView);
         mView = itemView;
-        mTripName = (TextView) mView.findViewById(R.id.tripName);
+        tvTripName = (TextView) mView.findViewById(R.id.tvTripName);
+        tvTripDate=(TextView)mView.findViewById(R.id.tvTripDate);
+        ivTripImage=(ImageView)mView.findViewById(R.id.ivTripImage);
+        cardView=(CardView)mView.findViewById(R.id.card_view);
+
     }
 
     public void setName(String name, final String uid) {
-        mTripName.setText(name);
-        mTripName.setOnClickListener(new View.OnClickListener() {
+        tvTripName.setText(name);
+    }
+    public void setImage(Trip trip, final String uid, Context context) {
+        GlideUtil.loadProfilePhoto(trip.getSearchDestination().getPhotoUrl(), ivTripImage);
+        ivTripImage.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view) {
+                Intent intent=new Intent(context,EditTripActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));
+                context.startActivity(intent);
             }
         });
+    }
+
+    public void setDate(String date, final String uid) {
+        tvTripDate.setText(date);
+    }
+
+
+    public void removeView(){
+        cardView.setVisibility(View.GONE);
     }
 }

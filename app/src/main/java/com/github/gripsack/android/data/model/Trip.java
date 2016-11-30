@@ -10,6 +10,7 @@ import java.util.ArrayList;
 
 @Parcel
 public class Trip {
+    private String tripId;
     private String tripName;
     private String beginDate;
     private Place searchDestination;
@@ -19,6 +20,10 @@ public class Trip {
 
     public Trip(){
 
+    }
+
+    public void setTripId(String tripId) {
+        this.tripId = tripId;
     }
 
     public void setBeginDate(String beginDate) {
@@ -67,5 +72,9 @@ public class Trip {
 
     public ArrayList<User> getCollaborators() {
         return collaborators;
+    }
+
+    public String getTripId() {
+        return tripId;
     }
 }

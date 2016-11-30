@@ -17,6 +17,11 @@ import com.github.gripsack.android.data.model.Trip;
 import com.github.gripsack.android.utils.FirebaseUtil;
 import com.google.firebase.database.Query;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Date;
+
 import timber.log.Timber;
 
 import static com.github.gripsack.android.utils.FirebaseUtil.getCurrentUserId;
@@ -51,7 +56,7 @@ public class UpcomingFragment extends Fragment {
             return;
         }
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 1);
         mRecyclerView.setLayoutManager(layoutManager);
 
         if (savedInstanceState != null) {
@@ -87,9 +92,24 @@ public class UpcomingFragment extends Fragment {
                 FirebaseUtil.getTripsRef()) {
             @Override
             protected void populateViewHolder(TripViewHolder viewHolder, Trip model, int position) {
-                String key = this.getRef(position).getKey();
-                Timber.d("position %d key %s", position, key);
-                viewHolder.setName(model.getTripName(), key);
+               /* SimpleDateFormat sdf = new SimpleDateFormat("MM-dd-yyyy");
+                try {
+                    Date tripDate = sdf.parse(model.getBeginDate());
+                    Date todaysDate=new Date();
+                    if(todaysDate.compareTo(tripDate) < 0){
+                        viewHolder.removeView();
+                    }
+                    else {*/
+                        String key = this.getRef(position).getKey();
+                        Timber.d("position %d key %s", position, key);
+                        viewHolder.setName(model.getTripName(), key);
+                        viewHolder.setDate(model.getBeginDate(),key);
+                        viewHolder.setImage(model,key,getContext());
+                  /*  }
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }*/
+
             }
         };
     }

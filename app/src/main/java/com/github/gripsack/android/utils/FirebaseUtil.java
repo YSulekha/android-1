@@ -146,6 +146,7 @@ public class FirebaseUtil {
             return;
         }
         String tripId = getTripsRef().push().getKey();
+        trip.setTripId(tripId);
         getTripsRef().child(tripId).setValue(trip);
         user.child("trips")
                 .child(tripId)
@@ -175,5 +176,17 @@ public class FirebaseUtil {
                     .child(placeId)
                     .setValue(true);
         }
+    }
+
+    public static void saveImage(String imageEncoded,String tripId){
+        String key = getBaseRef().child("photos").push().getKey();
+        getBaseRef().child("photos").child(key).setValue(imageEncoded);
+        DatabaseReference trip=getTripsRef().child(tripId);
+        if(trip !=null){
+            trip.child("photos")
+                    .child(key)
+                    .setValue(true);
+        }
+
     }
 }

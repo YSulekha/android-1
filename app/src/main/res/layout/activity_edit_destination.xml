@@ -82,12 +82,12 @@
           android:layout_height="1dp"
           android:background="#D6E6E5" />
 
-      <Button
+     <!-- <Button
           android:id="@+id/btnLikedList"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
           android:text="Liked List"
-          android:background="#FAFAFA"/>
+          android:background="#FAFAFA"/>-->
       <View
           android:layout_width="match_parent"
           android:layout_height="1dp"

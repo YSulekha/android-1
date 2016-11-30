@@ -59,8 +59,8 @@ public class EditDestinationActivity extends AppCompatActivity
     private BottomSheetBehavior mBottomSheetBehavior;
     @BindView(R.id.btnBucketList)
     Button btnBucketList;
-    @BindView(R.id.btnLikedList)
-    Button btnLikedList;
+    /*@BindView(R.id.btnLikedList)
+    Button btnLikedList;*/
     @BindView(R.id.btnVisitedList)
     Button btnVisitedList;
     @BindView(R.id.btnRecommendedList)
@@ -92,7 +92,7 @@ public class EditDestinationActivity extends AppCompatActivity
 
         btnBucketList.setOnClickListener(this);
         btnRecommendedList.setOnClickListener(this);
-        btnLikedList.setOnClickListener(this);
+       // btnLikedList.setOnClickListener(this);
         btnVisitedList.setOnClickListener(this);
         tvDone.setOnClickListener(this);
 
@@ -228,8 +228,8 @@ public class EditDestinationActivity extends AppCompatActivity
         switch (id){
             case R.id.btnBucketList:
                 break;
-            case R.id.btnLikedList:
-                break;
+            /*case R.id.btnLikedList:
+                break;*/
             case R.id.btnVisitedList:
                 break;
             case R.id.btnRecommendedList:

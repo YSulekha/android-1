@@ -3,26 +3,16 @@ package com.github.gripsack.android.ui.trips;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.FloatingActionButton;
-import android.support.v4.app.FragmentActivity;
 import android.os.Bundle;
-import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-
-import com.bumptech.glide.load.resource.bitmap.BitmapDrawableResource;
 import com.github.gripsack.android.R;
-import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
-import com.github.gripsack.android.data.model.TripTypes;
+import com.github.gripsack.android.ui.MainActivity;
 import com.github.gripsack.android.ui.companions.CompanionsActivity;
-import com.github.gripsack.android.utils.MapUtil;
-import com.google.android.gms.location.places.ui.PlacePicker;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -43,7 +33,6 @@ public class EditTripActivity extends AppCompatActivity
         implements OnMapReadyCallback,View.OnClickListener{//,GoogleMap.OnMapClickListener {
 
     private GoogleMap mMap;
-    private ArrayList<LatLng> placesCoordinates;
     private Trip trip;
     int HOTEL_PICKER_REQUEST = 1;
 
@@ -55,6 +44,8 @@ public class EditTripActivity extends AppCompatActivity
     LinearLayout lyCompanion;
     @BindView(R.id.lyHotel)
     LinearLayout lyHotel;
+    @BindView(R.id.lyPhotos)
+    LinearLayout lyPhotos;
     @BindView(R.id.tvDone)
     TextView tvDone;
 
@@ -81,6 +72,8 @@ public class EditTripActivity extends AppCompatActivity
         lyCompanion.setOnClickListener(this);
         lyHotel.setOnClickListener(this);
         lyLocation.setOnClickListener(this);
+        lyPhotos.setOnClickListener(this);
+
         tvDone.setOnClickListener(this);
 
     }
@@ -128,9 +121,15 @@ public class EditTripActivity extends AppCompatActivity
                 startActivityForResult(intentHotel,HOTEL_PICKER_REQUEST);
                 break;
 
+            case R.id.lyPhotos:
+                Intent intentPhotos=new Intent(this,AddPhotoActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));;
+                startActivity(intentPhotos);
+                break;
             case R.id.tvDone:
-               /* Intent intent=new Intent(this,TripTimelineActivity.class)
-                        .putExtra("Places", Parcels.wrap(pla));*/
+                Intent intent=new Intent(this,MainActivity.class);
+                startActivity(intent);
+                finish();
         }
 
     }

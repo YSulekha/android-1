@@ -1,6 +1,7 @@
 package com.github.gripsack.android.ui.trips;
 
 import android.app.DatePickerDialog;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.media.Image;
@@ -28,6 +29,7 @@ import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
 import com.github.gripsack.android.data.model.TripTypes;
+import com.github.gripsack.android.ui.companions.CompanionsActivity;
 import com.github.gripsack.android.utils.FirebaseUtil;
 import com.github.gripsack.android.utils.MapUtil;
 import com.google.android.gms.maps.CameraUpdateFactory;
@@ -108,6 +110,11 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
     @BindView(R.id.ivCulinary)
     ImageView ivCulinary;
 
+    public static Intent newIntent(Context packageContext) {
+        Intent intent = new Intent(packageContext, AddTripActivity.class);
+        return intent;
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,7 +125,7 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         searchedPlace= new Place();
 
         /*TODO:To test, It will close*/
-        /*searchedPlace.setLatitude(37.773972);
+       /* searchedPlace.setLatitude(37.773972);
         searchedPlace.setLongitude(-122.431297);
         searchedPlace.setName("San Francisco");
         searchedPlace.setRating(4);*/

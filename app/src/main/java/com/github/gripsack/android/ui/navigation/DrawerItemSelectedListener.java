@@ -17,6 +17,7 @@ import com.github.gripsack.android.ui.places.RecommendedFragment;
 import com.github.gripsack.android.ui.places.VisitedFragment;
 import com.github.gripsack.android.ui.settings.SettingsActivity;
 import com.github.gripsack.android.ui.timeline.TimelineFragment;
+import com.github.gripsack.android.ui.trips.AddTripActivity;
 import com.github.gripsack.android.ui.trips.CompletedFragment;
 import com.github.gripsack.android.ui.trips.UpcomingFragment;
 import com.google.android.gms.auth.api.Auth;
@@ -91,6 +92,8 @@ public class DrawerItemSelectedListener implements
             case R.id.nav_settings:
                 intent = SettingsActivity.newIntent(mContext);
                 mContext.startActivity(intent);
+                /*intent= AddTripActivity.newIntent(mContext);
+                mContext.startActivity(intent);*/
                 break;
 
             case R.id.nav_logout:
