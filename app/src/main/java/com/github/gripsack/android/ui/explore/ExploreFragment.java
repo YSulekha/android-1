@@ -22,6 +22,7 @@ import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.services.LocationService;
 import com.github.gripsack.android.ui.destinations.DestinationsActivity;
+import com.github.gripsack.android.ui.destinations.DestinationsFragment;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -33,6 +34,7 @@ import com.loopj.android.http.RequestParams;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -181,9 +183,17 @@ public class ExploreFragment extends Fragment {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 searchplace = PlaceAutocomplete.getPlace(getActivity(), data);
+                Place place = new Place();
+                place.setLatitude(searchplace.getLatLng().latitude);
+                place.setLongitude(searchplace.getLatLng().longitude);
+                place.setName((String) searchplace.getName());
+                place.setPlaceid(searchplace.getId());
+                place.setRating(searchplace.getRating());
+
                 Intent intent = new Intent(getActivity(), DestinationsActivity.class);
-                String latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
-                intent.putExtra("latLong", latLong);
+                intent.putExtra(DestinationsFragment.EXTRA_PLACE,Parcels.wrap(place));
+                //String latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
+                //intent.putExtra("latLong", latLong);
                 startActivity(intent);
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);

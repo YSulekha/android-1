@@ -18,6 +18,7 @@ import com.bumptech.glide.request.target.SimpleTarget;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.ui.destinations.DestinationsActivity;
+import com.github.gripsack.android.ui.destinations.DestinationsFragment;
 import com.github.gripsack.android.ui.trips.AddTripActivity;
 
 import org.parceler.Parcels;
@@ -107,9 +108,11 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
 
                 case R.id.destination_image:
                     Intent destinationIntent = new Intent(mContext, DestinationsActivity.class);
-                    String latLong = place.getLatitude() + "," + place.getLongitude();
-                    destinationIntent.putExtra("latLong", latLong);
-                    destinationIntent.putExtra("photoUrl",place.getPhotoUrl());
+                 //   String latLong = place.getLatitude() + "," + place.getLongitude();
+                   // destinationIntent.putExtra("latLong", latLong);
+                    //destinationIntent.putExtra("photoUrl",place.getPhotoUrl());
+                    //destinationIntent.putExtra("name",place.getName());
+                    destinationIntent.putExtra(DestinationsFragment.EXTRA_PLACE,Parcels.wrap(place));
                     mContext.startActivity(destinationIntent);
                     break;
             }
