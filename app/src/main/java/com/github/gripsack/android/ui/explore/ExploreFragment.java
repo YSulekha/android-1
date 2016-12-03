@@ -94,7 +94,7 @@ public class ExploreFragment extends Fragment {
                 createAutoCompleteActivity();
             }
         });*/
-        
+
         RecyclerView view = (RecyclerView) rootView.findViewById(R.id.destination_recycler);
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
         ad = new ExploreRecyclerAdapter(getActivity(), places);
