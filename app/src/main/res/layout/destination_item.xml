@@ -10,6 +10,7 @@
         android:id="@+id/destination_image"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
+        android:transitionName="image"
         />
     <View
         android:layout_width="match_parent"

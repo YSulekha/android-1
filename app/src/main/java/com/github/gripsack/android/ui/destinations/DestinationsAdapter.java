@@ -58,7 +58,6 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
         public ImageView icon;
         public ImageButton addBucketList;
         public ImageButton addLikeList;
-        public ImageButton addTripList;
 
         public PlaceViewHolder(View itemView) {
             super(itemView);
@@ -66,10 +65,8 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
             icon = (ImageView) itemView.findViewById(R.id.item_image);
             addBucketList = (ImageButton) itemView.findViewById(R.id.item_bucketlist);
             addLikeList = (ImageButton) itemView.findViewById(R.id.item_like);
-        //    addTripList = (ImageButton) itemView.findViewById(R.id.item_add);
             addBucketList.setOnClickListener(this);
             addLikeList.setOnClickListener(this);
-//            addTripList.setOnClickListener(this);
             icon.setOnClickListener(this);
         }
 

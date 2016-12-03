@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -58,15 +57,14 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
                     public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
                         // do something with the bitmap
                         // for demonstration purposes, let's just set it to an ImageView
-                        Log.v("Inside Bitmap", "dsfsdf");
-                        Palette p = Palette.generate(bitmap);
-                        int color = p.getDarkVibrantColor(0xFF333333);
+
+                        Palette palette = Palette.generate(bitmap);
+                        int color = palette.getDarkVibrantColor(0xFF333333);
                         holder.icon.setImageBitmap(bitmap);
                         holder.view.setBackgroundColor(color);
                         holder.view.setAlpha(0.5f);
                     }
                 });
-
 
         holder.name.setText(destination.getName());
 
@@ -108,10 +106,6 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
 
                 case R.id.destination_image:
                     Intent destinationIntent = new Intent(mContext, DestinationsActivity.class);
-                 //   String latLong = place.getLatitude() + "," + place.getLongitude();
-                   // destinationIntent.putExtra("latLong", latLong);
-                    //destinationIntent.putExtra("photoUrl",place.getPhotoUrl());
-                    //destinationIntent.putExtra("name",place.getName());
                     destinationIntent.putExtra(DestinationsFragment.EXTRA_PLACE,Parcels.wrap(place));
                     mContext.startActivity(destinationIntent);
                     break;

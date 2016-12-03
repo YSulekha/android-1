@@ -72,7 +72,7 @@ public class ExploreFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
-        if(savedInstanceState==null) {
+        if (savedInstanceState == null) {
             places = new ArrayList<>();
         }
         Intent intent = new Intent(getActivity(), LocationService.class);
@@ -94,7 +94,7 @@ public class ExploreFragment extends Fragment {
                 createAutoCompleteActivity();
             }
         });*/
-
+        
         RecyclerView view = (RecyclerView) rootView.findViewById(R.id.destination_recycler);
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
         ad = new ExploreRecyclerAdapter(getActivity(), places);
@@ -109,7 +109,7 @@ public class ExploreFragment extends Fragment {
                 .build();*/
 
 
-        if(savedInstanceState == null){
+        if (savedInstanceState == null) {
             sendrequest();
         }
         return rootView;
@@ -136,8 +136,8 @@ public class ExploreFragment extends Fragment {
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
-                    Log.v("hhh",response.toString());
                 }
+
                 @Override
                 public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
                     // called when response HTTP status is "4XX" (eg. 401, 403, 404)
@@ -191,9 +191,7 @@ public class ExploreFragment extends Fragment {
                 place.setRating(searchplace.getRating());
 
                 Intent intent = new Intent(getActivity(), DestinationsActivity.class);
-                intent.putExtra(DestinationsFragment.EXTRA_PLACE,Parcels.wrap(place));
-                //String latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
-                //intent.putExtra("latLong", latLong);
+                intent.putExtra(DestinationsFragment.EXTRA_PLACE, Parcels.wrap(place));
                 startActivity(intent);
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);

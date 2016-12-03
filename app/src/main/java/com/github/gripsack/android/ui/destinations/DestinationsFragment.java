@@ -38,6 +38,7 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
@@ -64,7 +65,7 @@ public class DestinationsFragment extends Fragment {
     String name;
 
     String types = "amusement_park|aquarium|museum|park|zoo|art_gallery";
-  //  String[] type = {"amusement_park", "aquarium", "museum", "park", "zoo", "art_gallery"};
+    //  String[] type = {"amusement_park", "aquarium", "museum", "park", "zoo", "art_gallery"};
 
 
     public DestinationsFragment() {
@@ -99,23 +100,13 @@ public class DestinationsFragment extends Fragment {
         Intent intent = getActivity().getIntent();
         com.github.gripsack.android.data.model.Place place = (com.github.gripsack.android.data.model.Place) Parcels.unwrap(intent
                 .getParcelableExtra(EXTRA_PLACE));
-        if(place.getPhotoUrl()!=null) {
+        if (place.getPhotoUrl() != null) {
             Glide.with(getActivity()).load(place.getPhotoUrl()).into(imageView);
-            photoURl=place.getPhotoUrl();
+            photoURl = place.getPhotoUrl();
         }
         mCollapsing.setTitle(place.getName());
-        latLong = place.getLatitude()+ "," + place.getLongitude();
+        latLong = place.getLatitude() + "," + place.getLongitude();
 
-
-     /*   latLong = intent.getStringExtra("latLong");
-        if(intent.hasExtra("photoUrl")){
-     //       photoURl = intent.getStringExtra("photoUrl");
-            Glide.with(getActivity()).load(photoURl).into(imageView);
-        }
-        if(intent.hasExtra("name")){
-       //     name = intent.getStringExtra("name");
-            mCollapsing.setTitle(name);
-        }*/
         sendrequest();
         return rootView;
     }
@@ -128,18 +119,18 @@ public class DestinationsFragment extends Fragment {
         params.put("location", latLong);
         params.put("rankby", "prominence");
         params.put("key", apiKey);
-        params.put("types",types);
-        params.put("radius",5000);
+        params.put("types", types);
+        params.put("radius", 5000);
         client.get(url, params, new JsonHttpResponseHandler() {
             @Override
             public void onSuccess(int statusCode, Header[] headers, JSONObject response) {
                 try {
                     JSONArray resultsArray = response.getJSONArray("results");
                     placesList.addAll(com.github.gripsack.android.data.model.Place.fromJSONArray(resultsArray));
-                    if(photoURl==null && resultsArray.length() >0) {
+                    if (photoURl == null && resultsArray.length() > 0) {
                         Glide.with(getActivity()).load(placesList.get(0).getPhotoUrl()).into(imageView);
                     }
-                    if(searchplace != null){
+                    if (searchplace != null) {
                         mCollapsing.setTitle(searchplace.getName());
                     }
 
@@ -147,12 +138,13 @@ public class DestinationsFragment extends Fragment {
                 } catch (JSONException e) {
                     e.printStackTrace();
                 }
-                Log.v("response",response.toString());
+                Log.v("response", response.toString());
             }
 
             @Override
             public void onFailure(int statusCode, Header[] headers, String res, Throwable t) {
                 // called when response HTTP status is "4XX" (eg. 401, 403, 404)
+                Timber.e(t);
             }
         });
     }
@@ -170,6 +162,10 @@ public class DestinationsFragment extends Fragment {
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_search) {
             createAutoCompleteActivity();
+            return true;
+        }
+        if (id == android.R.id.home) {
+            getActivity().onBackPressed();
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -194,7 +190,7 @@ public class DestinationsFragment extends Fragment {
                 searchplace = PlaceAutocomplete.getPlace(getActivity(), data);
                 placesList.clear();
                 latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
-                photoURl=null;
+                photoURl = null;
                 sendrequest();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
                 Status status = PlaceAutocomplete.getStatus(getActivity(), data);
