@@ -1,24 +1,29 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey_100"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    >
-     <ImageView
-        style="@style/ThemeOverlay.FirebaseIcon"
-        android:id="@+id/google_icon"
-        android:contentDescription="@string/desc_firebase_lockup"
-        android:src="@drawable/gripsack_art"
-        android:layout_width="250dp"
-        android:layout_height="154dp" />
+    android:layout_height="match_parent">
 
-    <com.google.android.gms.common.SignInButton
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/travel_login" />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/google_sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="32dp"
         android:visibility="visible"
-        />
+        app:backgroundTint="@color/color_white"
+        app:borderWidth="0dp"
+        app:elevation="@dimen/fab_elevation"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/arrow_login" />
 
-</LinearLayout>
+
+</FrameLayout>
