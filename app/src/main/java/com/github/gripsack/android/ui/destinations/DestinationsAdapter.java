@@ -3,6 +3,8 @@ package com.github.gripsack.android.ui.destinations;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.ui.trips.AddTripActivity;
@@ -44,7 +48,26 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
     public void onBindViewHolder(PlaceViewHolder holder, int position) {
         com.github.gripsack.android.data.model.Place place = places.get(position);
         holder.name.setText(place.getName());
-        Glide.with(mContext).load(place.getPhotoUrl()).into(holder.icon);
+      //  Glide.with(mContext).load(place.getPhotoUrl()).into(holder.icon);
+        Glide.with(mContext)
+                .load(place.getPhotoUrl())
+                .asBitmap()
+                .into(new SimpleTarget<Bitmap>() {
+                    @Override
+                    public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
+                        // do something with the bitmap
+                        // for demonstration purposes, let's just set it to an ImageView
+                        Palette palette = Palette.from(bitmap).generate();
+                        Palette.Swatch vibrant = palette.getVibrantSwatch();
+                        if (vibrant != null) {
+                            // Set the background color of a layout based on the vibrant color
+                            holder.viewPallete.setBackgroundColor(vibrant.getRgb());
+                            // Update the title TextView with the proper text color
+                            holder.name.setTextColor(vibrant.getTitleTextColor());
+                        }
+                        holder.icon.setImageBitmap(bitmap);
+                    }
+                });
     }
 
     @Override
@@ -57,16 +80,15 @@ public class DestinationsAdapter extends RecyclerView.Adapter<DestinationsAdapte
         public TextView name;
         public ImageView icon;
         public ImageButton addBucketList;
-        public ImageButton addLikeList;
+        public View viewPallete;
 
         public PlaceViewHolder(View itemView) {
             super(itemView);
             name = (TextView) itemView.findViewById(R.id.item_name);
             icon = (ImageView) itemView.findViewById(R.id.item_image);
             addBucketList = (ImageButton) itemView.findViewById(R.id.item_bucketlist);
-            addLikeList = (ImageButton) itemView.findViewById(R.id.item_like);
+            viewPallete=itemView.findViewById(R.id.vPalette);
             addBucketList.setOnClickListener(this);
-            addLikeList.setOnClickListener(this);
             icon.setOnClickListener(this);
         }
 

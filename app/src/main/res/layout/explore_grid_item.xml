@@ -1,47 +1,69 @@
-<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cvRoot"
+    android:layout_marginLeft="@dimen/grid_margin"
+    android:layout_marginRight="@dimen/grid_margin"
+    android:layout_marginTop="@dimen/cell_margin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation"
+    android:foreground="?android:attr/selectableItemBackground">
 
-
-    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout
+        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#F3E5F5">
+        android:layout_height="match_parent">
+
         <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:scaleType="centerCrop"
             android:id="@+id/item_image"
             android:background="@color/photo_placeholder"
-            android:adjustViewBounds="true"
-          />
-        <TextView
-            android:id="@+id/item_name"
+            android:transitionName="profile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="@dimen/keyline_margin"
-            android:ellipsize="end"
-            android:maxLines="4"
-            android:textAppearance ="@style/TextAppearance.AppCompat.Title"
-            android:textColor="@color/color_white"
-            android:textStyle="bold"
-            android:fontFamily="sans-serif"
-            android:gravity="left|start"
-            android:layout_gravity="bottom"
-            android:paddingEnd="@dimen/keyline_margin"
-            android:paddingStart="@dimen/keyline_margin" />
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_like"
-           android:layout_gravity="end"
-            android:background="@android:color/transparent"
-            android:src="@drawable/ic_action_like"/>
-        <ImageButton
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:id="@+id/item_bucketlist"
-            android:background="@android:color/transparent"
-            android:layout_below="@id/item_name"
-            android:src="@drawable/ic_action_bucket"/>
+            android:layout_height="@dimen/grid_profile_height"
+            android:scaleType="centerCrop" />
 
-    </FrameLayout>
+        <RelativeLayout
+            android:layout_alignParentBottom="true"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/palette_height">
 
+            <View
+                android:id="@+id/vPalette"
+                android:transitionName="palette"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/item_name"
+                android:transitionName="name"
+                android:layout_weight="1"
+                android:padding="@dimen/md_keylines"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textAppearance ="@style/TextAppearance.AppCompat.Title"
+                android:textStyle="bold"
+                android:fontFamily="sans-serif"
+                android:textSize="@dimen/contact_text_size"
+                android:textColor="@android:color/black" />
+
+            <ImageButton
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:padding="@dimen/md_keylines"
+                android:id="@+id/item_bucketlist"
+                android:background="@android:color/transparent"
+                android:src="@drawable/ic_action_bucket"/>
+            </LinearLayout>
+        </RelativeLayout>
+    </LinearLayout>
+</android.support.v7.widget.CardView>

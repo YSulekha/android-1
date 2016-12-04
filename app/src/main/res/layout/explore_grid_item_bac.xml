@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F3E5F5">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:id="@+id/item_image"
+        android:background="@color/photo_placeholder"
+        android:adjustViewBounds="true"
+        />
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/keyline_margin"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:textAppearance ="@style/TextAppearance.AppCompat.Title"
+        android:textColor="@color/color_white"
+        android:textStyle="bold"
+        android:fontFamily="sans-serif"
+        android:gravity="left|start"
+        android:layout_gravity="bottom"
+        android:paddingEnd="@dimen/keyline_margin"
+        android:paddingStart="@dimen/keyline_margin" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_like"
+        android:layout_gravity="end"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_action_like"/>
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_bucketlist"
+        android:background="@android:color/transparent"
+        android:layout_below="@id/item_name"
+        android:src="@drawable/ic_action_bucket"/>
+
+</FrameLayout>
+
