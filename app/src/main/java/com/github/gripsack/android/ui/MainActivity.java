@@ -10,7 +10,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
@@ -30,16 +29,15 @@ import com.google.firebase.database.ValueEventListener;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class MainActivity extends SingleFragmentActivity implements DrawerItemSelectedListener.Callbacks{
+public class MainActivity extends SingleFragmentActivity implements DrawerItemSelectedListener.Callbacks {
 
     private TextView mEmail;
     private TextView mDisplayName;
-  //  private ImageView mProfileImageView;
     private CircleImageView mProfileImageView;
     private NavigationView mNavigationView;
     private DrawerItemSelectedListener mNavigationListener;
     private ActionBarDrawerToggle mDrawerToggle;
-    private TextView  mFriendsCount;
+    private TextView mFriendsCount;
     private TextView mTripsCount;
     private TextView mBucketListCount;
 
@@ -83,16 +81,12 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                Log.v("DrawerOpen","dddd");
-                // Do whatever you want here
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                Log.v("DrawerOpen","dddd");
                 updateNavigationView();
-                // Do whatever you want here
             }
         };
         mDrawer.addDrawerListener(mDrawerToggle);
@@ -143,9 +137,9 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         mEmail = (TextView) header.findViewById(R.id.email);
         mDisplayName = (TextView) header.findViewById(R.id.userDisplayName);
         mProfileImageView = (CircleImageView) header.findViewById(R.id.profileImageView);
-        mFriendsCount = (TextView)header.findViewById(R.id.userFriendsCount);
-        mTripsCount = (TextView)header.findViewById(R.id.userTripCount);
-        mBucketListCount = (TextView)header.findViewById(R.id.userBucketListCount);
+        mFriendsCount = (TextView) header.findViewById(R.id.userFriendsCount);
+        mTripsCount = (TextView) header.findViewById(R.id.userTripCount);
+        mBucketListCount = (TextView) header.findViewById(R.id.userBucketListCount);
 
         String currentUserId = FirebaseUtil.getCurrentUserId();
         DatabaseReference UserInforef = FirebaseUtil.getUsersRef().child(currentUserId);
@@ -154,8 +148,7 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         UserInforef.child("trips").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("mTripsCount", String.valueOf(dataSnapshot.getChildrenCount()));
-                if(mTripsCount!=null){
+                if (mTripsCount != null) {
                     mTripsCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
                 }
             }
@@ -171,12 +164,10 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         UserInforef.child("places").child("bucketlist").addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("mBucketListCount", String.valueOf(dataSnapshot.getChildrenCount()));
                 if (mBucketListCount != null) {
                     mBucketListCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
                 }
             }
-
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
@@ -187,7 +178,6 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         FirebaseUtil.getCompanionsRef().child(currentUserId).addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                Log.v("friendsCount", String.valueOf(dataSnapshot.getChildrenCount()));
                 if (mFriendsCount != null) {
                     mFriendsCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
                 }
@@ -208,10 +198,6 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
             }
 
             if (photoUrl != null) {
-               /* Glide.with(this).load(photoUrl.toString())
-                        .centerCrop()
-                        .crossFade()
-                        .into(mProfileImageView);*/
                 Glide.with(this).load(photoUrl.toString())
                         .centerCrop()
                         .dontAnimate()
