@@ -102,6 +102,9 @@ dependencies {
     compile 'com.github.vipulasri:timelineview:1.0.3'
     compile 'com.google.android.gms:play-services-location:9.8.0'
 
+    //Displaying Gif
+    compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
+
 }
 
 hockeyapp {

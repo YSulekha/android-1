@@ -26,4 +26,6 @@
     <dimen name="card_title_height">30dp</dimen>
     <dimen name="card_height">240dp</dimen>
 
+    <dimen name="fab_elevation">6dp</dimen>
+
 </resources>

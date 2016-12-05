@@ -1,24 +1,45 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/main_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/grey_100"
-    android:orientation="vertical"
-    android:gravity="center_horizontal"
-    >
-     <ImageView
-        style="@style/ThemeOverlay.FirebaseIcon"
-        android:id="@+id/google_icon"
-        android:contentDescription="@string/desc_firebase_lockup"
-        android:src="@drawable/gripsack_art"
-        android:layout_width="250dp"
-        android:layout_height="154dp" />
+    android:layout_height="match_parent">
 
-    <com.google.android.gms.common.SignInButton
+    <pl.droidsonroids.gif.GifImageView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:src="@drawable/travel_login" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/app_name"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="160dp"
+        android:textAppearance ="@style/TextAppearance.AppCompat.Title"
+        android:id="@+id/destination_name"
+        android:textSize="48sp"
+        android:textColor="@color/color_white"
+        android:textStyle="bold"
+
+        />
+
+    <android.support.design.widget.FloatingActionButton
         android:id="@+id/google_sign_in_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:layout_marginBottom="45dp"
         android:visibility="visible"
-        />
+        app:backgroundTint="@color/color_white"
+        app:borderWidth="0dp"
+        app:elevation="@dimen/fab_elevation"
+        app:fabSize="normal"
+        app:pressedTranslationZ="12dp"
+        app:rippleColor="@android:color/white"
+        app:srcCompat="@drawable/arrow_login" />
 
-</LinearLayout>
+
+
+
+</FrameLayout>
