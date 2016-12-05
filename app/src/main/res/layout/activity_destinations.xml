@@ -32,6 +32,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/detail_photo_height"
                 android:adjustViewBounds="true"
+                android:transitionName="image"
                 android:src="@drawable/sf"
                 android:scaleType="centerCrop"
                 android:fitsSystemWindows="true"
