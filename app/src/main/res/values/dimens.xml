@@ -34,7 +34,7 @@
     <!--Change this-->
     <dimen name="card_corner_radius">8dp</dimen>
     <dimen name="card_elevation">8dp</dimen>
-    <dimen name="grid_margin">4dp</dimen>
+    <dimen name="grid_margin">12dp</dimen>
     <dimen name="cell_margin">12dp</dimen>
     <dimen name="grid_profile_height">160dp</dimen>
     <dimen name="palette_height">56dp</dimen>
