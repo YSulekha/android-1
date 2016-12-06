@@ -84,8 +84,8 @@
     <string name="menu_item_companions">Companions</string>
     <string name="menu_label_my_places">My Places</string>
     <string name="menu_item_place_bucketlist">Bucketlist</string>
-    <string name="menu_item_place_visited">visited</string>
-    <string name="menu_item_place_recommended">recommended</string>
+    <string name="menu_item_place_visited">Visited</string>
+    <string name="menu_item_place_recommended">Recommended</string>
     <string name="menu_item_my_storage">My Storage</string>
 
 
