@@ -12,25 +12,34 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.ui.navigation.DrawerItemSelectedListener;
+import com.github.gripsack.android.utils.FirebaseUtil;
 import com.github.gripsack.android.utils.GoogleUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.UserInfo;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.ValueEventListener;
 
-public class MainActivity extends SingleFragmentActivity implements DrawerItemSelectedListener.Callbacks{
+import de.hdodenhof.circleimageview.CircleImageView;
+
+public class MainActivity extends SingleFragmentActivity implements DrawerItemSelectedListener.Callbacks {
 
     private TextView mEmail;
     private TextView mDisplayName;
-    private ImageView mProfileImageView;
+    private CircleImageView mProfileImageView;
     private NavigationView mNavigationView;
     private DrawerItemSelectedListener mNavigationListener;
     private ActionBarDrawerToggle mDrawerToggle;
+    private TextView mFriendsCount;
+    private TextView mTripsCount;
+    private TextView mBucketListCount;
 
     private static final String MENU_ITEM_ACTIVE = "menuItemActive";
     private static int mMenuItemActive = 0;
@@ -67,7 +76,19 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
                 mDrawer,
                 toolbar,
                 R.string.navigation_drawer_open,
-                R.string.navigation_drawer_close);
+                R.string.navigation_drawer_close) {
+
+            /** Called when a drawer has settled in a completely closed state. */
+            public void onDrawerClosed(View view) {
+                super.onDrawerClosed(view);
+            }
+
+            /** Called when a drawer has settled in a completely open state. */
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+                updateNavigationView();
+            }
+        };
         mDrawer.addDrawerListener(mDrawerToggle);
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);
@@ -115,8 +136,58 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         View header = mNavigationView.getHeaderView(0);
         mEmail = (TextView) header.findViewById(R.id.email);
         mDisplayName = (TextView) header.findViewById(R.id.userDisplayName);
-        mProfileImageView = (ImageView) header.findViewById(R.id.profileImageView);
+        mProfileImageView = (CircleImageView) header.findViewById(R.id.profileImageView);
+        mFriendsCount = (TextView) header.findViewById(R.id.userFriendsCount);
+        mTripsCount = (TextView) header.findViewById(R.id.userTripCount);
+        mBucketListCount = (TextView) header.findViewById(R.id.userBucketListCount);
 
+        String currentUserId = FirebaseUtil.getCurrentUserId();
+        DatabaseReference UserInforef = FirebaseUtil.getUsersRef().child(currentUserId);
+
+        //Get number of trips
+        UserInforef.child("trips").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (mTripsCount != null) {
+                    mTripsCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+
+        });
+
+        //Get number of bucketlist
+        UserInforef.child("places").child("bucketlist").addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (mBucketListCount != null) {
+                    mBucketListCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+                }
+            }
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
+
+        //Get number of companions
+        FirebaseUtil.getCompanionsRef().child(currentUserId).addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (mFriendsCount != null) {
+                    mFriendsCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
         if (mUser != null) {
             String name = "";
             Uri photoUrl = null;
@@ -129,7 +200,7 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
             if (photoUrl != null) {
                 Glide.with(this).load(photoUrl.toString())
                         .centerCrop()
-                        .crossFade()
+                        .dontAnimate()
                         .into(mProfileImageView);
             }
             mEmail.setText(mUser.getEmail());

@@ -23,11 +23,11 @@
                 <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_trips_upcoming"
-                    android:icon="@drawable/ic_menu_gallery"
+                    android:icon="@drawable/ic_upcoming_black_24dp"
                     android:title="@string/menu_item_trips_upcoming" />
                 <item
                     android:id="@+id/nav_trips_past"
-                    android:icon="@drawable/ic_menu_gallery"
+                    android:icon="@drawable/ic_history_black_24dp"
                     android:title="@string/menu_item_trips_past" />
                 </group>
             </menu>
@@ -38,7 +38,7 @@
                 <group android:checkableBehavior="single">
                 <item
                     android:id="@+id/nav_places_bucketlist"
-                    android:icon="@drawable/ic_menu_gallery"
+                    android:icon="@drawable/ic_action_like"
                     android:title="@string/menu_item_place_bucketlist" />
                 <item
                     android:id="@+id/nav_places_visited"
