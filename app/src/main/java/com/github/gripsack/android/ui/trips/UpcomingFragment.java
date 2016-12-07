@@ -17,11 +17,6 @@ import com.github.gripsack.android.data.model.Trip;
 import com.github.gripsack.android.utils.FirebaseUtil;
 import com.google.firebase.database.Query;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-
 import timber.log.Timber;
 
 import static com.github.gripsack.android.utils.FirebaseUtil.getCurrentUserId;

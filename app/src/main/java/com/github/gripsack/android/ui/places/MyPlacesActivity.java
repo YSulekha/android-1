@@ -1,4 +1,4 @@
-package com.github.gripsack.android.ui.files;
+package com.github.gripsack.android.ui.places;
 
 import android.content.Context;
 import android.content.Intent;
@@ -10,17 +10,31 @@ import com.github.gripsack.android.R;
 import com.github.gripsack.android.ui.SingleFragmentActivity;
 
 
-public class FilesActivity extends SingleFragmentActivity {
 
+public class MyPlacesActivity  extends SingleFragmentActivity {
+
+    public final static String EXTRA_ITEMTYPE = "itemtype";
 
     public static Intent newIntent(Context packageContext) {
-        Intent intent = new Intent(packageContext, FilesActivity.class);
+        Intent intent = new Intent(packageContext, MyPlacesActivity.class);
         return intent;
     }
 
     @Override
     protected Fragment createFragment() {
-        return FilesFragment.newInstance();
+        if(getIntent().getStringExtra(EXTRA_ITEMTYPE).equals("bucketlist")){
+            getSupportActionBar().setTitle(getString(R.string.menu_item_place_bucketlist));
+            return BucketlistFragment.newInstance();
+        }
+        if(getIntent().getStringExtra(EXTRA_ITEMTYPE).equals("visited")){
+            getSupportActionBar().setTitle(getString(R.string.menu_item_place_visited));
+            return VisitedFragment.newInstance();
+        }
+        if(getIntent().getStringExtra(EXTRA_ITEMTYPE).equals("recommended")){
+            getSupportActionBar().setTitle(getString(R.string.menu_item_place_recommended));
+            return RecommendedFragment.newInstance();
+        }
+        return null;
     }
 
     @Override
@@ -50,6 +64,8 @@ public class FilesActivity extends SingleFragmentActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+
 
     @Override
     public void onPause() {

@@ -11,15 +11,11 @@ import android.view.MenuItem;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.ui.companions.CompanionsActivity;
 import com.github.gripsack.android.ui.explore.ExploreFragment;
-import com.github.gripsack.android.ui.files.FilesFragment;
-import com.github.gripsack.android.ui.places.BucketlistFragment;
-import com.github.gripsack.android.ui.places.RecommendedFragment;
-import com.github.gripsack.android.ui.places.VisitedFragment;
+import com.github.gripsack.android.ui.files.FilesActivity;
+import com.github.gripsack.android.ui.places.MyPlacesActivity;
 import com.github.gripsack.android.ui.settings.SettingsActivity;
-import com.github.gripsack.android.ui.timeline.TimelineFragment;
-import com.github.gripsack.android.ui.trips.AddTripActivity;
-import com.github.gripsack.android.ui.trips.CompletedFragment;
-import com.github.gripsack.android.ui.trips.UpcomingFragment;
+import com.github.gripsack.android.ui.timeline.TimelineActivity;
+import com.github.gripsack.android.ui.trips.MyTripsActivity;
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;
@@ -57,31 +53,50 @@ public class DrawerItemSelectedListener implements
                 break;
 
             case R.id.nav_trips_upcoming:
-                fragmentClass = UpcomingFragment.class;
+                intent = MyTripsActivity.newIntent(mContext);
+                intent.putExtra(MyTripsActivity.EXTRA_ITEMTYPE,"Upcoming");
+                mContext.startActivity(intent);
+              //  fragmentClass = UpcomingFragment.class;
                 break;
 
             case R.id.nav_trips_past:
-                fragmentClass = CompletedFragment.class;
+                intent = MyTripsActivity.newIntent(mContext);
+                intent.putExtra(MyTripsActivity.EXTRA_ITEMTYPE,"Completed");
+                mContext.startActivity(intent);
+           //     fragmentClass = CompletedFragment.class;
                 break;
 
             case R.id.nav_places_bucketlist:
-                fragmentClass = BucketlistFragment.class;
+                intent = MyPlacesActivity.newIntent(mContext);
+                intent.putExtra(MyPlacesActivity.EXTRA_ITEMTYPE,"bucketlist");
+                mContext.startActivity(intent);
+               // fragmentClass = BucketlistFragment.class;
                 break;
 
             case R.id.nav_places_recommended:
-                fragmentClass = RecommendedFragment.class;
+                intent = MyPlacesActivity.newIntent(mContext);
+                intent.putExtra(MyPlacesActivity.EXTRA_ITEMTYPE,"recommended");
+                mContext.startActivity(intent);
+             //   fragmentClass = RecommendedFragment.class;
                 break;
 
             case R.id.nav_places_visited:
-                fragmentClass = VisitedFragment.class;
+                intent = MyPlacesActivity.newIntent(mContext);
+                intent.putExtra(MyPlacesActivity.EXTRA_ITEMTYPE,"visited");
+                mContext.startActivity(intent);
+           //     fragmentClass = VisitedFragment.class;
                 break;
 
             case R.id.nav_timeline:
-                fragmentClass = TimelineFragment.class;
+                intent = TimelineActivity.newIntent(mContext);
+                mContext.startActivity(intent);
+            //    fragmentClass = TimelineFragment.class;
                 break;
 
             case R.id.nav_storage:
-                fragmentClass = FilesFragment.class;
+                intent = FilesActivity.newIntent(mContext);
+                mContext.startActivity(intent);
+              //  fragmentClass = FilesFragment.class;
                 break;
 
             case R.id.nav_companions:

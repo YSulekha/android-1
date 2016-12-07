@@ -171,6 +171,24 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.trips.AddPhotoActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
+            android:name=".ui.trips.MyTripsActivity"
+            android:label="@string/title_my_trips"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.gripsack.android.ui.MainActivity" />
+        </activity>
+        <activity
+            android:name=".ui.places.MyPlacesActivity"
+            android:label="@string/title_my_places"
+            android:parentActivityName=".ui.MainActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.github.gripsack.android.ui.MainActivity" />
+        </activity>
         <service
             android:name=".services.LocationService"
             android:enabled="true"
