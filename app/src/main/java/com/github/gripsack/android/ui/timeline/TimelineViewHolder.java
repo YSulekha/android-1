@@ -1,8 +1,7 @@
-package com.github.gripsack.android.ui.trips;
+package com.github.gripsack.android.ui.timeline;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
 
 import com.github.gripsack.android.R;
 import com.vipul.hp_hp.timelineview.TimelineView;

@@ -1,22 +1,16 @@
-package com.github.gripsack.android.ui.trips;
+package com.github.gripsack.android.ui.timeline;
 
 import android.content.Context;
-import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
-import com.github.gripsack.android.ui.explore.ExploreFragment;
-
-import org.parceler.Parcels;
 
 import java.util.ArrayList;
 
@@ -42,8 +36,9 @@ public class TripTimelineAdapter extends RecyclerView.Adapter<TripTimelineAdapte
     @Override
     public void onBindViewHolder(PlaceViewHolder holder, int position) {
         Place place = places.get(position);
-        holder.name.setText(place.getName());
-        Glide.with(mContext).load(place.getPhotoUrl()).into(holder.icon);
+        holder.tvName.setText(place.getName());
+        holder.tvOrderNumber.setText(""+position+1);
+        Glide.with(mContext).load(place.getPhotoUrl()).into(holder.ivIcon);
     }
 
     @Override
@@ -53,13 +48,15 @@ public class TripTimelineAdapter extends RecyclerView.Adapter<TripTimelineAdapte
 
     class PlaceViewHolder extends RecyclerView.ViewHolder {
 
-        public TextView name;
-        public ImageView icon;
+        public TextView tvName;
+        public ImageView ivIcon;
+        public TextView tvOrderNumber;
 
         public PlaceViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.item_name);
-            icon = (ImageView) itemView.findViewById(R.id.item_image);
+            tvName = (TextView) itemView.findViewById(R.id.item_name);
+            ivIcon = (ImageView) itemView.findViewById(R.id.item_image);
+            tvOrderNumber=(TextView) itemView.findViewById(R.id.tvPlaceNumberOrder);
         }
     }
 }
