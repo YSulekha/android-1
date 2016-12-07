@@ -12,7 +12,7 @@
         app:marker_size="25dp"
         app:line_size="2dp"
         app:line="@color/colorPrimary"
-        app:marker="@mipmap/green_dot"/>
+        app:marker="@mipmap/type9"/>
 
     <android.support.v7.widget.CardView
         android:layout_width="wrap_content"

@@ -10,6 +10,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.VIBRATE" />
 
     <!-- PlacePicker also requires OpenGL ES version 2 -->
     <uses-feature
@@ -169,6 +170,7 @@
             android:name=".ui.trips.TripTimelineActivity"
             android:label="@string/title_activity_trip_timeline"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".ui.trips.AddPhotoActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity
@@ -192,7 +194,10 @@
         <service
             android:name=".services.LocationService"
             android:enabled="true"
-            android:exported="true"></service>
+            android:exported="true" />
+
+        <activity android:name=".ui.trips.DisplayPhotosActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

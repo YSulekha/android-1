@@ -8,6 +8,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -17,6 +18,9 @@ import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
+import com.github.gripsack.android.ui.navigation.DrawerItemSelectedListener;
+import com.github.gripsack.android.ui.places.BucketlistFragment;
+import com.github.gripsack.android.utils.FirebaseUtil;
 import com.github.gripsack.android.utils.MapUtil;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
@@ -90,24 +94,24 @@ public class EditDestinationActivity extends AppCompatActivity
         trip=(Trip) Parcels.unwrap(getIntent()
                 .getParcelableExtra("Trip"));
 
+
+        tripPlaces = (ArrayList<Place>)getIntent().getSerializableExtra("Destinations");
+
         btnBucketList.setOnClickListener(this);
         btnRecommendedList.setOnClickListener(this);
        // btnLikedList.setOnClickListener(this);
         btnVisitedList.setOnClickListener(this);
         tvDone.setOnClickListener(this);
-
-        tripPlaces=new ArrayList<Place>();
-        getTripPlaces();
     }
 
-    private void getTripPlaces(){
-        //TODO:DB part. Is there any places previously saved? Add
-        //TODO: add to "places"
-        //TODO: add to map (Call addMarker(String name,LatLng destination))
-    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
-    private void addPlace(Place place){
-        //TODO: DB Part
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     private void removePlace(Marker marker) {
@@ -130,6 +134,10 @@ public class EditDestinationActivity extends AppCompatActivity
 
         LatLng destination = new LatLng(trip.getSearchDestination().getLatitude(), trip.getSearchDestination().getLongitude());
         addMarker(trip.getSearchDestination().getName(),destination);
+        for (Place place:tripPlaces){
+            destination = new LatLng(place.getLatitude(), place.getLongitude());
+            addMarker(place.getName(),destination);
+        }
         tripPlaces.add(trip.getSearchDestination());
         MapUtil.focusPoints(tripPlaces,mMap);
     }
@@ -138,7 +146,6 @@ public class EditDestinationActivity extends AppCompatActivity
         mMap.addMarker(new MarkerOptions().position(destination).title(name)
                 .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
         mMap.moveCamera(CameraUpdateFactory.newLatLng(destination));
-
     }
 
     @Override
@@ -225,6 +232,7 @@ public class EditDestinationActivity extends AppCompatActivity
     @Override
     public void onClick(View view) {
         int id=view.getId();
+        Intent intent;
         switch (id){
             case R.id.btnBucketList:
                 break;
@@ -235,10 +243,10 @@ public class EditDestinationActivity extends AppCompatActivity
             case R.id.btnRecommendedList:
                 break;
             case R.id.tvDone:
-                Intent intent=new Intent(this,TripTimelineActivity.class)
-                        .putExtra("Places", tripPlaces);
+                intent=new Intent(this,EditTripActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));
                 startActivity(intent);
-
+                finish();
         }
     }
 
@@ -267,7 +275,7 @@ public class EditDestinationActivity extends AppCompatActivity
                 Place place= null;
                 try {
                     place = Place.fromJSONObject(response.getJSONObject("result"));
-                    addPlace(place);
+                    FirebaseUtil.saveDestination(place,trip.getTripId());
                     tripPlaces.add(place);
                     Toast.makeText(EditDestinationActivity.this, place.getName(), Toast.LENGTH_LONG).show();
                 } catch (JSONException e) {

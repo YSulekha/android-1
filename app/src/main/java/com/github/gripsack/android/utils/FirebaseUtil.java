@@ -2,13 +2,21 @@ package com.github.gripsack.android.utils;
 
 
 import com.github.gripsack.android.data.model.CompanionInvite;
+import com.github.gripsack.android.data.model.Photo;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
 import com.github.gripsack.android.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
 
 import timber.log.Timber;
 
@@ -54,7 +62,6 @@ public class FirebaseUtil {
         return null;
     }
 
-
     public static DatabaseReference getCurrentUserBucketPlacesRef() {
         DatabaseReference places = getCurrentUserPlacesRef();
         if (places != null) {
@@ -70,7 +77,6 @@ public class FirebaseUtil {
         }
         return null;
     }
-
 
     public static DatabaseReference getCompanionsRef() {
         return getBaseRef().child("companions");
@@ -90,6 +96,10 @@ public class FirebaseUtil {
 
     public static DatabaseReference getInvitationsRef() {
         return getBaseRef().child("invitation");
+    }
+
+    public static DatabaseReference getPhotosRef() {
+        return getBaseRef().child("photos");
     }
 
     public static DatabaseReference getInvitationByIdRef(String invitationId) {
@@ -178,15 +188,26 @@ public class FirebaseUtil {
         }
     }
 
-    public static void saveImage(String imageEncoded,String tripId){
-        String key = getBaseRef().child("photos").push().getKey();
-        getBaseRef().child("photos").child(key).setValue(imageEncoded);
+    //TODO:
+    public static void saveImage(Photo photo, String tripId){
+        String key = getPhotosRef().push().getKey();
+        getPhotosRef().child(key).setValue(photo);
         DatabaseReference trip=getTripsRef().child(tripId);
         if(trip !=null){
             trip.child("photos")
                     .child(key)
                     .setValue(true);
         }
+    }
 
+    public static void saveDestination(Place place, String tripId){
+        String key = getPlacesRef().push().getKey();
+        getPlacesRef().child(key).setValue(place);
+        DatabaseReference trip=getTripsRef().child(tripId);
+        if(trip !=null){
+            trip.child("destinations")
+                    .child(key)
+                    .setValue(true);
+        }
     }
 }

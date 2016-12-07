@@ -17,7 +17,7 @@
             android:id="@+id/map"
             android:name="com.google.android.gms.maps.SupportMapFragment"
             android:layout_width="match_parent"
-            android:layout_height="200dp" />
+            android:layout_height="270dp" />
 
         <android.support.v7.widget.CardView
             xmlns:card_view="http://schemas.android.com/apk/res-auto"
@@ -26,61 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/map">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
 
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:id="@+id/tvTripName"
-                    android:textSize="18sp"
-                    android:text="Trip Name"
-                    android:textColor="@color/colorPrimary"
-                    android:textStyle="bold"
-                    android:layout_marginTop="5dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center"/>
-
-                <!-- <TextView
-                     android:layout_width="match_parent"
-                     android:layout_height="wrap_content"
-                     android:id="@+id/tvDestinationName"
-                     android:textSize="16sp"
-                     android:text="Trip Name"
-                     android:textStyle="bold"
-                     android:layout_marginTop="5dp"
-                     android:layout_marginBottom="5dp"
-                     android:layout_marginLeft="10dp"
-                     android:gravity="center"
-                     android:layout_below="@+id/tvTripName"/>-->
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tvTripName"
-                    android:layout_centerHorizontal="true">
-
-                    <ImageView
-                        android:id="@+id/type1"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@mipmap/type4" />
-
-                    <ImageView
-                        android:id="@+id/type2"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@mipmap/type8" />
-
-                    <ImageView
-                        android:layout_width="50dp"
-                        android:layout_height="50dp"
-                        android:src="@mipmap/type3" />
-                </LinearLayout>
-
-            </RelativeLayout>
 
         </android.support.v7.widget.CardView>
 
@@ -224,7 +170,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvHotelDescription"
                         android:textSize="14sp"
-                        android:text="Add hotel to your trip"
+                        android:text="Make hotel reservation for your trip"
                         android:textStyle="bold"
                         android:layout_marginTop="5dp" />
                 </LinearLayout>

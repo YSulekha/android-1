@@ -102,8 +102,13 @@ dependencies {
     compile 'com.github.vipulasri:timelineview:1.0.3'
     compile 'com.google.android.gms:play-services-location:9.8.0'
 
+    compile ('jameson.io.library:library:0.0.1') {
+        exclude group: "com.android.support", module: "support-v4"
+    }
     //Displaying Gif
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.3'
+    compile 'com.android.support:customtabs:25.0.0'
+    compile 'com.flaviofaria:kenburnsview:1.0.7'
 
 }
 

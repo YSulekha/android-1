@@ -81,7 +81,7 @@ public class DisplayTripActivity extends FragmentActivity
         for (int i=0;i<placesCoordinates.size();i++){
 
             mMap.addMarker(new MarkerOptions().position(placesCoordinates.get(i)).title("Marker")
-                    .icon(BitmapDescriptorFactory.fromResource(R.mipmap.green_dot)));
+                    .icon(BitmapDescriptorFactory.fromResource(R.drawable.marker)));
             mMap.moveCamera(CameraUpdateFactory.newLatLng(placesCoordinates.get(i)));
         }
 

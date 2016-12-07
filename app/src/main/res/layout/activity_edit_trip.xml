@@ -4,8 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.github.gripsack.android.ui.trips.EditTripActivity">
+    android:fitsSystemWindows="true">
 
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
@@ -19,11 +18,27 @@
             android:layout_height="?attr/actionBarSize"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             android:titleTextColor="@android:color/white" >
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="5dp">
             <TextView
+                android:id="@+id/tvPageTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Edit Trip"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/white"
+                android:textSize="22sp"/>
+
+                <TextView
+                    android:id="@+id/tvDate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="11-02-2016"
+                    android:textColor="@android:color/white"
+                    android:textSize="16sp"
+                    android:layout_below="@+id/tvPageTitle"/>
+
             <TextView
                 android:id="@+id/tvDone"
                 android:layout_width="match_parent"
@@ -32,7 +47,9 @@
                 android:textColor="@android:color/white"
                 android:gravity="right"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="100dp"/>
+                android:layout_marginLeft="100dp"
+                android:layout_marginTop="15dp"/>
+            </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 

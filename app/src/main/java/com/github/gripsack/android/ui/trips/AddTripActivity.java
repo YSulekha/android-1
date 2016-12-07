@@ -8,14 +8,20 @@ import android.media.Image;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.os.Vibrator;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TextInputEditText;
+import android.support.design.widget.TextInputLayout;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.InputType;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.DatePicker;
@@ -25,6 +31,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.flaviofaria.kenburnsview.KenBurnsView;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
@@ -59,14 +66,19 @@ import butterknife.ButterKnife;
 public class AddTripActivity extends AppCompatActivity implements OnMapReadyCallback ,View.OnClickListener{
 
     private DatePickerDialog dpBeginDate;
+    private DatePickerDialog dpEndDate;
     private SimpleDateFormat dateFormatter;
     private Place searchedPlace;
     private GoogleMap mMap;
+    private Vibrator vib;
+    Animation animShake;
 
-    @BindView(R.id.tvTripName)
-    TextView tvTripName;
+    @BindView(R.id.etTripName)
+    TextView etTripName;
     @BindView(R.id.etBeginDate)
     EditText etBeginDate;
+    @BindView(R.id.etEndDate)
+    EditText etEndDate;
     @BindView(R.id.btnSave)
     Button btnSave;
     @BindView(R.id.ibAdventure)
@@ -88,9 +100,13 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
     @BindView(R.id.ibWithFriends)
     ImageButton ibWithFriends;
     @BindView(R.id.toolbarImage)
-    ImageView toolbarImage;
+    KenBurnsView toolbarImage;
     @BindView(R.id.tvSearchedPlaceName)
     TextView tvSearchedPlaceName;
+    @BindView(R.id.lyBeginDate)
+    TextInputLayout lyBeginDate ;
+    @BindView(R.id.lyTripName)
+    TextInputLayout lyTripName;
     @BindView(R.id.ivAdventure)
     ImageView ivAdventure;
     @BindView(R.id.ivCityBreak)
@@ -109,47 +125,55 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
     ImageView ivWithFriends;
     @BindView(R.id.ivCulinary)
     ImageView ivCulinary;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     public static Intent newIntent(Context packageContext) {
         Intent intent = new Intent(packageContext, AddTripActivity.class);
         return intent;
     }
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_trip);
         ButterKnife.bind(this);
-
-        searchedPlace= new Place();
-
-        /*TODO:To test, It will close*/
-       /* searchedPlace.setLatitude(37.773972);
-        searchedPlace.setLongitude(-122.431297);
-        searchedPlace.setName("San Francisco");
-        searchedPlace.setRating(4);*/
-
-        searchedPlace=(Place) Parcels.unwrap(getIntent()
-                .getParcelableExtra("SearchedLocation"));
-
-
-        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
+        searchedPlace = new Place();
+        searchedPlace=(Place) Parcels.unwrap(getIntent()
+                .getParcelableExtra("SearchedLocation"));
+        tvSearchedPlaceName.setText(searchedPlace.getName());
 
         Glide.with(this).load(searchedPlace.getPhotoUrl()).into(toolbarImage);
 
-        tvSearchedPlaceName.setText(searchedPlace.getName());
-        // tvSearchedRating.setText(String.valueOf(searchedPlace.getRating()));
-
         dateFormatter = new SimpleDateFormat("MM-dd-yyyy", Locale.US);
-        etBeginDate=(EditText)findViewById(R.id.etBeginDate);
         etBeginDate.setInputType(InputType.TYPE_NULL);
+        etEndDate.setInputType(InputType.TYPE_NULL);
         setDateTimeField();
 
+        animShake = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.shake);
+        vib = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE);
+
+        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
+                .findFragmentById(R.id.map);
+        mapFragment.getMapAsync(this);
+
+        setListeners();
+    }
+
+    private void setListeners(){
         btnSave.setOnClickListener(this);
+        ibAdventure.setOnClickListener(this);
+        ibCityBreak.setOnClickListener(this);
+        ibCulinary.setOnClickListener(this);
+        ibCulture.setOnClickListener(this);
+        ibDisappear.setOnClickListener(this);
+        ibRelaxing.setOnClickListener(this);
+        ibRomantic.setOnClickListener(this);
+        ibWithFamily.setOnClickListener(this);
+        ibWithFriends.setOnClickListener(this);
         ivAdventure.setOnClickListener(this);
         ivCityBreak.setOnClickListener(this);
         ivCulinary.setOnClickListener(this);
@@ -159,11 +183,6 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         ivRomantic.setOnClickListener(this);
         ivWithFamily.setOnClickListener(this);
         ivWithFriends.setOnClickListener(this);
-
-        SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
-                .findFragmentById(R.id.map);
-        mapFragment.getMapAsync(this);
-
     }
 
     //Get user's trip type
@@ -201,6 +220,16 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
     //Set dialog calendar to beginDate
     private void setDateTimeField() {
 
@@ -208,6 +237,7 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
             @Override
             public boolean onTouch(View view, MotionEvent event) {
                 if(view == etBeginDate) {
+                    dpBeginDate.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
                     dpBeginDate.show();
                 }
                 return true;
@@ -221,6 +251,26 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
                 Calendar newDate = Calendar.getInstance();
                 newDate.set(year, monthOfYear, dayOfMonth);
                 etBeginDate.setText(dateFormatter.format(newDate.getTime()));
+            }
+        }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+
+        etEndDate.setOnTouchListener(new View.OnTouchListener(){
+            @Override
+            public boolean onTouch(View view, MotionEvent event) {
+                if(view == etEndDate) {
+                    dpEndDate.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+                    dpEndDate.show();
+                }
+                return true;
+            }
+        });
+
+        dpEndDate = new DatePickerDialog(this, new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                etEndDate.setText(dateFormatter.format(newDate.getTime()));
             }
         }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
 
@@ -238,90 +288,144 @@ public class AddTripActivity extends AppCompatActivity implements OnMapReadyCall
         builder.include(destination);
         builder.include(latLng);
         mMap.moveCamera(CameraUpdateFactory.newLatLngBounds(
-                builder.build(), 300, 300, 0));
+                builder.build(), 20, 20, 0));
     }
 
     @Override
     public void onClick(View view) {
-        int id=view.getId();
-        switch(id){
+        int id = view.getId();
+        switch (id) {
             case R.id.btnSave:
-                Trip trip=new Trip();
-                trip.setBeginDate(etBeginDate.getText().toString());
-                trip.setSearchDestination(searchedPlace);
-                trip.setTripName(tvTripName.getText().toString());
-                ArrayList<Integer> tripTypes=getTripTypes();
-                trip.setTripTypes(tripTypes);
+                if(checkMandatoryFields()==true) {
+                    Trip trip = new Trip();
+                    trip.setBeginDate(etBeginDate.getText().toString());
+                    trip.setEndDate(etEndDate.getText().toString());
+                    trip.setSearchDestination(searchedPlace);
+                    trip.setTripName(etBeginDate.getText().toString());
+                    ArrayList<Integer> tripTypes = getTripTypes();
+                    trip.setTripTypes(tripTypes);
 
-                FirebaseUtil.saveTrip(trip);
+                    FirebaseUtil.saveTrip(trip);
 
-                Intent intent=new Intent(AddTripActivity.this,EditTripActivity.class)
-                        .putExtra("Trip", Parcels.wrap(trip));
-                startActivity(intent);
+                    Intent intent = new Intent(AddTripActivity.this, EditTripActivity.class)
+                            .putExtra("Trip", Parcels.wrap(trip));
+                    startActivity(intent);
+                }
                 break;
 
             case R.id.ivAdventure:
-                if(ibAdventure.getVisibility()==View.VISIBLE)
-                    ibAdventure.setVisibility(View.GONE);
-                else
-                    ibAdventure.setVisibility(View.VISIBLE);
+                ibAdventure.setVisibility(View.VISIBLE);
                 break;
+
             case R.id.ivCityBreak:
-                if(ibCityBreak.getVisibility()==View.VISIBLE)
-                    ibCityBreak.setVisibility(View.GONE);
-                else
-                    ibCityBreak.setVisibility(View.VISIBLE);
+                ibCityBreak.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.ivCulinary:
-                if(ibCulinary.getVisibility()==View.VISIBLE)
-                    ibCulinary.setVisibility(View.GONE);
-                else
-                    ibCulinary.setVisibility(View.VISIBLE);
+                ibCulinary.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.ivCulture:
-                if(ibCulture.getVisibility()==View.VISIBLE)
-                    ibCulture.setVisibility(View.GONE);
-                else
-                    ibCulture.setVisibility(View.VISIBLE);
+                ibCulture.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.ivDisappear:
-                if(ibDisappear.getVisibility()==View.VISIBLE)
-                    ibDisappear.setVisibility(View.GONE);
-                else
-                    ibDisappear.setVisibility(View.VISIBLE);
+                ibDisappear.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.ivRelaxing:
-                if(ibRelaxing.getVisibility()==View.VISIBLE)
-                    ibRelaxing.setVisibility(View.GONE);
-                else
-                    ibRelaxing.setVisibility(View.VISIBLE);
+                ibRelaxing.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.ivRomantic:
-                if(ibRomantic.getVisibility()==View.VISIBLE)
-                    ibRomantic.setVisibility(View.GONE);
-                else
-                    ibRomantic.setVisibility(View.VISIBLE);
+                ibRomantic.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.ivWithFamily:
-                if(ibWithFamily.getVisibility()==View.VISIBLE)
-                    ibWithFamily.setVisibility(View.GONE);
-                else
-                    ibWithFamily.setVisibility(View.VISIBLE);
+                ibWithFamily.setVisibility(View.VISIBLE);
                 break;
 
             case R.id.ivWithFriends:
-                if(ibWithFriends.getVisibility()==View.VISIBLE)
-                    ibWithFriends.setVisibility(View.GONE);
-                else
-                    ibWithFriends.setVisibility(View.VISIBLE);
+                ibWithFriends.setVisibility(View.VISIBLE);
+                break;
+
+            case R.id.ibAdventure:
+                ibAdventure.setVisibility(View.GONE);
+                break;
+
+            case R.id.ibCityBreak:
+                ibCityBreak.setVisibility(View.GONE);
+                break;
+
+            case R.id.ibCulinary:
+                ibCulinary.setVisibility(View.GONE);
+                break;
+
+            case R.id.ibCulture:
+                ibCulture.setVisibility(View.GONE);
+                break;
+
+            case R.id.ibDisappear:
+                ibDisappear.setVisibility(View.GONE);
+                break;
+
+            case R.id.ibRelaxing:
+                ibRelaxing.setVisibility(View.GONE);
+                break;
+
+            case R.id.ibRomantic:
+                ibRomantic.setVisibility(View.GONE);
+                break;
+
+            case R.id.ibWithFamily:
+                ibWithFamily.setVisibility(View.GONE);
+                break;
+
+            case R.id.ibWithFriends:
+                ibWithFriends.setVisibility(View.GONE);
                 break;
 
         }
+    }
+
+    private boolean checkMandatoryFields(){
+        if (!checkTripName()) {
+            etTripName.setAnimation(animShake);
+            etTripName.startAnimation(animShake);
+            vib.vibrate(120);
+            return false;
+        }
+        if (!checkBeginDate()) {
+            etBeginDate.setAnimation(animShake);
+            etBeginDate.startAnimation(animShake);
+            vib.vibrate(120);
+            return false;
+        }
+
+        lyBeginDate.setErrorEnabled(false);
+        lyTripName.setErrorEnabled(false);
+        return true;
+    }
+
+    private boolean checkTripName(){
+        if (etTripName.getText().toString().trim().isEmpty()) {
+            lyTripName.setErrorEnabled(true);
+            lyTripName.setError("Please enter trip name");
+            etTripName.setError("Please enter trip name");
+            return false;
+        }
+        lyTripName.setErrorEnabled(false);
+        return true;
+    }
+
+    private boolean checkBeginDate(){
+        if (etBeginDate.getText().toString().trim().isEmpty()) {
+            lyBeginDate.setErrorEnabled(true);
+            lyBeginDate.setError("Please enter begin date");
+            etBeginDate.setError("Please enter begin date");
+            return false;
+        }
+        lyBeginDate.setErrorEnabled(false);
+        return true;
     }
 }

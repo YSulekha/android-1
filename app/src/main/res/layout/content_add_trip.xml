@@ -17,51 +17,38 @@
             android:id="@+id/card_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
-            <!-- card_view:cardCornerRadius="4dp"
-             android:layout_margin="5dp">-->
-
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="10dp">
 
                 <android.support.design.widget.TextInputLayout
+                    android:id="@+id/lyTripName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp">
+                    android:layout_marginLeft="10dp"
+                    android:padding="10dp"
+                    android:layout_marginTop="25dp"
+                    android:layout_marginBottom="15dp">
 
                     <AutoCompleteTextView
-                        android:id="@+id/tvTripName"
+                        android:id="@+id/etTripName"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:hint="Trip Name"
                         android:maxLines="1"
-                        android:singleLine="true"
-                        android:textSize="18sp" />
+                        android:singleLine="true" />
 
                 </android.support.design.widget.TextInputLayout>
 
-            </RelativeLayout>
         </android.support.v7.widget.CardView>
 
-        <fragment
-            android:id="@+id/map"
-            android:name="com.google.android.gms.maps.SupportMapFragment"
-            android:layout_width="match_parent"
-            android:layout_height="160dp"
-            android:layout_below="@id/card_view"/>
-
         <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tvTripType"
-            android:textSize="16sp"
-            android:text="By Trip"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
+            android:textSize="18sp"
+            android:text="Trip Type"
             android:gravity="center"
+            android:layout_marginLeft="25dp"
             android:layout_marginTop="5dp"
-            android:layout_below="@+id/map" />
+            android:layout_below="@+id/card_view" />
 
         <HorizontalScrollView
             android:layout_width="wrap_content"
@@ -79,11 +66,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="4dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
 
                         <ImageView
                             android:id="@+id/ivCityBreak"
@@ -96,12 +85,11 @@
                         <ImageButton
                             android:visibility="gone"
                             android:id="@+id/ibCityBreak"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentRight="true"
-                            android:src ="@drawable/checkmark"
-                            android:background="@null"
-                            android:layout_margin="2dp"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -111,11 +99,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="4dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
 
                         <ImageView
                             android:id="@+id/ivWithFriends"
@@ -128,12 +118,11 @@
                         <ImageButton
                             android:visibility="gone"
                             android:id="@+id/ibWithFriends"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentRight="true"
-                            android:src ="@drawable/checkmark"
-                            android:background="@null"
-                            android:layout_margin="2dp"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -143,11 +132,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="4dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
 
                         <ImageView
                             android:id="@+id/ivWithFamily"
@@ -160,12 +151,11 @@
                         <ImageButton
                             android:visibility="gone"
                             android:id="@+id/ibWithFamily"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentRight="true"
-                            android:src ="@drawable/checkmark"
-                            android:background="@null"
-                            android:layout_margin="2dp"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -175,11 +165,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="4dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
 
                         <ImageView
                             android:id="@+id/ivRomantic"
@@ -192,12 +184,11 @@
                         <ImageButton
                             android:visibility="gone"
                             android:id="@+id/ibRomantic"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentRight="true"
-                            android:src ="@drawable/checkmark"
-                            android:background="@null"
-                            android:layout_margin="2dp" />
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp" />
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -207,11 +198,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="4dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
 
                         <ImageView
                             android:id="@+id/ivRelaxing"
@@ -224,12 +217,11 @@
                         <ImageButton
                             android:visibility="gone"
                             android:id="@+id/ibRelaxing"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentRight="true"
-                            android:src ="@drawable/checkmark"
-                            android:background="@null"
-                            android:layout_margin="2dp" />
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp" />
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -239,11 +231,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="4dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
 
                         <ImageView
                             android:id="@+id/ivCulture"
@@ -256,12 +250,11 @@
                         <ImageButton
                             android:visibility="gone"
                             android:id="@+id/ibCulture"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentRight="true"
-                            android:src ="@drawable/checkmark"
-                            android:background="@null"
-                            android:layout_margin="2dp"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -271,11 +264,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="4dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
 
                         <ImageView
                             android:id="@+id/ivDisappear"
@@ -288,12 +283,11 @@
                         <ImageButton
                             android:visibility="gone"
                             android:id="@+id/ibDisappear"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentRight="true"
-                            android:src ="@drawable/checkmark"
-                            android:background="@null"
-                            android:layout_margin="2dp"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -303,11 +297,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="4dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
 
                         <ImageView
                             android:id="@+id/ivAdventure"
@@ -320,12 +316,11 @@
                         <ImageButton
                             android:visibility="gone"
                             android:id="@+id/ibAdventure"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentRight="true"
-                            android:src ="@drawable/checkmark"
-                            android:background="@null"
-                            android:layout_margin="2dp"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp"/>
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -335,11 +330,13 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     card_view:cardCornerRadius="4dp"
-                    android:layout_margin="5dp">
+                    android:layout_margin="5dp"
+                    card_view:cardElevation="5dp"
+                    card_view:cardUseCompatPadding="true">
 
                     <RelativeLayout
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
+                        android:layout_width="60dp"
+                        android:layout_height="60dp">
 
                         <ImageView
                             android:id="@+id/ivCulinary"
@@ -352,12 +349,11 @@
                         <ImageButton
                             android:visibility="gone"
                             android:id="@+id/ibCulinary"
-                            android:layout_width="15dp"
-                            android:layout_height="15dp"
-                            android:layout_alignParentRight="true"
-                            android:src ="@drawable/checkmark"
-                            android:background="@null"
-                            android:layout_margin="2dp" />
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:src ="@mipmap/check_mark"
+                            android:background="#26000000"
+                            android:layout_margin="1dp" />
 
                     </RelativeLayout>
                 </android.support.v7.widget.CardView>
@@ -366,30 +362,54 @@
 
         </HorizontalScrollView>
 
-        <TextView
+        <android.support.v7.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tvBeginDate"
-            android:textSize="16sp"
-            android:text="Begin Date"
-            android:textColor="@color/colorAccent"
-            android:textStyle="bold"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:gravity="center"
-            android:layout_below="@id/hsv"/>
+            android:layout_below="@+id/hsv"
+            xmlns:card_view="http://schemas.android.com/apk/res-auto">
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:paddingBottom="20dp">
 
-        <EditText
-            android:id="@+id/etBeginDate"
-            android:layout_width="match_parent"
+        <android.support.design.widget.TextInputLayout
+            android:id="@+id/lyBeginDate"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="--/--/--"
-            android:layout_marginTop="5dp"
-            android:textSize="16sp"
-            android:layout_marginLeft="10dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginRight="10dp"
             android:gravity="center"
-            android:layout_below="@+id/tvBeginDate"/>
+           >
+
+            <AutoCompleteTextView
+                android:id="@+id/etBeginDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="Begin Date"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+
+        <android.support.design.widget.TextInputLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center"
+            android:layout_toRightOf="@+id/lyBeginDate">
+
+            <AutoCompleteTextView
+                android:id="@+id/etEndDate"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:hint="End Date"
+                android:maxLines="1"
+                android:singleLine="true" />
+
+        </android.support.design.widget.TextInputLayout>
+            </RelativeLayout>
+        </android.support.v7.widget.CardView>
 
     </RelativeLayout>
 

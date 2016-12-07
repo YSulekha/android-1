@@ -2,36 +2,82 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_marginLeft="80dp"
-    android:layout_marginRight="80dp">
-    <Button
-        android:id="@+id/btnUnpin"
+    android:layout_marginLeft="100dp"
+    android:layout_marginRight="100dp">
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Unpin"
-        android:background="#FAFAFA"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1dp"
-        android:background="#D6E6E5" />
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FAFAFA">
 
-    <Button
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/navigation"
+            android:layout_marginRight="20dp"/>
+
+         <Button
         android:id="@+id/btnNavigate"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Navigate"
-        android:background="#FAFAFA"/>
+        android:background="@null"/>
+
+    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="1dp"
+        android:layout_height="0.5dp"
         android:background="#D6E6E5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FAFAFA">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/panorama"
+            android:layout_marginRight="20dp"/>
 
     <Button
         android:id="@+id/btnPanorama"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="See Panorama"
-        android:background="#FAFAFA"/>
+        android:background="@null"/>
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.5dp"
+        android:background="#D6E6E5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FAFAFA">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/unpin"
+            android:layout_marginRight="20dp"/>
+
+        <Button
+            android:id="@+id/btnUnpin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Unpin"
+            android:background="@null"/>
+    </LinearLayout>
+
 
 </LinearLayout>

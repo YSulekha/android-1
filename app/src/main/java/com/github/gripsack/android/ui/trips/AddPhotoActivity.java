@@ -18,7 +18,9 @@ import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -26,11 +28,14 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
+import com.github.gripsack.android.data.model.Photo;
 import com.github.gripsack.android.data.model.Trip;
 import com.github.gripsack.android.ui.MainActivity;
 import com.github.gripsack.android.ui.companions.CompanionsActivity;
 import com.github.gripsack.android.utils.FirebaseUtil;
 
+import org.joda.time.LocalDate;
+import org.joda.time.LocalDateTime;
 import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
@@ -47,20 +52,20 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
     private static final String APP_TAG = "my_camera_app";
     private String mPhotoFileName = "photo.jpg";
 
-    @BindView(R.id.rvResults)
-    RecyclerView rvPhotos;
-    @BindView(R.id.btnAddPhoto)
-    ImageButton btnAddPhoto;
-    private ArrayList<Bitmap> images;
-    PhotosAdapter adapter;
-    @BindView(R.id.preview)
-    ImageView ivPreview;
-    @BindView(R.id.toolbar)
-    Toolbar toolbar;
+    @BindView(R.id.ivImage)
+    ImageView ivImage;
+
     @BindView(R.id.tvDone)
     TextView tvDone;
 
+    @BindView(R.id.etComment)
+    EditText etComment;
+
+    @BindView(R.id.etLocation)
+    EditText etLocation;
+
     private Trip trip;
+    private Bitmap scaledBitmap;
 
 
     @Override
@@ -68,52 +73,24 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_photo);
         ButterKnife.bind(this);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         trip=new Trip();
         trip=(Trip) Parcels.unwrap(getIntent()
                 .getParcelableExtra("Trip"));
 
-        setSupportActionBar(toolbar);
-        images=new ArrayList<Bitmap>();
-
-        //TODO:Get previous images from firebase
-        getDummyTripPhotos();
-        adapter=new PhotosAdapter(this,images);
-
-        rvPhotos.setAdapter(adapter);
-
-        GridLayoutManager layoutManager = new GridLayoutManager(this, 2);
-        rvPhotos.setLayoutManager(layoutManager);
-
         tvDone.setOnClickListener(this);
-
     }
 
-    //TODO:remove and get from Firebase
-    private void getDummyTripPhotos(){
-        Bitmap image=BitmapFactory.decodeResource(getResources(), R.drawable.travel1);
-        images.add(image);
-        image=BitmapFactory.decodeResource(getResources(), R.drawable.travel2);
-        images.add(image);
-        image=BitmapFactory.decodeResource(getResources(), R.drawable.travel3);
-        images.add(image);
-        image=BitmapFactory.decodeResource(getResources(), R.drawable.travel4);
-        images.add(image);
-        image=BitmapFactory.decodeResource(getResources(), R.drawable.travel5);
-        images.add(image);
-        image=BitmapFactory.decodeResource(getResources(), R.drawable.travel6);
-        images.add(image);
-        image=BitmapFactory.decodeResource(getResources(), R.drawable.travel7);
-        images.add(image);
-        image=BitmapFactory.decodeResource(getResources(), R.drawable.travel8);
-        images.add(image);
-        image=BitmapFactory.decodeResource(getResources(), R.drawable.travel9);
-        images.add(image);
-        image=BitmapFactory.decodeResource(getResources(), R.drawable.travel10);
-        images.add(image);
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+        if (item.getItemId() == android.R.id.home) {
+            this.finish();
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void capturePhoto(View view){
@@ -127,13 +104,9 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
         }
     }
 
-    // Returns the Uri for a photo stored on disk given the fileName
     public Uri getPhotoFileUri(String fileName) {
         // Only continue if the SD Card is mounted
         if (isExternalStorageAvailable()) {
-            // Get safe storage directory for photos
-            // Use `getExternalFilesDir` on Context to access package-specific directories.
-            // This way, we don't need to request external read/write runtime permissions.
             File mediaStorageDir = new File(
                     getExternalFilesDir(Environment.DIRECTORY_PICTURES), APP_TAG);
 
@@ -159,25 +132,34 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
         if (requestCode == CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
                 Uri takenPhotoUri = getPhotoFileUri(mPhotoFileName);
+                Bitmap rotatedBitmap = rotateBitmapOrientation(takenPhotoUri.getPath());
+                scaledBitmap = getScaledBitmap(rotatedBitmap);
 
-                Glide.with(this).load(takenPhotoUri).centerCrop().into(ivPreview);
+                // Load the taken image into a preview
+                ivImage.setImageBitmap(scaledBitmap);
 
-                //Get image to save Firebase
-                BitmapDrawable bitmapDrawable = ((BitmapDrawable) ivPreview.getDrawable());
-                Bitmap bitmap = bitmapDrawable .getBitmap();
-                encodeBitmapAndSaveToFirebase(bitmap);
             } else { // Result was a failure
                 Toast.makeText(this, "Picture wasn't taken!", Toast.LENGTH_SHORT).show();
             }
         }
     }
 
+    private void savePhoto(){
+        //prepare image to save Firebase
+        //TODO:
+        Photo photo=new Photo();
+        photo.setImage(encodeBitmapAndSaveToFirebase(scaledBitmap));
+        photo.setComment(etComment.getText().toString());
+        photo.setLocation(etLocation.getText().toString());
+        photo.setDate(LocalDateTime.now().toString());
+        FirebaseUtil.saveImage(photo,trip.getTripId());
+    }
+
    //Encode the image to save in Firebase
-    public void encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
+    public String encodeBitmapAndSaveToFirebase(Bitmap bitmap) {
         ByteArrayOutputStream baos = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, baos);
-        String imageEncoded = Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
-        FirebaseUtil.saveImage(imageEncoded,trip.getTripId());
+        return Base64.encodeToString(baos.toByteArray(), Base64.DEFAULT);
     }
 
     @Override
@@ -185,10 +167,46 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
         int id=view.getId();
         switch (id) {
             case R.id.tvDone:
-                Intent intent = new Intent(this, EditTripActivity.class).putExtra("Trip", Parcels.wrap(trip));
+                savePhoto();
+                Intent intent = new Intent(this, DisplayPhotosActivity.class);
                 startActivity(intent);
                 finish();
                 break;
         }
+    }
+
+
+    public Bitmap getScaledBitmap(Bitmap bitmap){
+        //Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, ivPreview.getWidth(), ivPreview.getHeight(), true);
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, 400, 200, true);
+        return scaledBitmap;
+    }
+
+    public Bitmap rotateBitmapOrientation(String photoFilePath) {
+        // Create and configure BitmapFactory
+        BitmapFactory.Options bounds = new BitmapFactory.Options();
+        bounds.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(photoFilePath, bounds);
+        BitmapFactory.Options opts = new BitmapFactory.Options();
+        Bitmap bm = BitmapFactory.decodeFile(photoFilePath, opts);
+        // Read EXIF Data
+        ExifInterface exif = null;
+        try {
+            exif = new ExifInterface(photoFilePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        String orientString = exif.getAttribute(ExifInterface.TAG_ORIENTATION);
+        int orientation = orientString != null ? Integer.parseInt(orientString) : ExifInterface.ORIENTATION_NORMAL;
+        int rotationAngle = 0;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_90) rotationAngle = 90;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_180) rotationAngle = 180;
+        if (orientation == ExifInterface.ORIENTATION_ROTATE_270) rotationAngle = 270;
+        // Rotate Bitmap
+        Matrix matrix = new Matrix();
+        matrix.setRotate(rotationAngle, (float) bm.getWidth() / 2, (float) bm.getHeight() / 2);
+        Bitmap rotatedBitmap = Bitmap.createBitmap(bm, 0, 0, bounds.outWidth, bounds.outHeight, matrix, true);
+        // Return result
+        return rotatedBitmap;
     }
 }

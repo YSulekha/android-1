@@ -10,14 +10,13 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/app_bar_height"
-        android:fitsSystemWindows="true"
+        android:layout_height="wrap_content"
         android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/toolbar_layout"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:fitsSystemWindows="true"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -26,9 +25,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content">
 
-                <ImageView
+                <com.flaviofaria.kenburnsview.KenBurnsView
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="300dp"
                     android:id="@+id/toolbarImage"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
@@ -36,14 +35,15 @@
 
                 <TextView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:id="@+id/tvSearchedPlaceName"
-                    android:textSize="20sp"
-                    android:text="Let's start..."
+                    android:textSize="24sp"
+                    android:text="San Francisco"
+                    android:textAppearance ="@style/TextAppearance.AppCompat.Title"
                     android:textStyle="bold"
-                    android:layout_marginTop="15dp"
-                    android:layout_marginLeft="10dp"
-                    android:gravity="center" />
+                    android:layout_marginTop="150dp"
+                    android:gravity="center"
+                    android:textColor="@color/color_white"/>
 
                 <android.support.v7.widget.Toolbar
                     android:id="@+id/toolbar"
@@ -64,8 +64,17 @@
         android:text="SAVE"
         android:textColor="@android:color/white"
         android:layout_gravity="bottom|end"
-        android:background="@color/colorPrimary"/>
+        android:background="@color/colorPrimary" />
 
     <include layout="@layout/content_add_trip" />
+
+    <fragment
+        android:id="@+id/map"
+        android:name="com.google.android.gms.maps.SupportMapFragment"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        app:layout_anchor="@id/app_bar"
+        app:layout_anchorGravity="bottom|end"
+        android:layout_margin="@dimen/fab_margin"/>
 
 </android.support.design.widget.CoordinatorLayout>

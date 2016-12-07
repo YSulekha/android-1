@@ -23,7 +23,8 @@
           android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Add Destinations"
-          android:textColor="@android:color/white"/>
+          android:textColor="@android:color/white"
+          android:textSize="20sp"/>
 
       <TextView
           android:id="@+id/tvDone"
@@ -48,7 +49,7 @@
   <android.support.v4.widget.NestedScrollView
       android:id="@+id/bottom_sheet"
       android:layout_width="match_parent"
-      android:layout_height="240dp"
+      android:layout_height="200dp"
       android:clipToPadding="true"
       app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
 
@@ -58,8 +59,8 @@
         android:orientation="vertical"
         android:layout_alignParentBottom="true"
         android:background="@android:color/white"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp">
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp">
 
       <TextView
           android:layout_width="match_parent"
@@ -71,45 +72,78 @@
           android:textSize="18sp"
           android:layout_margin="15dp"/>
 
+      <LinearLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:orientation="horizontal"
+          android:gravity="center"
+          android:background="#FAFAFA">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/bucketlist"
+            android:layout_marginRight="30dp"/>
+
       <Button
           android:id="@+id/btnBucketList"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Bucket List"
-          android:background="#FAFAFA"/>
+          android:background="@null"/>
+      </LinearLayout>
+
       <View
           android:layout_width="match_parent"
-          android:layout_height="1dp"
+          android:layout_height="0.5dp"
           android:background="#D6E6E5" />
 
-     <!-- <Button
-          android:id="@+id/btnLikedList"
-          android:layout_width="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FAFAFA">
+
+      <ImageView
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
-          android:text="Liked List"
-          android:background="#FAFAFA"/>-->
-      <View
-          android:layout_width="match_parent"
-          android:layout_height="1dp"
-          android:background="#D6E6E5" />
+          android:src="@drawable/recommended"
+          android:layout_marginRight="30dp"/>
 
       <Button
           android:id="@+id/btnRecommendedList"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Recommended List"
-          android:background="#FAFAFA"/>
+          android:background="@null"/>
+      </LinearLayout>
+
       <View
           android:layout_width="match_parent"
-          android:layout_height="1dp"
+          android:layout_height="0.5dp"
           android:background="#D6E6E5" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:background="#FAFAFA">
+
+      <ImageView
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:src="@drawable/visited"
+          android:layout_marginRight="30dp"/>
 
       <Button
           android:id="@+id/btnVisitedList"
-          android:layout_width="match_parent"
+          android:layout_width="wrap_content"
           android:layout_height="wrap_content"
           android:text="Visited List"
-          android:background="#FAFAFA"/>
+          android:background="@null"/>
+      </LinearLayout>
 
     </LinearLayout>
 
