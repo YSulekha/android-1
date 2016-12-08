@@ -16,6 +16,13 @@ import com.github.gripsack.android.ui.places.MyPlacesActivity;
 import com.github.gripsack.android.ui.settings.SettingsActivity;
 import com.github.gripsack.android.ui.timeline.TimelineActivity;
 import com.github.gripsack.android.ui.trips.MyTripsActivity;
+import com.github.gripsack.android.ui.timeline.TimelineFragment;
+import com.github.gripsack.android.ui.trips.AddTripActivity;
+import com.github.gripsack.android.ui.trips.CompletedFragment;
+import com.github.gripsack.android.ui.trips.UpcomingFragment;
+
+
+
 import com.google.android.gms.auth.api.Auth;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.firebase.auth.FirebaseAuth;

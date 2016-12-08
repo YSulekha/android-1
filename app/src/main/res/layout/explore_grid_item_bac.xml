@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cvRoot"
+    android:layout_marginLeft="@dimen/grid_margin"
+    android:layout_marginRight="@dimen/grid_margin"
+    android:layout_marginTop="@dimen/cell_margin"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:clickable="true"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation"
+    android:foreground="?android:attr/selectableItemBackground">
+
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#F3E5F5">
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        android:id="@+id/item_image"
+        android:background="@color/photo_placeholder"
+        android:adjustViewBounds="true"
+        />
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:id="@+id/explore_view"/>
+    <TextView
+        android:id="@+id/item_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/keyline_margin"
+        android:ellipsize="end"
+        android:maxLines="4"
+        android:textSize="22sp"
+        android:textColor="@color/color_white"
+        android:textStyle="bold"
+        android:gravity="center_horizontal"
+        android:layout_gravity="center"
+        android:paddingEnd="@dimen/keyline_margin"
+        android:paddingStart="@dimen/keyline_margin" />
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/item_bucketlist"
+        android:layout_gravity="end"
+        android:padding="12dp"
+        android:background="@android:color/transparent"
+        android:src="@drawable/ic_action_like"/>
+
+
+</FrameLayout>
+    </android.support.v7.widget.CardView>
+

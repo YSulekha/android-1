@@ -1,14 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/cvRoot"
+    android:layout_marginLeft="@dimen/grid_margin"
+    android:layout_marginRight="@dimen/grid_margin"
+    android:layout_marginTop="@dimen/cell_margin"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    >
+    android:clickable="true"
+    card_view:cardCornerRadius="@dimen/card_corner_radius"
+    card_view:cardElevation="@dimen/card_elevation"
+    android:foreground="?android:attr/selectableItemBackground">
+
+    <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#F3E5F5">
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:id="@+id/destination_image"
         android:adjustViewBounds="true"
+        android:background="@color/photo_placeholder"
         android:scaleType="centerCrop"
         android:transitionName="image"
         />
@@ -26,3 +40,4 @@
         android:textStyle="bold"/>
 
 </FrameLayout>
+    </android.support.v7.widget.CardView>

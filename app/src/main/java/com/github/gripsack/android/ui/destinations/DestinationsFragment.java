@@ -4,10 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.CollapsingToolbarLayout;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -21,6 +22,7 @@ import android.widget.ImageView;
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
+import com.github.gripsack.android.ui.trips.AddTripActivity;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.common.api.Status;
@@ -52,7 +54,8 @@ public class DestinationsFragment extends Fragment {
     public static final String TAG = "DestinationsFragment";
     public static final String EXTRA_PLACE = "place";
 
-    Place searchplace;
+ //   Place searchplace;
+    com.github.gripsack.android.data.model.Place searchplace;
     String latLong;
     RecyclerView recyclerView;
     DestinationsAdapter placesAdapter;
@@ -90,22 +93,39 @@ public class DestinationsFragment extends Fragment {
         placesList = new ArrayList<>();
         recyclerView = (RecyclerView) rootView.findViewById(R.id.main_recycler);
         placesAdapter = new DestinationsAdapter(getActivity(), placesList);
+
         recyclerView.setAdapter(placesAdapter);
 
-        StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(staggeredGridLayoutManager);
+      //  StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
+        recyclerView.setLayoutManager(manager);
 
         imageView = (ImageView) rootView.findViewById(R.id.photoCollapse);
 
         Intent intent = getActivity().getIntent();
-        com.github.gripsack.android.data.model.Place place = (com.github.gripsack.android.data.model.Place) Parcels.unwrap(intent
-                .getParcelableExtra(EXTRA_PLACE));
-        if (place.getPhotoUrl() != null) {
-            Glide.with(getActivity()).load(place.getPhotoUrl()).into(imageView);
-            photoURl = place.getPhotoUrl();
+     //   com.github.gripsack.android.data.model.Place place = (com.github.gripsack.android.data.model.Place) Parcels.unwrap(intent
+       //         .getParcelableExtra(EXTRA_PLACE));
+
+        searchplace = (com.github.gripsack.android.data.model.Place) Parcels.unwrap(intent
+                         .getParcelableExtra(EXTRA_PLACE));
+        if (searchplace.getPhotoUrl() != null) {
+            Glide.with(getActivity()).load(searchplace.getPhotoUrl()).into(imageView);
+            photoURl = searchplace.getPhotoUrl();
         }
-        mCollapsing.setTitle(place.getName());
-        latLong = place.getLatitude() + "," + place.getLongitude();
+
+        mCollapsing.setTitle(searchplace.getName());
+        latLong = searchplace.getLatitude() + "," + searchplace.getLongitude();
+
+        //Navigate to Create Trip Activity
+        FloatingActionButton fab = (FloatingActionButton) rootView.findViewById(R.id.fab_createtrip);
+        fab.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent CreateTrip=new Intent(getActivity(),AddTripActivity.class);
+                CreateTrip.putExtra("SearchedLocation", Parcels.wrap(searchplace));
+                getActivity().startActivity(CreateTrip);
+            }
+        });
 
         sendrequest();
         return rootView;
@@ -116,6 +136,7 @@ public class DestinationsFragment extends Fragment {
         AsyncHttpClient client = new AsyncHttpClient();
         RequestParams params = new RequestParams();
         String apiKey = BuildConfig.MyPlacesApiKey;
+        latLong = searchplace.getLatitude() + "," + searchplace.getLongitude();
         params.put("location", latLong);
         params.put("rankby", "prominence");
         params.put("key", apiKey);
@@ -130,9 +151,9 @@ public class DestinationsFragment extends Fragment {
                     if (photoURl == null && resultsArray.length() > 0) {
                         Glide.with(getActivity()).load(placesList.get(0).getPhotoUrl()).into(imageView);
                     }
-                    if (searchplace != null) {
+                 //   if (searchplace != null) {
                         mCollapsing.setTitle(searchplace.getName());
-                    }
+                   // }
 
                     placesAdapter.notifyDataSetChanged();
                 } catch (JSONException e) {
@@ -187,9 +208,15 @@ public class DestinationsFragment extends Fragment {
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == PLACE_AUTOCOMPLETE_REQUEST_CODE) {
             if (resultCode == RESULT_OK) {
-                searchplace = PlaceAutocomplete.getPlace(getActivity(), data);
+                Place place = PlaceAutocomplete.getPlace(getActivity(), data);
                 placesList.clear();
-                latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
+              //  latLong = searchplace.getLatLng().latitude + "," + searchplace.getLatLng().longitude;
+                searchplace = new com.github.gripsack.android.data.model.Place();
+                searchplace.setLatitude(place.getLatLng().latitude);
+                searchplace.setLongitude(place.getLatLng().longitude);
+                searchplace.setName((String) place.getName());
+                searchplace.setPlaceid(place.getId());
+                searchplace.setRating(place.getRating());
                 photoURl = null;
                 sendrequest();
             } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {

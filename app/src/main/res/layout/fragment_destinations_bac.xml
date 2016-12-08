@@ -19,7 +19,9 @@
             android:theme="@style/ThemeOverlay.AppCompat.Dark"
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
-            android:fitsSystemWindows="true">
+            android:fitsSystemWindows="true"
+            app:expandedTitleGravity="bottom|center_horizontal"
+            app:expandedTitleTextAppearance="@style/CollapsingBarText">
 
             <FrameLayout
                 android:id="@+id/photo_container"
@@ -34,6 +36,8 @@
                     android:layout_height="@dimen/detail_photo_height"
                     android:adjustViewBounds="true"
                     android:scaleType="centerCrop"
+                    android:alpha="0.9"
+                    android:background="@drawable/upcoming_background"
                     android:src="@drawable/sf"
                     android:fitsSystemWindows="true"
                     app:layout_collapseMode="parallax"/>
@@ -50,19 +54,21 @@
         </android.support.design.widget.CollapsingToolbarLayout>
 
     </android.support.design.widget.AppBarLayout>
+
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
+        android:id="@+id/fab_createtrip"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="bottom|end"
         android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email" />
+        app:srcCompat="@drawable/ic_add_white_24dp" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
+        android:layout_marginBottom="12dp"
         android:id="@+id/main_recycler"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 

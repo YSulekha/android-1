@@ -64,7 +64,7 @@ public class CompanionsFragment extends Fragment {
             return;
         }
 
-        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 3);
+        GridLayoutManager layoutManager = new GridLayoutManager(getActivity(), 2);
         mRecyclerView.setLayoutManager(layoutManager);
 
         if (savedInstanceState != null) {
