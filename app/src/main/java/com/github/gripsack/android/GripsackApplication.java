@@ -5,7 +5,6 @@ import android.os.StrictMode;
 import android.util.Log;
 
 import com.google.firebase.crash.FirebaseCrash;
-import com.squareup.leakcanary.LeakCanary;
 
 import net.danlew.android.joda.JodaTimeAndroid;
 
@@ -21,13 +20,13 @@ public class GripsackApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        if (LeakCanary.isInAnalyzerProcess(this)) {
-            // This process is dedicated to LeakCanary for heap analysis.
-            // You should not init your app in this process.
-            return;
-        }
+//        if (LeakCanary.isInAnalyzerProcess(this)) {
+//            // This process is dedicated to LeakCanary for heap analysis.
+//            // You should not init your app in this process.
+//            return;
+//        }
         enabledStrictMode();
-        LeakCanary.install(this);
+    //    LeakCanary.install(this);
         Timber.plant(BuildConfig.DEBUG
                 ? new Timber.DebugTree()
                 : new CrashReportingTree());
