@@ -8,15 +8,8 @@ import com.github.gripsack.android.data.model.Trip;
 import com.github.gripsack.android.data.model.User;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
-
-import java.util.ArrayList;
 
 import timber.log.Timber;
 
@@ -158,9 +151,10 @@ public class FirebaseUtil {
         String tripId = getTripsRef().push().getKey();
         trip.setTripId(tripId);
         getTripsRef().child(tripId).setValue(trip);
-        user.child("trips")
+    /*    user.child("trips")
                 .child(tripId)
-                .setValue(true);
+                .setValue(true);*/
+        user.child("trips").child(tripId).child("beginDate").setValue(trip.getBeginDate());
     }
 
     public static void savePlace(Place place) {

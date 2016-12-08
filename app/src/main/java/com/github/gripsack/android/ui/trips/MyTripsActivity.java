@@ -20,15 +20,15 @@ public class MyTripsActivity extends SingleFragmentActivity {
 
     @Override
     protected Fragment createFragment() {
-        if (getIntent().getStringExtra(EXTRA_ITEMTYPE).equals("Upcoming")) {
+     /*   if (getIntent().getStringExtra(EXTRA_ITEMTYPE).equals("Upcoming")) {
             getSupportActionBar().setTitle(getString(R.string.tab_trips_upcoming));
             return UpcomingFragment.newInstance();
         }
         if (getIntent().getStringExtra(EXTRA_ITEMTYPE).equals("Completed")) {
             getSupportActionBar().setTitle(getString(R.string.tab_trips_completed));
             return CompletedFragment.newInstance();
-        }
-        return null;
+        }*/
+        return UpcomingFragment.newInstance();
     }
 
     @Override

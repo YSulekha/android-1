@@ -30,10 +30,6 @@ public class MyPlacesActivity  extends SingleFragmentActivity {
             getSupportActionBar().setTitle(getString(R.string.menu_item_place_visited));
             return VisitedFragment.newInstance();
         }
-        if(getIntent().getStringExtra(EXTRA_ITEMTYPE).equals("recommended")){
-            getSupportActionBar().setTitle(getString(R.string.menu_item_place_recommended));
-            return RecommendedFragment.newInstance();
-        }
         return null;
     }
 

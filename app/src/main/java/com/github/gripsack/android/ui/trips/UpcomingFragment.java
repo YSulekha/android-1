@@ -83,7 +83,7 @@ public class UpcomingFragment extends Fragment {
                 Trip.class,
                 R.layout.widget_cardview_trip,
                 TripViewHolder.class,
-                FirebaseUtil.getCurrentUserTripsRef(),
+                FirebaseUtil.getCurrentUserTripsRef().orderByChild("beginDate"),
                 FirebaseUtil.getTripsRef()) {
             @Override
             protected void populateViewHolder(TripViewHolder viewHolder, Trip model, int position) {
