@@ -1,6 +1,7 @@
 
 package com.github.gripsack.android.ui.explore;
 
+import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -40,10 +41,12 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
+import static com.github.gripsack.android.R.id.recyclerView;
 
 
 public class ExploreFragment extends Fragment {
@@ -68,22 +71,27 @@ public class ExploreFragment extends Fragment {
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_explore, container, false);
+        // inside your activity (if you did not enable transitions in your theme)
+
+// set an exit transition
+
         if (savedInstanceState == null) {
             places = new ArrayList<>();
         }
         Intent intent = new Intent(getActivity(), LocationService.class);
 
         //Check if there is a permission to access location
-        if (ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
-                ActivityCompat.checkSelfPermission(getActivity(), android.Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED &&
+                ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
 
             //else request permission to access location
-            ActivityCompat.requestPermissions(getActivity(),new String[]{android.Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_REQUEST_FINE_LOCATION);
+            ActivityCompat.requestPermissions(getActivity(),new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, MY_PERMISSION_REQUEST_FINE_LOCATION);
 
         }
         getActivity().startService(intent);
@@ -100,6 +108,7 @@ public class ExploreFragment extends Fragment {
         view.setLayoutManager(new LinearLayoutManager(getActivity()));
         ad = new ExploreRecyclerAdapter(getActivity(), places);
         view.setAdapter(ad);
+        view.setItemAnimator(new SlideInUpAnimator());
 
 
      /*  mGoogleApiClient = new GoogleApiClient

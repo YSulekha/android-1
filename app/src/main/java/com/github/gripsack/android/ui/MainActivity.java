@@ -89,6 +89,7 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
                 updateNavigationView();
             }
         };
+        TextView textView = (TextView) findViewById(R.id.text);
         mDrawer.addDrawerListener(mDrawerToggle);
 
         mNavigationView = (NavigationView) findViewById(R.id.nav_view);

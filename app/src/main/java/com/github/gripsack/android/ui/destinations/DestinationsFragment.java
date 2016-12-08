@@ -40,6 +40,7 @@ import org.parceler.Parcels;
 import java.util.ArrayList;
 
 import cz.msebera.android.httpclient.Header;
+import jp.wasabeef.recyclerview.animators.SlideInUpAnimator;
 import timber.log.Timber;
 
 import static android.app.Activity.RESULT_CANCELED;
@@ -99,6 +100,7 @@ public class DestinationsFragment extends Fragment {
       //  StaggeredGridLayoutManager staggeredGridLayoutManager = new StaggeredGridLayoutManager(2, StaggeredGridLayoutManager.VERTICAL);
         LinearLayoutManager manager = new LinearLayoutManager(getActivity(),LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(manager);
+        recyclerView.setItemAnimator(new SlideInUpAnimator());
 
         imageView = (ImageView) rootView.findViewById(R.id.photoCollapse);
 
@@ -186,6 +188,7 @@ public class DestinationsFragment extends Fragment {
             return true;
         }
         if (id == android.R.id.home) {
+            getActivity().supportFinishAfterTransition();
             getActivity().onBackPressed();
             return true;
         }

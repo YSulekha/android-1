@@ -3,6 +3,8 @@ package com.github.gripsack.android.ui.explore;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.os.Build;
+import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v7.graphics.Palette;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -16,6 +18,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
+import com.github.gripsack.android.ui.MainActivity;
 import com.github.gripsack.android.ui.destinations.DestinationsActivity;
 import com.github.gripsack.android.ui.destinations.DestinationsFragment;
 import com.github.gripsack.android.ui.trips.AddTripActivity;
@@ -23,8 +26,6 @@ import com.github.gripsack.android.ui.trips.AddTripActivity;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-
-
 
 
 public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecyclerAdapter.DestinationViewHolder> {
@@ -107,7 +108,16 @@ public class ExploreRecyclerAdapter extends RecyclerView.Adapter<ExploreRecycler
                 case R.id.destination_image:
                     Intent destinationIntent = new Intent(mContext, DestinationsActivity.class);
                     destinationIntent.putExtra(DestinationsFragment.EXTRA_PLACE,Parcels.wrap(place));
-                    mContext.startActivity(destinationIntent);
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        ActivityOptionsCompat options = ActivityOptionsCompat.
+                                makeSceneTransitionAnimation((MainActivity)mContext, icon, "image");
+                       mContext.startActivity(destinationIntent, options.toBundle());
+                    }
+                    else {
+                        mContext.startActivity(destinationIntent);
+                    }
+
+                 //   mContext.startActivity(destinationIntent);
                     break;
             }
         }

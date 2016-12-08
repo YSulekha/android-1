@@ -2,8 +2,8 @@ package com.github.gripsack.android.ui.trips;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.support.design.widget.BottomSheetBehavior;
 import android.os.Bundle;
+import android.support.design.widget.BottomSheetBehavior;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -18,14 +18,11 @@ import com.github.gripsack.android.BuildConfig;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Place;
 import com.github.gripsack.android.data.model.Trip;
-import com.github.gripsack.android.ui.navigation.DrawerItemSelectedListener;
-import com.github.gripsack.android.ui.places.BucketlistFragment;
 import com.github.gripsack.android.utils.FirebaseUtil;
 import com.github.gripsack.android.utils.MapUtil;
 import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
 import com.google.android.gms.common.GooglePlayServicesRepairableException;
 import com.google.android.gms.location.places.ui.PlacePicker;
-
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
@@ -39,7 +36,6 @@ import com.loopj.android.http.AsyncHttpClient;
 import com.loopj.android.http.JsonHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.parceler.Parcels;

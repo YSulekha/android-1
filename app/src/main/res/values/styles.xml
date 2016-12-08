@@ -55,7 +55,7 @@
 
     <style name="ThemeOverlay.MyTitleText" parent="AppTheme">
         <item name="android:gravity">center</item>
-        <item name="android:textSize">36sp</item>
+        <item name="android:textSize">30sp</item>
     </style>
 
 
