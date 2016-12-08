@@ -29,7 +29,9 @@
     <View
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/destination_view"/>
+        android:id="@+id/destination_view"
+        android:background="?android:selectableItemBackground"
+        />
     <TextView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
