@@ -32,6 +32,7 @@ import com.bumptech.glide.request.animation.GlideAnimation;
 import com.bumptech.glide.request.target.SimpleTarget;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Trip;
+import com.github.gripsack.android.utils.Utility;
 
 import org.parceler.Parcels;
 
@@ -68,9 +69,10 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
                     public void onResourceReady(Bitmap bitmap, GlideAnimation glideAnimation) {
                         // do something with the bitmap
                         // for demonstration purposes, let's just set it to an ImageView
-                        Log.v("Inside Bitmap", "dsfsdf");
+                        Log.v("Inside Bitmap", "upcoming");
                         Palette p = Palette.generate(bitmap);
                         int color = p.getDarkVibrantColor(0xFF333333);
+                        Log.v("Inside Bitmap",String.valueOf(color));
                         ivTripImage.setImageBitmap(bitmap);
                         view.setBackgroundColor(color);
                         view.setAlpha(0.5f);
@@ -87,7 +89,9 @@ public class TripViewHolder extends RecyclerView.ViewHolder {
     }
 
     public void setDate(String date, final String uid) {
-        tvTripDate.setText(date);
+        String formattedDate = Utility.formatDate(date);
+        Log.v("date",formattedDate);
+        tvTripDate.setText(formattedDate);
     }
 
 

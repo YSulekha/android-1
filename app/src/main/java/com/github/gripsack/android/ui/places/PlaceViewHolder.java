@@ -57,9 +57,9 @@ public class PlaceViewHolder extends RecyclerView.ViewHolder {
                         Palette.Swatch vibrant = palette.getVibrantSwatch();
                         if (vibrant != null) {
                             // Set the background color of a layout based on the vibrant color
-                            paletteView.setBackgroundColor(vibrant.getRgb());
-                            // Update the title TextView with the proper text color
-                            mPlaceName.setTextColor(vibrant.getTitleTextColor());
+                          //  paletteView.setBackgroundColor(vibrant.getRgb());
+                         //   // Update the title TextView with the proper text color
+                           // mPlaceName.setTextColor(vibrant.getTitleTextColor());
                         }
                         mPlacePhoto.setImageBitmap(bitmap);
                     }

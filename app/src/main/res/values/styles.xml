@@ -58,6 +58,11 @@
         <item name="android:textSize">36sp</item>
     </style>
 
+    <style name ="CollapsingBarText" parent="AppTheme">
+        <item name="android:textSize">32sp</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
     <style name="Preference" parent="AppTheme.NoActionBar">
     </style>
 

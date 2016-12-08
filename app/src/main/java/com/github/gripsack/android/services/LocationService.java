@@ -31,6 +31,7 @@ public class LocationService extends Service implements LocationListener,
     private LocationRequest mLocationRequest;
     private GoogleApiClient mGoogleApiClient;
     String latLong;
+    Location mCurrentlocation;
 
     public LocationService() {
     }
@@ -73,7 +74,17 @@ public class LocationService extends Service implements LocationListener,
     @Override
     public void onLocationChanged(Location location) {
         Log.v("OnLocationChanged", location.toString());
+        String mCurr;
         latLong = location.getLatitude() + "," + location.getLongitude();
+        if(mCurrentlocation!=null) {
+            mCurr = mCurrentlocation.getLatitude() + "," + mCurrentlocation.getLongitude();
+            if(latLong.equals(mCurr)){
+                Log.v("InsideE","dds");
+                Log.v("Equals","latLong");
+            }
+        }
+        mCurrentlocation = location;
+
     }
 
     @Override
