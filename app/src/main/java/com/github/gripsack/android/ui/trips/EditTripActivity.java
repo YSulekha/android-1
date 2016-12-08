@@ -163,17 +163,13 @@ public class EditTripActivity extends AppCompatActivity
                 break;
 
             case R.id.lyCompanion:
-                Intent intentCompanion=new Intent(this, CompanionsActivity.class);
+                Intent intentCompanion=new Intent(this, AddCompanionActivity.class)
+                        .putExtra("Trip", Parcels.wrap(trip));;
                 startActivity(intentCompanion);
                 break;
 
             case R.id.lyHotel:
-               /* Uri gmmIntentUri = Uri.parse("geo:"+trip.getSearchDestination().getLatitude()+","+trip.getSearchDestination().getLongitude()
-                        +"?q=hotels");
-                Intent intentHotel=new Intent(Intent.ACTION_VIEW,gmmIntentUri);
-                intentHotel.setPackage("com.google.android.apps.maps");
-                startActivityForResult(intentHotel,HOTEL_PICKER_REQUEST);*/
-                String url = "http://www.booking.com/";
+                String url = "https://www.airbnb.com/";
                 CustomTabsIntent.Builder builder = new CustomTabsIntent.Builder();
                 builder.setToolbarColor(ContextCompat.getColor(this, R.color.colorPrimary));
                 CustomTabsIntent customTabsIntent = builder.build();

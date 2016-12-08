@@ -87,6 +87,7 @@
     <string name="menu_item_place_visited">Visited</string>
     <string name="menu_item_place_recommended">Recommended</string>
     <string name="menu_item_my_storage">My Storage</string>
+    <string name="title_activity_add_companion">AddCompanionActivity</string>
 
 
 </resources>

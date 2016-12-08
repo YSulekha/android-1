@@ -9,6 +9,7 @@ public class User {
 
     public String displayName;
     public String profileImageUrl;
+    public String userId;
 
     public User() {
         // Default constructor required for calls to DataSnapshot.getValue(CompanionInvite.class)
@@ -18,6 +19,13 @@ public class User {
         this.displayName = displayName;
         if (profileImageUrl != null) {
             this.profileImageUrl = profileImageUrl.toString();
+        }
+    }
+
+    public User(String displayName, String profileImageUrl) {
+        this.displayName = displayName;
+        if (profileImageUrl != null) {
+            this.profileImageUrl = profileImageUrl;
         }
     }
 }

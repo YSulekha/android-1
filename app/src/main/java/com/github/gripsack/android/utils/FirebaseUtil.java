@@ -106,6 +106,7 @@ public class FirebaseUtil {
         }
         getUsersRef().child(uid).child("displayName").setValue(user.displayName);
         getUsersRef().child(uid).child("profileImageUrl").setValue(user.profileImageUrl);
+        getUsersRef().child(uid).child("userId").setValue(uid);
     }
 
     public static void saveCompanionInvitation(String inviteId) {
@@ -154,6 +155,8 @@ public class FirebaseUtil {
     /*    user.child("trips")
                 .child(tripId)
                 .setValue(true);*/
+        String userRef=getCurrentUserId().toString().trim();
+        getTripsRef().child(tripId).child("companion").child(userRef).setValue(true);
         user.child("trips").child(tripId).child("beginDate").setValue(trip.getBeginDate());
     }
 
