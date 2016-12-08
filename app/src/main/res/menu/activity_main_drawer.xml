@@ -7,6 +7,10 @@
             android:icon="@drawable/ic_arrow_expand_all"
             android:title="Explore" />
         <item
+            android:id="@+id/nav_trips_upcoming"
+            android:icon="@drawable/ic_mytrips"
+            android:title="@string/title_my_trips" />
+        <item
             android:id="@+id/nav_timeline"
             android:icon="@drawable/ic_view_sequential"
             android:title="Timeline" />
@@ -18,20 +22,6 @@
             android:id="@+id/nav_companions"
             android:icon="@drawable/ic_account_multiple"
             android:title="@string/menu_item_companions" />
-        <item android:title="@string/menu_label_my_trips">
-            <menu>
-                <group android:checkableBehavior="single">
-                <item
-                    android:id="@+id/nav_trips_upcoming"
-                    android:icon="@drawable/ic_upcoming_black_24dp"
-                    android:title="@string/menu_item_trips_upcoming" />
-                <item
-                    android:id="@+id/nav_trips_past"
-                    android:icon="@drawable/ic_history_black_24dp"
-                    android:title="@string/menu_item_trips_past" />
-                </group>
-            </menu>
-        </item>
 
         <item android:title="@string/menu_label_my_places" >
             <menu>
@@ -42,12 +32,9 @@
                     android:title="@string/menu_item_place_bucketlist" />
                 <item
                     android:id="@+id/nav_places_visited"
-                    android:icon="@drawable/ic_menu_gallery"
+                    android:icon="@drawable/ic_person_24dp"
                     android:title="@string/menu_item_place_visited" />
-                <item
-                    android:id="@+id/nav_places_recommended"
-                    android:icon="@drawable/ic_menu_gallery"
-                    android:title="@string/menu_item_place_recommended" />
+
                 </group>
             </menu>
         </item>

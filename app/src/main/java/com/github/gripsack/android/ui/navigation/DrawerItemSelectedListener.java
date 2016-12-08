@@ -59,13 +59,6 @@ public class DrawerItemSelectedListener implements
               //  fragmentClass = UpcomingFragment.class;
                 break;
 
-            case R.id.nav_trips_past:
-                intent = MyTripsActivity.newIntent(mContext);
-                intent.putExtra(MyTripsActivity.EXTRA_ITEMTYPE,"Completed");
-                mContext.startActivity(intent);
-           //     fragmentClass = CompletedFragment.class;
-                break;
-
             case R.id.nav_places_bucketlist:
                 intent = MyPlacesActivity.newIntent(mContext);
                 intent.putExtra(MyPlacesActivity.EXTRA_ITEMTYPE,"bucketlist");
@@ -73,12 +66,6 @@ public class DrawerItemSelectedListener implements
                // fragmentClass = BucketlistFragment.class;
                 break;
 
-            case R.id.nav_places_recommended:
-                intent = MyPlacesActivity.newIntent(mContext);
-                intent.putExtra(MyPlacesActivity.EXTRA_ITEMTYPE,"recommended");
-                mContext.startActivity(intent);
-             //   fragmentClass = RecommendedFragment.class;
-                break;
 
             case R.id.nav_places_visited:
                 intent = MyPlacesActivity.newIntent(mContext);
