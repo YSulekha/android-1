@@ -15,7 +15,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/navigation"
+            android:src="@drawable/ic_near_me_18dp"
             android:layout_marginRight="20dp"/>
 
          <Button
@@ -42,7 +42,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/panorama"
+            android:src="@drawable/ic_panorama_18dp"
             android:layout_marginRight="20dp"/>
 
     <Button
@@ -68,7 +68,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/unpin"
+            android:src="@drawable/ic_pin_drop_18dp"
             android:layout_marginRight="20dp"/>
 
         <Button

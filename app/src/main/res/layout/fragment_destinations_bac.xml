@@ -20,7 +20,7 @@
             app:contentScrim="?attr/colorPrimary"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             android:fitsSystemWindows="true"
-            app:expandedTitleGravity="bottom|center_horizontal"
+            app:expandedTitleGravity="center"
             app:expandedTitleTextAppearance="@style/CollapsingBarText">
 
             <FrameLayout
@@ -30,7 +30,7 @@
                 android:background="@color/photo_placeholder"
                 app:layout_collapseMode="parallax"
                 android:fitsSystemWindows="true">
-                <ImageView
+                <com.flaviofaria.kenburnsview.KenBurnsView
                     android:id="@+id/photoCollapse"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/detail_photo_height"

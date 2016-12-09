@@ -36,7 +36,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/card_view"
-            android:layout_marginTop="3dp">
+            android:layout_marginTop="3dp"
+            android:background="@color/color_white">
             <!-- card_view:cardCornerRadius="4dp"
              android:layout_margin="5dp">-->
 
@@ -59,7 +60,8 @@
                     android:layout_marginTop="15dp"
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
-                    android:layout_toRightOf="@+id/ibLocation">
+                    android:layout_toRightOf="@+id/ibLocation"
+                    >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -106,7 +108,8 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/ibCompanion"
-                    android:layout_below="@+id/viewLine1">
+                    android:layout_below="@+id/viewLine1"
+                   >
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -152,7 +155,8 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/ibHotel"
-                    android:layout_below="@+id/viewLine2">
+                    android:layout_below="@+id/viewLine2"
+                    >
 
 
                     <TextView
@@ -160,7 +164,7 @@
                         android:layout_height="wrap_content"
                         android:id="@+id/tvHotelTitle"
                         android:textSize="16sp"
-                        android:text="Hotel"
+                        android:text="Lodging"
                         android:textColor="#1F2C33"
                         android:textStyle="bold"
                         android:layout_marginBottom="5dp"/>
@@ -199,7 +203,8 @@
                     android:layout_marginBottom="5dp"
                     android:layout_marginLeft="15dp"
                     android:layout_toRightOf="@+id/ibPhotos"
-                    android:layout_below="@+id/viewLine3">
+                    android:layout_below="@+id/viewLine3"
+                   >
 
 
                     <TextView

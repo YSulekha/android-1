@@ -143,52 +143,61 @@ public class MainActivity extends SingleFragmentActivity implements DrawerItemSe
         mBucketListCount = (TextView) header.findViewById(R.id.userBucketListCount);
 
         String currentUserId = FirebaseUtil.getCurrentUserId();
-        DatabaseReference UserInforef = FirebaseUtil.getUsersRef().child(currentUserId);
 
-        //Get number of trips
-        UserInforef.child("trips").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (mTripsCount != null) {
-                    mTripsCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+        if(currentUserId!=null) {
+            DatabaseReference UserInforef = FirebaseUtil.getUsersRef().child(currentUserId);
+
+            //Get number of trips
+            UserInforef.child("trips").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (mTripsCount != null) {
+                        mTripsCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-
-        });
-
-        //Get number of bucketlist
-        UserInforef.child("places").child("bucketlist").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (mBucketListCount != null) {
-                    mBucketListCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
                 }
-            }
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+            });
 
-        //Get number of companions
-        FirebaseUtil.getCompanionsRef().child(currentUserId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if (mFriendsCount != null) {
-                    mFriendsCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+            //Get number of bucketlist
+            UserInforef.child("places").child("bucketlist").addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (mBucketListCount != null) {
+                        mBucketListCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+                    }
                 }
-            }
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
 
-            }
-        });
+                }
+            });
+
+            //Get number of companions
+            FirebaseUtil.getCompanionsRef().child(currentUserId).addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    if (mFriendsCount != null) {
+                        mFriendsCount.setText(String.valueOf(dataSnapshot.getChildrenCount()));
+                    }
+                }
+
+                @Override
+                public void onCancelled(DatabaseError databaseError) {
+
+                }
+            });
+        }
+        else{
+            mTripsCount.setText(String.valueOf(0));
+            mBucketListCount.setText(String.valueOf(0));
+            mFriendsCount.setText(String.valueOf(0));
+        }
         if (mUser != null) {
             String name = "";
             Uri photoUrl = null;
