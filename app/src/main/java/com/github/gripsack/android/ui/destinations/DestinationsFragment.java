@@ -17,7 +17,6 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.github.gripsack.android.BuildConfig;
@@ -64,7 +63,7 @@ public class DestinationsFragment extends Fragment {
 
     CollapsingToolbarLayout mCollapsing;
 
-    ImageView imageView;
+    com.flaviofaria.kenburnsview.KenBurnsView imageView;
     String photoURl;
     String name;
 
@@ -102,7 +101,7 @@ public class DestinationsFragment extends Fragment {
         recyclerView.setLayoutManager(manager);
         recyclerView.setItemAnimator(new SlideInUpAnimator());
 
-        imageView = (ImageView) rootView.findViewById(R.id.photoCollapse);
+        imageView = (com.flaviofaria.kenburnsview.KenBurnsView) rootView.findViewById(R.id.photoCollapse);
 
         Intent intent = getActivity().getIntent();
      //   com.github.gripsack.android.data.model.Place place = (com.github.gripsack.android.data.model.Place) Parcels.unwrap(intent

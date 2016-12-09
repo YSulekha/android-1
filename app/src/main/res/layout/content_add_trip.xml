@@ -171,7 +171,8 @@
                     card_view:cardCornerRadius="4dp"
                     android:layout_margin="5dp"
                     card_view:cardElevation="5dp"
-                    card_view:cardUseCompatPadding="true">
+                    card_view:cardUseCompatPadding="true"
+                    android:background="@color/color_white">
 
                     <RelativeLayout
                         android:layout_width="60dp"

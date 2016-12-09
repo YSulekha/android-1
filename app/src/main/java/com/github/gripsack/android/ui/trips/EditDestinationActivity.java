@@ -63,8 +63,8 @@ public class EditDestinationActivity extends AppCompatActivity
     Button btnLikedList;*/
     @BindView(R.id.btnVisitedList)
     Button btnVisitedList;
-    @BindView(R.id.btnRecommendedList)
-    Button btnRecommendedList;
+  /*  @BindView(R.id.btnRecommendedList)
+    Button btnRecommendedList;*/
     @BindView(R.id.tvDone)
     TextView tvDone;
 
@@ -84,7 +84,7 @@ public class EditDestinationActivity extends AppCompatActivity
 
         View bottomSheet = findViewById(R.id.bottom_sheet );
         mBottomSheetBehavior = BottomSheetBehavior.from(bottomSheet);
-        mBottomSheetBehavior.setPeekHeight(200);
+        mBottomSheetBehavior.setPeekHeight(150);
 
         trip=new Trip();
         trip=(Trip) Parcels.unwrap(getIntent()
@@ -94,7 +94,7 @@ public class EditDestinationActivity extends AppCompatActivity
         tripPlaces = (ArrayList<Place>)getIntent().getSerializableExtra("Destinations");
 
         btnBucketList.setOnClickListener(this);
-        btnRecommendedList.setOnClickListener(this);
+     //   btnRecommendedList.setOnClickListener(this);
        // btnLikedList.setOnClickListener(this);
         btnVisitedList.setOnClickListener(this);
         tvDone.setOnClickListener(this);
@@ -236,8 +236,8 @@ public class EditDestinationActivity extends AppCompatActivity
                 break;*/
             case R.id.btnVisitedList:
                 break;
-            case R.id.btnRecommendedList:
-                break;
+           /* case btnRecommendedList:
+                break;*/
             case R.id.tvDone:
                 intent=new Intent(this,EditTripActivity.class)
                         .putExtra("Trip", Parcels.wrap(trip));
