@@ -111,7 +111,6 @@ dependencies {
     compile 'com.flaviofaria:kenburnsview:1.0.7'
     compile 'uk.co.chrisjenx:calligraphy:2.0.2'
     compile 'org.lucasr.twowayview:twowayview:0.1.4'
-
     compile 'jp.wasabeef:recyclerview-animators:2.2.3'
 }
 

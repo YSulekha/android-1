@@ -67,7 +67,7 @@
         <ImageView
 
             android:layout_width="match_parent"
-            android:layout_height="350dp"
+            android:layout_height="370dp"
             android:layout_margin="5dp"
             android:id="@+id/ivImage"
             android:src ="#FAFAFA" />
@@ -87,29 +87,9 @@
     </RelativeLayout>
 
     <RelativeLayout
-        android:id="@+id/lyLocation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/card_view"
-        android:layout_marginTop="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginLeft="20dp"
-        android:background="#EBEBEB">
-
-        <EditText
-            android:id="@+id/etLocation"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"
-            android:hint="Location"
-            android:padding="5dp"
-            android:layout_margin="5dp"
-            android:background="#FAFAFA"/>
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/lyLocation"
         android:layout_marginLeft="20dp"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
@@ -119,7 +99,7 @@
    <EditText
        android:id="@+id/etComment"
        android:layout_width="match_parent"
-       android:layout_height="70dp"
+       android:layout_height="100dp"
        android:hint="Comment..."
        android:padding="5dp"
        android:layout_margin="5dp"

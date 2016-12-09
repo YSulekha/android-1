@@ -32,7 +32,7 @@ public class DisplayPhotosActivity extends AppCompatActivity {
     private TextView tvLocation;
     private TextView tvComment;
     private List<Integer> mPhotos = new ArrayList<>();
-    private List<String> mTexts = new ArrayList<>();
+   // private List<String> mTexts = new ArrayList<>();
     private List<String> mComments = new ArrayList<>();
     private CardScaleHelper mCardScaleHelper = null;
     private Runnable mBlurRunnable;
@@ -76,7 +76,7 @@ public class DisplayPhotosActivity extends AppCompatActivity {
         mPhotos.add(R.drawable.travel_10);
         //}
 
-        mTexts.add("San Francisco");
+        /*mTexts.add("San Francisco");
         mTexts.add("New York");
         mTexts.add("Mountain View");
         mTexts.add("Canada");
@@ -85,18 +85,18 @@ public class DisplayPhotosActivity extends AppCompatActivity {
         mTexts.add("Mountain View");
         mTexts.add("Canada");
         mTexts.add("San Francisco");
-        mTexts.add("New York");
+        mTexts.add("New York");*/
 
-        mComments.add("It was a amazing day!");
-        mComments.add("Beautiful landscape!");
+        mComments.add("Yeah we'll be counting stars!!");
+        mComments.add("Colours definitely fill me with happiness! I'm so in love with pink and purple bougainvilleas... ❤");
         mComments.add("Feel good!");
-        mComments.add("It was a amazing day!");
-        mComments.add("Beautiful landscape!");
-        mComments.add("Feel good!");
-        mComments.add("It was a amazing day!");
-        mComments.add("Beautiful landscape!");
-        mComments.add("Feel good!");
-        mComments.add("It was a amazing day!");
+        mComments.add("I am on the road to point out the importance of life belt.\n Yes we call it life belt instead of safety belt because beside providing \n safety it connects us to life in traffic! ❤ !");
+        mComments.add("You know they are just people like me and you...");
+        mComments.add("Two travellers after wandering around the world, today we came together");
+        mComments.add("Have an abundant, peaceful, happy and above all a healthy day...");
+        mComments.add("Beautiful landscape and mum!");
+        mComments.add("Feel tired!");
+        mComments.add("Happy Sunday dear cornelian cherry juice lovers! ❤");
 
         mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView);
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
@@ -147,7 +147,7 @@ public class DisplayPhotosActivity extends AppCompatActivity {
                 ViewSwitchUtils.startSwitchBackgroundAnim(mBlurView, BlurBitmapUtils.getBlurBitmap(mBlurView.getContext(), bitmap, 15));
             }
         };
-        tvLocation.setText(mTexts.get(mLastPos));
+       // tvLocation.setText(mTexts.get(mLastPos));
         tvComment.setText(mComments.get(mLastPos));
 
         mBlurView.postDelayed(mBlurRunnable, 500);

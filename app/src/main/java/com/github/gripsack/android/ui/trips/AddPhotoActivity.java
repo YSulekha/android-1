@@ -61,8 +61,8 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
     @BindView(R.id.etComment)
     EditText etComment;
 
-    @BindView(R.id.etLocation)
-    EditText etLocation;
+    /*@BindView(R.id.etLocation)
+    EditText etLocation;*/
 
     private Trip trip;
     private Bitmap scaledBitmap;
@@ -150,7 +150,7 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
         Photo photo=new Photo();
         photo.setImage(encodeBitmapAndSaveToFirebase(scaledBitmap));
         photo.setComment(etComment.getText().toString());
-        photo.setLocation(etLocation.getText().toString());
+        //photo.setLocation(etLocation.getText().toString());
         photo.setDate(LocalDateTime.now().toString());
         FirebaseUtil.saveImage(photo,trip.getTripId());
     }
