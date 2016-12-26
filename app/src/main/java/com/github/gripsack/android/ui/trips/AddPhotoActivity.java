@@ -1,47 +1,36 @@
 package com.github.gripsack.android.ui.trips;
 
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
-import android.graphics.drawable.BitmapDrawable;
 import android.media.ExifInterface;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
 import android.support.v7.widget.Toolbar;
 import android.util.Base64;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.github.gripsack.android.R;
 import com.github.gripsack.android.data.model.Photo;
 import com.github.gripsack.android.data.model.Trip;
-import com.github.gripsack.android.ui.MainActivity;
-import com.github.gripsack.android.ui.companions.CompanionsActivity;
 import com.github.gripsack.android.utils.FirebaseUtil;
 
-import org.joda.time.LocalDate;
 import org.joda.time.LocalDateTime;
 import org.parceler.Parcels;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -62,6 +51,9 @@ public class AddPhotoActivity extends AppCompatActivity implements View.OnClickL
     EditText etComment;
 
     /*@BindView(R.id.etLocation)
+    EditText etLocation;*/
+
+  /*  @BindView(R.id.etLocation)
     EditText etLocation;*/
 
     private Trip trip;

@@ -3,8 +3,8 @@ package com.github.gripsack.android.ui.trips;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,7 +18,6 @@ import com.github.gripsack.android.data.model.Trip;
 import com.github.gripsack.android.ui.helpers.CardScaleHelper;
 import com.github.gripsack.android.utils.BlurBitmapUtils;
 import com.github.gripsack.android.utils.ViewSwitchUtils;
-import com.google.android.gms.plus.model.people.Person;
 
 import org.parceler.Parcels;
 
@@ -76,7 +75,8 @@ public class DisplayPhotosActivity extends AppCompatActivity {
         mPhotos.add(R.drawable.travel_10);
         //}
 
-        /*mTexts.add("San Francisco");
+   /*     mTexts.add("San Francisco");
+
         mTexts.add("New York");
         mTexts.add("Mountain View");
         mTexts.add("Canada");
@@ -147,7 +147,9 @@ public class DisplayPhotosActivity extends AppCompatActivity {
                 ViewSwitchUtils.startSwitchBackgroundAnim(mBlurView, BlurBitmapUtils.getBlurBitmap(mBlurView.getContext(), bitmap, 15));
             }
         };
+
        // tvLocation.setText(mTexts.get(mLastPos));
+
         tvComment.setText(mComments.get(mLastPos));
 
         mBlurView.postDelayed(mBlurRunnable, 500);
